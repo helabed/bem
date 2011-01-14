@@ -15,7 +15,7 @@ group :production do
 end
 
 group :test do
-  gem 'sqlite3-ruby', '1.3.2'
+  gem 'mysql2'
   gem 'rspec', '2.0.0'
   gem 'rspec-core', '2.0.0'
   gem 'rspec-expectations', '2.0.0'
@@ -32,5 +32,5 @@ group :test do
 end
 
 group :development do
-  gem 'sqlite3-ruby', '1.3.2'
+  gem 'mysql2'
 end
