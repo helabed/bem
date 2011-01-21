@@ -1,56 +1,649 @@
-body { background-color: #fff; color: #333; }
+* {
+  padding-top: 0pt;
+  padding-right: 0pt;
+  padding-bottom: 0pt;
+  padding-left: 0pt;
+  margin-top: 0pt;
+  margin-right: 0pt;
+  margin-bottom: 0pt;
+  margin-left: 0pt; }
 
-body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
-  font-size:   13px;
-  line-height: 18px;
-}
+body {
+  background: white url(../images/background.gif) repeat-x;
+  text-align: left;
+  color: #444444; }
+  body #wrapper #account_navigation {
+    color: #eb6212; }
+    body #wrapper #account_navigation a {
+      color: #eb6212; }
+  body #wrapper #top {
+    position: relative;
+    background: url(../images/grocery-store1.jpg) top center no-repeat;
+    width: 100%;
+    margin-top: 25px;
+    height: 139px;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px; }
+    body #wrapper #top .water_mark {
+      color: red;
+      font-size: 84px;
+      text-align: center; }
+    body #wrapper #top .main_navigation {
+      margin: 0px 5px 0px auto;
+      position: absolute;
+      left: 10px;
+      top: 150px; }
+      body #wrapper #top .main_navigation ul {
+        padding: 0;
+        margin: 0;
+        text-align: right; }
+      body #wrapper #top .main_navigation li {
+        display: inline;
+        padding: 0;
+        margin: 0; }
+        body #wrapper #top .main_navigation li span.disabled {
+          color: #888888; }
+      body #wrapper #top .main_navigation a {
+        border: none;
+        padding: 0;
+        margin: 0;
+        font-weight: normal;
+        color: black; }
+        body #wrapper #top .main_navigation a:visited {
+          border: none;
+          padding: 0;
+          margin: 0;
+          font-weight: normal;
+          color: black; }
+        body #wrapper #top .main_navigation a:hover {
+          border: none;
+          padding: 0;
+          margin: 0;
+          font-weight: normal;
+          color: black;
+          font-weight: normal;
+          color: #cb4415; }
+        body #wrapper #top .main_navigation a.active {
+          font-weight: bold; }
+  body #wrapper #content #stuff {
+    width: 100%;
+    margin: 0px 0px 0px 0px;
+    border: 2px navy; }
+    body #wrapper #content #stuff table.new_style {
+      border: 2px solid;
+      border-color: #eb6212;
+      padding: 5px;
+      margin: 5px;
+      border-collapse: collapse; }
+      body #wrapper #content #stuff table.new_style thead tr.bottom_border {
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        border-bottom-style: solid; }
+      body #wrapper #content #stuff table.new_style thead tr th {
+        margin: 5px;
+        padding: 5px;
+        color: blue;
+        font-weight: normal;
+        text-align: center; }
+      body #wrapper #content #stuff table.new_style thead tr th.right_hand_border {
+        border-right-color: black;
+        border-right-width: 1px;
+        border-right-style: solid; }
+      body #wrapper #content #stuff table.new_style thead tr th.right_hand_grey_border {
+        border-right-color: grey;
+        border-right-width: 1px;
+        border-right-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr th.bottom_border {
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        border-bottom-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr th.right_hand_grey_border {
+        border-right-color: grey;
+        border-right-width: 1px;
+        border-right-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr td {
+        margin: 5px;
+        padding: 5px;
+        color: black;
+        text-align: right; }
+      body #wrapper #content #stuff table.new_style tbody tr td.text_align_left {
+        text-align: left; }
+      body #wrapper #content #stuff table.new_style tbody tr td.text_align_center {
+        text-align: center; }
+      body #wrapper #content #stuff table.new_style tbody tr td.bottom_border {
+        border-bottom-color: black;
+        border-bottom-width: 1px;
+        border-bottom-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr td.top_border {
+        border-top-color: black;
+        border-top-width: 1px;
+        border-top-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr td.right_hand_border {
+        border-right-color: black;
+        border-right-width: 1px;
+        border-right-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr td.right_hand_grey_border {
+        border-right-color: grey;
+        border-right-width: 1px;
+        border-right-style: solid; }
+      body #wrapper #content #stuff table.new_style tbody tr td.text_color_blue {
+        color: blue; }
+      body #wrapper #content #stuff table.new_style tbody tr td.text_color_red {
+        color: red; }
+      body #wrapper #content #stuff table.new_style tbody tr td.text_color_green {
+        color: green; }
+      body #wrapper #content #stuff table.new_style tbody tr.list-line-even {
+        background-color: #f0f0f0; }
+      body #wrapper #content #stuff table.new_style tbody tr.list-line-odd {
+        background-color: #d0d0d0; }
+      body #wrapper #content #stuff table.new_style tbody tr.even {
+        background-color: #f0f0f0; }
+      body #wrapper #content #stuff table.new_style tbody tr.odd {
+        background-color: #d0d0d0; }
+      body #wrapper #content #stuff table.new_style tbody tr.diffs {
+        background-color: #ffffcc; }
+    body #wrapper #content #stuff ol {
+      margin-left: 4em; }
+    body #wrapper #content #stuff label {
+      font-weight: bold; }
+    body #wrapper #content #stuff .coach_event_tabnav {
+      color: black;
+      border-bottom: 1px solid black;
+      margin: 13px 0px 0px 0px;
+      padding: 0px;
+      z-index: 1;
+      padding-left: 10px; }
+      body #wrapper #content #stuff .coach_event_tabnav ul {
+        margin: 0px;
+        padding: 0px; }
+        body #wrapper #content #stuff .coach_event_tabnav ul li {
+          white-space: nowrap;
+          display: inline;
+          overflow: hidden;
+          list-style-type: none; }
+          body #wrapper #content #stuff .coach_event_tabnav ul li span.disabled {
+            color: #888888;
+            background: #fafafa;
+            border: 1px solid #dddddd;
+            border-bottom: none;
+            padding: 2px 5px 0px 5px;
+            margin: 0;
+            text-decoration: none; }
+          body #wrapper #content #stuff .coach_event_tabnav ul li a {
+            color: black;
+            background: #eeeeee;
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 2px 5px 0px 5px;
+            margin: 0px;
+            text-decoration: none; }
+            body #wrapper #content #stuff .coach_event_tabnav ul li a:hover {
+              color: #1b488c;
+              background: #cccccc; }
+            body #wrapper #content #stuff .coach_event_tabnav ul li a.active {
+              color: #eb6212;
+              background: #eeeeee;
+              font-weight: bold;
+              border: 1px solid black;
+              padding: 2px 5px 0px 5px;
+              margin: 0;
+              text-decoration: none;
+              background: white;
+              border-bottom: 2px solid white; }
+              body #wrapper #content #stuff .coach_event_tabnav ul li a.active:hover {
+                background: white;
+                color: #1b488c; }
+    body #wrapper #content #stuff .coach_event_tabnav_content {
+      background: white;
+      padding: 20px;
+      border: 1px solid black;
+      border-top: none;
+      z-index: 2; }
+      body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav {
+        color: black;
+        border-bottom: 1px solid black;
+        margin: 13px 0px 0px 0px;
+        padding: 0px;
+        z-index: 1;
+        padding-left: 10px; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul {
+          margin: 0px;
+          padding: 0px; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li {
+            white-space: nowrap;
+            display: inline;
+            overflow: hidden;
+            list-style-type: none; }
+            body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li span.disabled {
+              color: #888888;
+              background: #fafafa;
+              border: 1px solid #dddddd;
+              border-bottom: none;
+              padding: 2px 5px 0px 5px;
+              margin: 0;
+              text-decoration: none; }
+            body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li a {
+              color: black;
+              background: #eeeeee;
+              font-weight: bold;
+              border: 1px solid black;
+              padding: 2px 5px 0px 5px;
+              margin: 0px;
+              text-decoration: none; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li a:hover {
+                color: #1b488c;
+                background: #cccccc; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li a.active {
+                color: #eb6212;
+                background: #eeeeee;
+                font-weight: bold;
+                border: 1px solid black;
+                padding: 2px 5px 0px 5px;
+                margin: 0;
+                text-decoration: none;
+                background: white;
+                border-bottom: 2px solid white; }
+                body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav ul li a.active:hover {
+                  background: white;
+                  color: #1b488c; }
+      body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content {
+        background: white;
+        padding: 20px;
+        border: 1px solid black;
+        border-top: none;
+        z-index: 2; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav {
+          color: black;
+          border-bottom: 1px solid black;
+          margin: 13px 0px 0px 0px;
+          padding: 0px;
+          z-index: 1;
+          padding-left: 10px; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul {
+            margin: 0px;
+            padding: 0px; }
+            body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li {
+              white-space: nowrap;
+              display: inline;
+              overflow: hidden;
+              list-style-type: none; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li span.disabled {
+                color: #888888;
+                background: #fafafa;
+                border: 1px solid #dddddd;
+                border-bottom: none;
+                padding: 2px 5px 0px 5px;
+                margin: 0;
+                text-decoration: none; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li a {
+                color: black;
+                background: #eeeeee;
+                font-weight: bold;
+                border: 1px solid black;
+                padding: 2px 5px 0px 5px;
+                margin: 0px;
+                text-decoration: none; }
+                body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li a:hover {
+                  color: #1b488c;
+                  background: #cccccc; }
+                body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li a.active {
+                  color: #eb6212;
+                  background: #eeeeee;
+                  font-weight: bold;
+                  border: 1px solid black;
+                  padding: 2px 5px 0px 5px;
+                  margin: 0;
+                  text-decoration: none;
+                  background: white;
+                  border-bottom: 2px solid white; }
+                  body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav ul li a.active:hover {
+                    background: white;
+                    color: #1b488c; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .vertical_tracking_tabnav_content {
+          background: white;
+          padding: 20px;
+          border: 1px solid black;
+          border-top: none;
+          z-index: 2; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav {
+          color: black;
+          border-bottom: 1px solid black;
+          margin: 13px 0px 0px 0px;
+          padding: 0px;
+          z-index: 1;
+          padding-left: 10px; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul {
+            margin: 0px;
+            padding: 0px; }
+            body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li {
+              white-space: nowrap;
+              display: inline;
+              overflow: hidden;
+              list-style-type: none; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li span.disabled {
+                color: #888888;
+                background: #fafafa;
+                border: 1px solid #dddddd;
+                border-bottom: none;
+                padding: 2px 5px 0px 5px;
+                margin: 0;
+                text-decoration: none; }
+              body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li a {
+                color: black;
+                background: #eeeeee;
+                font-weight: bold;
+                border: 1px solid black;
+                padding: 2px 5px 0px 5px;
+                margin: 0px;
+                text-decoration: none; }
+                body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li a:hover {
+                  color: #1b488c;
+                  background: #cccccc; }
+                body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li a.active {
+                  color: #eb6212;
+                  background: #eeeeee;
+                  font-weight: bold;
+                  border: 1px solid black;
+                  padding: 2px 5px 0px 5px;
+                  margin: 0;
+                  text-decoration: none;
+                  background: white;
+                  border-bottom: 2px solid white; }
+                  body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav ul li a.active:hover {
+                    background: white;
+                    color: #1b488c; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav_content {
+          background: white;
+          padding: 20px;
+          border: 1px solid black;
+          border-top: none;
+          z-index: 2; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content .sport_specific_tabnav_content h1 {
+            font-size: large;
+            font-style: italic;
+            color: black;
+            text-transform: uppercase;
+            text-decoration: underline;
+            margin-bottom: 0px; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content #home_links ul li {
+          margin-left: 80px; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content #home_links ul li ul li {
+            margin-left: 20px; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content h1 {
+          font-size: large;
+          font-style: italic;
+          color: black;
+          text-transform: uppercase;
+          text-decoration: underline;
+          margin-bottom: 0px; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content h2 {
+          color: blue;
+          margin-left: 2em;
+          margin-bottom: 1em; }
+        body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table {
+          border: 2px solid;
+          border-color: #eb6212;
+          padding: 5px;
+          margin: 5px;
+          border-collapse: collapse; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table thead tr th {
+            margin: 5px;
+            padding: 5px;
+            color: blue;
+            font-weight: normal;
+            text-align: center; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table thead tr th.right_hand_border {
+            border-right-color: black;
+            border-right-width: 1px;
+            border-right-style: solid; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table thead tr th.right_hand_grey_border {
+            border-right-color: grey;
+            border-right-width: 1px;
+            border-right-style: solid; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td {
+            margin: 5px;
+            padding: 5px;
+            color: black;
+            text-align: right; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td.text_align_left {
+            text-align: left; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td.top_border {
+            border-top-color: black;
+            border-top-width: 1px;
+            border-top-style: solid; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td.right_hand_border {
+            border-right-color: black;
+            border-right-width: 1px;
+            border-right-style: solid; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td.right_hand_grey_border {
+            border-right-color: grey;
+            border-right-width: 1px;
+            border-right-style: solid; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr td.text_color_blue {
+            color: blue; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr.list-line-even {
+            background-color: #f0f0f0; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr.list-line-odd {
+            background-color: #d0d0d0; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr.even {
+            background-color: #f0f0f0; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr.odd {
+            background-color: #d0d0d0; }
+          body #wrapper #content #stuff .coach_event_tabnav_content .coach_landing_tabnav_content table tbody tr.diffs {
+            background-color: #ffffcc; }
+  body #siteFooter {
+    clear: both;
+    border-top: solid 1px #cccccc; }
+    body #siteFooter div.left {
+      position: relative;
+      float: left;
+      vertical-align: top; }
+    body #siteFooter div.right {
+      position: relative;
+      float: right;
+      color: blue;
+      text-align: right;
+      font-size: 8px; }
+
+table#event > tbody > tr > td {
+  vertical-align: top; }
+  table#event > tbody > tr > td ol > li.todo {
+    list-style-type: circle; }
+  table#event > tbody > tr > td ol > li.done {
+    list-style-type: disc; }
+  table#event > tbody > tr > td ol ol {
+    list-style-type: square; }
+
+div.small_text,
+span.small_text,
+div.nti_summary_points_explanation,
+span.nti_summary_points_explanation {
+  left: 12px;
+  top: 17px;
+  font-size: smaller;
+  color: #435975; }
+
+.font_larger {
+  font-size: larger; }
+
+.font_smaller {
+  font-size: smaller; }
+
+tr.bold_text > td > div,
+.bold_text {
+  font-weight: bold; }
+
+.center, .center_text {
+  text-align: center; }
+
+.red {
+  color: red; }
+
+.green {
+  color: green; }
+
+.vertical_align_top {
+  vertical-align: top; }
+
+.close {
+  padding: 0;
+  margin: 0;
+  display: inline;
+  text-align: right;
+  float: right;
+  font-size: 8px; }
+
+p {
+  font: 10px/15px verdana, arial, helvetica, sans-serif;
+  margin: 0px 0px 0px 0px;
+  padding: 5px; }
+
+#NTIbar {
+  background: url(../images/graybar.gif) top left repeat-y;
+  height: 100%;
+  width: 100px; }
+
+#NTIbarleft {
+  background: url(../images/graybarleft.gif) top left no-repeat;
+  height: 100%;
+  width: 100px; }
+
+#NTIbarmiddle {
+  background: url(../images/graybarpiece.gif) top left no-repeat;
+  height: 100%;
+  width: 100px; }
+
+#SCOREbarmiddle {
+  background: url(../images/orangebar.gif) top left repeat-y;
+  height: 100%;
+  width: 100px; }
+
+#NTIbarright {
+  background: url(../images/graybarright.gif) top left no-repeat;
+  height: 100%;
+  width: 100px; }
+
+.DBTable {
+  width: 100%; }
+  .DBTable tr td {
+    vertical-align: top;
+    padding: 5px 4px;
+    color: #333333;
+    font-family: Verdana, sans-serif;
+    font-size: 10px;
+    background-color: #dddddd;
+    text-align: left;
+    border-bottom: solid 1px #bfbfbf;
+    border-left: solid 1px #bfbfbf; }
+  .DBTable tr.odd td {
+    background-color: #eeeeee; }
+  .DBTable th {
+    color: #e1e1e1;
+    padding: 2px 3px;
+    font-size: 10px;
+    background-color: #333333;
+    text-align: center;
+    font-weight: normal; }
+
+div {
+  font: 12px verdana, arial, helvetica, sans-serif;
+  margin: 0px 0px 0px 0px;
+  padding: 5px; }
+  div.uploadStatus {
+    margin: 5px; }
+  div.progressBar {
+    margin: 5px; }
+    div.progressBar div.border {
+      background-color: white;
+      border: 1px solid grey;
+      width: 100%; }
+    div.progressBar div.background {
+      background-color: #333333;
+      height: 18px;
+      width: 0%; }
 
 pre {
-  background-color: #eee;
+  background-color: #eeeeee;
   padding: 10px;
-  font-size: 11px;
-}
+  font-size: 11px; }
 
-a { color: #000; }
-a:visited { color: #666; }
-a:hover { color: #fff; background-color:#000; }
+hr {
+  border-top: 1px solid #444e8a; }
 
-div.field, div.actions {
-  margin-bottom: 10px;
-}
+h1 {
+  margin: 0px 0px 15px 0px;
+  padding: 0px;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: normal;
+  color: #191a50; }
 
-#notice {
-  color: green;
-}
+h2 {
+  color: #403f3f;
+  font-weight: normal; }
 
-.field_with_errors {
+h3 {
+  padding: 5px;
+  font-weight: normal;
+  width: 150px;
+  color: #7e7882;
+  text-align: left;
+  border-bottom: solid 1px #7e7882;
+  border-left: solid 1px #7e7882; }
+
+a {
+  color: #eb6212; }
+  a:hover {
+    color: #1b488c; }
+  a:visited {
+    color: #5e6162; }
+
+.fieldWithErrors {
   padding: 2px;
   background-color: red;
-  display: table;
-}
+  display: table; }
 
-#error_explanation {
-  width: 450px;
+#assign_td {
+  padding-top: 12px;
+  text-align: center; }
+
+#errorExplanation {
+  width: 400px;
   border: 2px solid red;
   padding: 7px;
-  padding-bottom: 0;
+  padding-bottom: 12px;
   margin-bottom: 20px;
-  background-color: #f0f0f0;
-}
+  background-color: #f0f0f0; }
+  #errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    background-color: #cc0000;
+    color: white; }
+  #errorExplanation p {
+    color: #333333;
+    margin-bottom: 0;
+    padding: 5px; }
+  #errorExplanation ul li {
+    font-size: 12px;
+    list-style: square; }
 
-#error_explanation h2 {
-  text-align: left;
+th.headerSortUp {
+  background-image: url(/images/asc.gif);
+  background-color: #3399ff; }
+
+th.headerSortDown {
+  background-image: url(/images/desc.gif);
+  background-color: #3399ff; }
+
+th.header {
+  cursor: pointer;
   font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  font-size: 12px;
-  margin: -7px;
-  margin-bottom: 0px;
-  background-color: #c00;
-  color: #fff;
-}
-
-#error_explanation ul li {
-  font-size: 12px;
-  list-style: square;
-}
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  padding-right: 10px;
+  border-right: 1px solid #dad9c7;
+  margin-left: -1px; }
