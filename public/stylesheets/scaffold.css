@@ -22,7 +22,7 @@ body {
       color: #eb6212; }
   body #wrapper #top {
     position: relative;
-    background: url(../images/grocery-store1.jpg) top center no-repeat;
+    background: url(../images/grocery_store.jpg) top center no-repeat;
     width: 100%;
     margin-top: 0px;
     height: 139px;
