@@ -1,0 +1,27 @@
+!!! 5
+%html
+  %head
+    %title Beyt El Mouneh
+    = stylesheet_link_tag :all
+    //= javascript_include_tag :defaults
+    = stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/ui-lightness/jquery-ui.css'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js'
+    = javascript_include_tag 'rails_jquery.js'
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.js'
+    = javascript_include_tag 'jquery-ui-timepicker-addon.js'
+    = javascript_include_tag 'application.js'
+    = active_scaffold_includes
+    = csrf_meta_tag
+  %body
+    #wrapper
+      .water_mark
+        Beyt El Mouneh
+      #top
+        .main_navigation
+          =link_to "Home", '/'
+          |
+          =link_to "Products", :controller => :products
+      #content
+        #stuff
+          %br
+          = yield
