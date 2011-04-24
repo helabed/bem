@@ -1,4 +1,6 @@
 Bem::Application.routes.draw do
+  resources :categories do as_routes end
+
   resources :products do as_routes end
 
   # The priority is based upon order of creation:

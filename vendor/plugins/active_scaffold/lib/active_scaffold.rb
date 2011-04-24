@@ -11,10 +11,10 @@ begin
 rescue LoadError
 end
 
-require 'active_record_permissions'
-require 'dhtml_confirm'
-require 'paginator'
-require 'responds_to_parent'
+require 'active_scaffold_assets'
+require 'active_scaffold/active_record_permissions'
+require 'active_scaffold/paginator'
+require 'active_scaffold/responds_to_parent'
 
 require 'active_scaffold/version'
 
@@ -25,8 +25,8 @@ module ActiveScaffold
   autoload :Finder, 'active_scaffold/finder'
   autoload :MarkedModel, 'active_scaffold/marked_model'
 
-  def self.active_scaffold_autoload_subdir(dir, mod=self)
-    Dir["#{File.dirname(__FILE__)}/active_scaffold/#{dir}/*.rb"].each { |file|
+  def self.autoload_subdir(dir, mod=self, root = File.dirname(__FILE__))
+    Dir["#{root}/active_scaffold/#{dir}/*.rb"].each { |file|
       basename = File.basename(file, ".rb")
       mod.module_eval {
         autoload basename.camelcase.to_sym, "active_scaffold/#{dir}/#{basename}"
@@ -35,7 +35,7 @@ module ActiveScaffold
   end
 
   module Actions
-    ActiveScaffold.active_scaffold_autoload_subdir('actions', self)
+    ActiveScaffold.autoload_subdir('actions', self)
   end
 
   module Bridges
@@ -43,15 +43,15 @@ module ActiveScaffold
   end
 
   module Config
-    ActiveScaffold.active_scaffold_autoload_subdir('config', self)
+    ActiveScaffold.autoload_subdir('config', self)
   end
 
   module DataStructures
-    ActiveScaffold.active_scaffold_autoload_subdir('data_structures', self)
+    ActiveScaffold.autoload_subdir('data_structures', self)
   end
 
   module Helpers
-    ActiveScaffold.active_scaffold_autoload_subdir('helpers', self)
+    ActiveScaffold.autoload_subdir('helpers', self)
   end
 
   class ControllerNotFound < RuntimeError; end
@@ -66,7 +66,11 @@ module ActiveScaffold
     base.module_eval do
       # TODO: these should be in actions/core
       before_filter :handle_user_settings
+      before_filter :check_input_device
     end
+
+    base.helper_method :touch_device?
+    base.helper_method :hover_via_click?
   end
 
   def self.set_defaults(&block)
@@ -81,8 +85,7 @@ module ActiveScaffold
     self.class.active_scaffold_config_for(klass)
   end
 
-  def active_scaffold_session_storage
-    id = params[:eid] || params[:controller]
+  def active_scaffold_session_storage(id = (params[:eid] || params[:controller]))
     session_index = "as:#{id}"
     session[session_index] ||= {}
     session[session_index]
@@ -99,6 +102,24 @@ module ActiveScaffold
       end
     end
   end
+
+  def check_input_device
+    if request.env["HTTP_USER_AGENT"] && request.env["HTTP_USER_AGENT"][/(iPhone|iPod|iPad)/i]
+      session[:input_device_type] = 'TOUCH'
+      session[:hover_supported] = false
+    else
+      session[:input_device_type] = 'MOUSE'
+      session[:hover_supported] = true
+    end if session[:input_device_type].nil?
+   end
+
+  def touch_device?
+    session[:input_device_type] == 'TOUCH'
+  end
+
+  def hover_via_click?
+    session[:hover_supported] == false
+  end
   
   def self.js_framework=(framework)
     @@js_framework = framework
@@ -106,6 +127,20 @@ module ActiveScaffold
   
   def self.js_framework
     @@js_framework ||= :prototype
+  end
+
+  # exclude bridges you do not need
+  # name of bridge subdir should be used to exclude it
+  # eg
+  #   ActiveScaffold.exclude_bridges = [:cancan, :ancestry]
+  #   if you are using Activescaffold as a gem add to initializer
+  #   if you are using Activescaffold as a plugin add to active_scaffold_env.rb
+  def self.exclude_bridges=(bridges)
+    @@exclude_bridges = bridges
+  end
+
+  def self.exclude_bridges
+    @@exclude_bridges ||= []
   end
 
   def self.root
@@ -163,10 +198,9 @@ module ActiveScaffold
           if link = active_scaffold_config.send(mod).link rescue nil
             if link.is_a? Array
               link.each {|current| active_scaffold_config.action_links.add_to_group(current, active_scaffold_config.send(mod).action_group)}
-            else
+            elsif link.is_a? ActiveScaffold::DataStructures::ActionLink
               active_scaffold_config.action_links.add_to_group(link, active_scaffold_config.send(mod).action_group)
             end
-            
           end
         end
       end
@@ -330,17 +364,18 @@ module ActiveScaffold
   end
 end
 
-require 'environment'
+require 'active_scaffold_env'
 
 ##
 ## Run the install assets script, too, just to make sure
 ## But at least rescue the action in production
 ##
+
 Rails::Application.initializer("active_scaffold.install_assets") do
   begin
     ActiveScaffoldAssets.copy_to_public(ActiveScaffold.root, {:clean_up_destination => true})
   rescue
     raise $! unless Rails.env == 'production'
   end
-end unless defined?(ACTIVE_SCAFFOLD_PLUGIN) && ACTIVE_SCAFFOLD_PLUGIN == true
+end if defined?(ACTIVE_SCAFFOLD_GEM)
 

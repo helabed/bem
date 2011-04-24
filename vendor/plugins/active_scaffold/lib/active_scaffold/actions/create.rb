@@ -61,7 +61,7 @@ module ActiveScaffold::Actions
     end
 
     def create_respond_to_js
-      if active_scaffold_config.create.refresh_list && successful?
+      if successful? && active_scaffold_config.create.refresh_list && !render_parent?
         do_search if respond_to? :do_search
         do_list
       end
@@ -103,14 +103,18 @@ module ActiveScaffold::Actions
             create_association_with_parent(@record) 
             register_constraints_with_action_columns(nested.constrained_fields)
           end
-          before_create_save(@record)
-          self.successful = [@record.valid?, @record.associated_valid?].all? {|v| v == true} # this syntax avoids a short-circuit
-          if successful?
-            @record.save! and @record.save_associated!
-            after_create_save(@record)
-          end
+          create_save
         end
       rescue ActiveRecord::RecordInvalid
+      end
+    end
+
+    def create_save
+      before_create_save(@record)
+      self.successful = [@record.valid?, @record.associated_valid?].all? {|v| v == true} # this syntax avoids a short-circuit
+      if successful?
+        @record.save! and @record.save_associated!
+        after_create_save(@record)
       end
     end
 

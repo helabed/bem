@@ -86,6 +86,7 @@ module ActiveScaffold
 
           options[:class] = "#{options[:class]} update_form".strip
           options['data-update_url'] = url_for(url_params)
+          options['data-update_send_form'] = true if column.send_form_on_update_column
         end
         options
       end
@@ -107,6 +108,7 @@ module ActiveScaffold
 
         html_options.update(column.options[:html_options] || {})
         options.update(column.options)
+        html_options[:name] = "#{html_options[:name]}[]" if (html_options[:multiple] == true && !html_options[:name].to_s.ends_with?("[]"))
         select(:record, method, select_options.uniq, options, html_options)
       end
 
@@ -135,7 +137,7 @@ module ActiveScaffold
       end
 
       def active_scaffold_translated_option(column, text, value = nil)
-        value ||= text
+        value = text if value.nil?
         [(text.is_a?(Symbol) ? column.active_record_class.human_attribute_name(text) : text), value]
       end
 
@@ -171,7 +173,9 @@ module ActiveScaffold
       # ... maybe this should be provided in a bridge?
       def active_scaffold_input_record_select(column, options)
         if column.singular_association?
-          active_scaffold_record_select(column, options, @record.send(column.name), false)
+          multiple = false
+          multiple = column.options[:html_options][:multiple] if column.options[:html_options] &&  column.options[:html_options][:multiple]
+          active_scaffold_record_select(column, options, @record.send(column.name), multiple)
         elsif column.plural_association?
           active_scaffold_record_select(column, options, @record.send(column.name), true)
         end

@@ -36,11 +36,9 @@ module ActiveScaffold::DataStructures
     # groups are represented as a string separated by a dot
     # eg member.crud
     def add_to_group(link, group = nil)
-      if group
-        group.split('.').inject(root){|group, group_name| group.send(group_name)}.add link
-      else
-        root << link
-      end
+      add_to = root
+      add_to = group.split('.').inject(root){|group, group_name| group.send(group_name)} if group
+      add_to << link unless link.nil?
     end
 
     # finds an ActionLink by matching the action
@@ -73,8 +71,18 @@ module ActiveScaffold::DataStructures
     def delete(val)
       self.each({:include_set => true}) do |link, set|
         if link.action == val.to_s
-          set.delete_if {|item|item.action == val.to_s}
+          set.delete_if {|item| item.is_a?(ActiveScaffold::DataStructures::ActionLink) && item.action == val.to_s}
         end
+      end
+    end
+
+    def delete_group(name)
+      @set.each do |group|
+        if group.name == name
+          @set.delete_if {|item| item.is_a?(ActiveScaffold::DataStructures::ActionLinks) && item.name == name}
+        else
+          group.delete_group(name)
+        end if group.is_a?(ActiveScaffold::DataStructures::ActionLinks)
       end
     end
 

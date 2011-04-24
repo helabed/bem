@@ -8,8 +8,10 @@ module Rails
       end
 
       def install_plugins
-        plugin 'verification', :git => 'git://github.com/rails/verification.git'
-        plugin 'render_component', :git => 'git://github.com/vhochstein/render_component.git'
+        unless defined?(ACTIVE_SCAFFOLD_GEM)
+          plugin 'verification', :git => 'git://github.com/rails/verification.git'
+          plugin 'render_component', :git => 'git://github.com/vhochstein/render_component.git'
+        end
         if js_lib == 'prototype'
           get "https://github.com/vhochstein/prototype-ujs/raw/master/src/rails.js", "public/javascripts/rails.js"
         elsif js_lib == 'jquery'
@@ -19,8 +21,14 @@ module Rails
       end
       
       def configure_active_scaffold
-        if js_lib == 'jquery'
-          gsub_file 'vendor/plugins/active_scaffold/lib/environment.rb', /#ActiveScaffold.js_framework = :jquery/, 'ActiveScaffold.js_framework = :jquery'
+        unless defined?(ACTIVE_SCAFFOLD_GEM)
+          if js_lib == 'jquery'
+            gsub_file 'vendor/plugins/active_scaffold/lib/active_scaffold_env.rb', /#ActiveScaffold.js_framework = :jquery/, 'ActiveScaffold.js_framework = :jquery'
+          end
+        else
+          if js_lib == 'jquery'
+            create_file "config/initializers/active_scaffold.rb", "ActiveScaffold.js_framework = :jquery"
+          end
         end
       end
       
@@ -31,10 +39,10 @@ module Rails
                     :after => "<%= javascript_include_tag :defaults %>\n"
         elsif js_lib == 'jquery'
           inject_into_file "app/views/layouts/application.html.erb", 
-"  <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/ui-lightness/jquery-ui.css' %>
-  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js' %>
+"  <%= stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/ui-lightness/jquery-ui.css' %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js' %>
   <%= javascript_include_tag 'rails_jquery.js' %>
-  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.js' %>
+  <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.js' %>
   <%= javascript_include_tag 'jquery-ui-timepicker-addon.js' %>
   <%= javascript_include_tag 'application.js' %>
   <%= active_scaffold_includes %>\n",

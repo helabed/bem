@@ -6,6 +6,7 @@ module ActiveScaffold::Actions
       end
       base.helper_method :nested?
       base.helper_method :beginning_of_chain
+      base.helper_method :new_model
     end
     def render_field
       if params[:in_place_editing]
@@ -31,10 +32,15 @@ module ActiveScaffold::Actions
       @record = new_model
       column = active_scaffold_config.columns[params[:column]]
       unless column.nil?
-        value = column_value_from_param_value(@record, column, params[:value])
-        @record.send "#{column.name}=", value
+        if column.send_form_on_update_column
+          @record = update_record_from_params(@record, active_scaffold_config.update.columns, params[:record])
+        else
+          value = column_value_from_param_value(@record, column, params[:value])
+          @record.send "#{column.name}=", value
+        end
         after_render_field(@record, column)
-        render :partial => "render_field", :collection => Array(params[:update_columns]), :content_type => 'text/javascript'
+        source_id = params.delete(:source_id)
+        render :partial => "render_field", :collection => Array(params[:update_columns]), :content_type => 'text/javascript', :locals => {:source_id => source_id}
       end
     end
     
@@ -150,9 +156,17 @@ module ActiveScaffold::Actions
     private
     def respond_to_action(action)
       respond_to do |type|
-        send("#{action}_formats").each do |format|
+        action_formats.each do |format|
           type.send(format){ send("#{action}_respond_to_#{format}") }
         end
+      end
+    end
+
+    def action_formats
+      @action_formats ||= if respond_to? "#{action_name}_formats"
+        send("#{action_name}_formats")
+      else
+        (default_formats + active_scaffold_config.formats).uniq
       end
     end
 

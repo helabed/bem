@@ -43,7 +43,7 @@ module ActiveScaffold
           def active_scaffold_date_bridge_trend_tag(column, options, trend_options)
             trend_controls = text_field_tag("#{trend_options[:name_prefix]}[#{column.name}][number]", trend_options[:number_value], :class => 'text-input', :size => 10, :autocomplete => 'off') << " " <<
             select_tag("#{trend_options[:name_prefix]}[#{column.name}][unit]",
-             options_for_select(active_scaffold_search_date_bridge_trend_units(column), trend_options[:name_prefix]),
+             options_for_select(active_scaffold_search_date_bridge_trend_units(column), trend_options[:unit_value]),
              :class => 'text-input')
             content_tag("span", trend_controls.html_safe, :id => "#{options[:id]}_trend", :style => "display:#{trend_options[:show] ? '' : 'none'}")
           end
@@ -70,12 +70,34 @@ module ActiveScaffold
           def active_scaffold_human_condition_date_bridge(column, value)
             case value[:opt]
             when 'RANGE'
-              "#{column.active_record_class.human_attribute_name(column.name)} = #{as_(value[:range].downcase).downcase}"
+              range_type, range = value[:range].downcase.split('_')
+              format = active_scaffold_human_condition_date_bridge_range_format(range_type, range)
+              from, to = controller.class.date_bridge_from_to(column, value)
+              "#{column.active_record_class.human_attribute_name(column.name)} = #{as_(value[:range].downcase).downcase} (#{I18n.l(from, :format => format)})"
             when 'PAST', 'FUTURE'
-              "#{column.active_record_class.human_attribute_name(column.name)} #{as_(value[:opt].downcase).downcase} #{as_(value[:number])} #{as_(value[:unit].downcase)}"
+              from, to = controller.class.date_bridge_from_to(column, value)
+              "#{column.active_record_class.human_attribute_name(column.name)} #{as_('BETWEEN'.downcase).downcase} #{I18n.l(from)} - #{I18n.l(to)}"
             else
               from, to = controller.class.date_bridge_from_to(column, value)
               "#{column.active_record_class.human_attribute_name(column.name)} #{as_(value[:opt].downcase).downcase} #{I18n.l(from)} #{value[:opt] == 'BETWEEN' ? '- ' + I18n.l(to) : ''}"
+            end
+          end
+
+          def active_scaffold_human_condition_date_bridge_range_format(range_type, range)
+            case range
+            when 'week'
+              first_day_of_week = I18n.translate 'active_scaffold.date_picker_options.firstDay'
+              if first_day_of_week == 1
+                '%W %Y'
+              else
+                '%U %Y'
+              end
+            when 'month'
+              '%b %Y'
+            when 'year'
+              '%Y'
+            else
+              I18n.translate 'date.formats.default'
             end
           end
         end
@@ -108,12 +130,16 @@ module ActiveScaffold
                 ['from', 'to'].collect { |field| condition_value_for_datetime(value[field], conversion)}
               end
             end
+
+            def date_bridge_now
+              Time.zone.now
+            end
             
             def date_bridge_from_to_for_trend(column, value)
               case value['opt']
               when "PAST"
                 trend_number = [value['number'].to_i,  1].max
-                now = Time.zone.now
+                now = date_bridge_now
                 if date_bridge_column_date?(column)
                   from = now.beginning_of_day.ago((trend_number).send(value['unit'].downcase.singularize.to_sym))
                   to = now.end_of_day
@@ -124,7 +150,7 @@ module ActiveScaffold
                 return from, to
               when "FUTURE"
                 trend_number = [value['number'].to_i,  1].max
-                now = Time.zone.now
+                now = date_bridge_now
                 if date_bridge_column_date?(column)
                   from = now.beginning_of_day
                   to = now.end_of_day.in((trend_number).send(value['unit'].downcase.singularize.to_sym))
@@ -139,21 +165,21 @@ module ActiveScaffold
             def date_bridge_from_to_for_range(column, value)
               case value[:range]
               when 'TODAY'
-                return Time.zone.now.beginning_of_day, Time.zone.now.end_of_day
+                return date_bridge_now.beginning_of_day, date_bridge_now.end_of_day
               when 'YESTERDAY'
-                return Time.zone.now.ago(1.day).beginning_of_day, Time.zone.now.ago(1.day).end_of_day
-              when 'TOMMORROW'
-                return Time.zone.now.in(1.day).beginning_of_day, Time.zone.now.in(1.day).end_of_day
+                return date_bridge_now.ago(1.day).beginning_of_day, date_bridge_now.ago(1.day).end_of_day
+              when 'TOMORROW'
+                return date_bridge_now.in(1.day).beginning_of_day, date_bridge_now.in(1.day).end_of_day
               else
                 range_type, range = value[:range].downcase.split('_')
                 raise ArgumentError unless ['week', 'month', 'year'].include?(range)
                 case range_type
                 when 'this'
-                  return Time.zone.now.send("beginning_of_#{range}".to_sym), Time.zone.now.send("end_of_#{range}")
+                  return date_bridge_now.send("beginning_of_#{range}".to_sym), date_bridge_now.send("end_of_#{range}")
                 when 'prev'
-                  return Time.zone.now.ago(1.send(range.to_sym)).send("beginning_of_#{range}".to_sym), Time.zone.now.ago(1.send(range.to_sym)).send("end_of_#{range}".to_sym)
+                  return date_bridge_now.ago(1.send(range.to_sym)).send("beginning_of_#{range}".to_sym), date_bridge_now.ago(1.send(range.to_sym)).send("end_of_#{range}".to_sym)
                 when 'next'
-                  return Time.zone.now.in(1.send(range.to_sym)).send("beginning_of_#{range}".to_sym), Time.zone.now.in(1.send(range.to_sym)).send("end_of_#{range}".to_sym)
+                  return date_bridge_now.in(1.send(range.to_sym)).send("beginning_of_#{range}".to_sym), date_bridge_now.in(1.send(range.to_sym)).send("end_of_#{range}".to_sym)
                 else
                   return nil, nil    
                 end
@@ -181,7 +207,3 @@ ActiveScaffold::Finder.const_set('DateRanges', ["TODAY", "YESTERDAY", "TOMORROW"
                                                 "THIS_WEEK", "PREV_WEEK", "NEXT_WEEK",
                                                 "THIS_MONTH", "PREV_MONTH", "NEXT_MONTH",
                                                 "THIS_YEAR", "PREV_YEAR", "NEXT_YEAR"])
-
-
-
-

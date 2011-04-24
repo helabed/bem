@@ -155,6 +155,10 @@ document.observe("dom:loaded", function() {
           csrf_token = $$('meta[name=csrf-token]')[0],
           my_parent = span.up(),
           column_heading = null;
+
+      if(!(my_parent.nodeName.toLowerCase() === 'td' || my_parent.nodeName.toLowerCase() === 'th')){
+          my_parent = span.up('td');
+      }
           
       if (my_parent.nodeName.toLowerCase() === 'td') {
         var heading_selector = '.' + span.up().readAttribute('class').split(' ')[0] + '_heading';
@@ -180,7 +184,7 @@ document.observe("dom:loaded", function() {
 
       if (span.up('div.active-scaffold').readAttribute('data-eid')) {
         if (options['params'].length > 0) {
-          options['params'] += ";";
+          options['params'] += "&";
         }
         options['params'] += ("eid=" + span.up('div.active-scaffold').readAttribute('data-eid'));
       }
@@ -235,10 +239,18 @@ document.observe("dom:loaded", function() {
   document.on('change', 'input.update_form, select.update_form', function(event) {
     var element = event.findElement();
     var as_form = element.up('form.as_form');
-    
+    var params = null;
+
+    if (element.hasAttribute('data-update_send_form')) {
+        params = as_form.serialize(true);
+    } else {
+        params = {value: element.getValue()};
+    }
+    params.source_id = element.readAttribute('id');
+
     new Ajax.Request(element.readAttribute('data-update_url'), {
       method: 'get',
-      parameters: {value: element.getValue()},
+      parameters: params,
       onLoading: function(response) {
         element.next('img.loading-indicator').style.visibility = 'visible';
         as_form.disable();
@@ -276,10 +288,27 @@ document.observe("dom:loaded", function() {
     return true;
   });
   document.on("click", "a[data-popup]", function(event, element) {
-     if (event.stopped) return;
-     window.open($(element).href);
-     event.stop();
-   });
+    if (event.stopped) return;
+    window.open($(element).href);
+    event.stop();
+  });
+  document.on("click", ".hover_click", function(event, element) {
+    var ul_element = element.down('ul');
+    if (ul_element.getStyle('display') === 'none') {
+      ul_element.style.display = 'block';
+    } else {
+      ul_element.style.display = 'none';
+    }
+     
+    return true;
+  });
+  document.on("click", ".hover_click a.as_action", function(event, element) {
+    var element = element.up('.hover_click').down('ul');
+    if (element) {
+      element.style.display = 'none';
+    }
+    return true;
+  });
 });
 
 
@@ -445,9 +474,18 @@ var ActiveScaffold = {
       }
     }
     row.remove();
+    tbody = $(tbody);
     this.stripe(tbody);
     this.decrement_record_count(tbody.up('div.active-scaffold'));
     this.reload_if_empty(tbody, page_reload_url);
+  },
+
+  delete_subform_record: function(record) {
+    var errors = $(record).previous();
+    if (errors.hasClassName('association-record-errors')) {
+      this.replace_html(errors, '');
+    }
+    this.remove(record);
   },
 
   report_500_response: function(active_scaffold_id) {
@@ -512,6 +550,7 @@ var ActiveScaffold = {
       var element = event.element();
       toggable.toggle(); 
       element.innerHTML = (toggable.style.display == 'none') ? options.show_label : options.hide_label;
+      return false;
     });
   },
   
@@ -531,12 +570,20 @@ var ActiveScaffold = {
     }
   },
   
-  render_form_field: function(element, content, options) {
-    var element = $(element);
-    if (options.is_subform == false) {
-      this.replace(element.up('dl'), content);
-    } else {
-      this.replace_html(element, content);
+  render_form_field: function(source, content, options) {
+    var source = $(source);
+    var element = source.up('.association-record');
+    if (typeof(element) === 'undefined') {
+      element = source.up('ol.form');
+    }
+    element = element.down('.' + options.field_class);
+
+    if (element) {
+      if (options.is_subform == false) {
+        this.replace(element.up('dl'), content);
+      } else {
+        this.replace_html(element, content);
+      }
     }
   },
 
@@ -550,7 +597,31 @@ var ActiveScaffold = {
         }
       }
     );
+  },
+
+  // element is tbody id
+  mark_records: function(element, options) {
+    var element = $(element);
+    var mark_checkboxes = $$('#' + element.readAttribute('id') + ' > tr.record td.marked-column input[type="checkbox"]');
+    mark_checkboxes.each(function(item) {
+     if(options.checked === true) {
+       item.writeAttribute({ checked: 'checked' });
+     } else {
+       item.removeAttribute('checked');
+     }
+     item.writeAttribute('value', ('' + !options.checked));
+    });
+    if(options.include_mark_all === true) {
+      var mark_all_checkbox = element.previous('thead').down('th.marked-column_heading span input[type="checkbox"]');
+      if(options.checked === true) {
+        mark_all_checkbox.writeAttribute({ checked: 'checked' }); 
+      } else {
+        mark_all_checkbox.removeAttribute('checked');
+      }
+      mark_all_checkbox.writeAttribute('value', ('' + !options.checked));
+    }
   }
+
 }
 
 /*

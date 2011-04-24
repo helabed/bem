@@ -62,6 +62,10 @@ module ActiveScaffold::DataStructures
       @update_columns = Array(column_names)
     end
 
+    # send all the form instead of only new value when this column change
+    cattr_accessor :send_form_on_update_column
+    attr_accessor :send_form_on_update_column
+
     # sorting on a column can be configured four ways:
     #   sort = true               default, uses intelligent sorting sql default
     #   sort = false              sometimes sorting doesn't make sense
@@ -153,7 +157,10 @@ module ActiveScaffold::DataStructures
     # a collection of associations to pre-load when finding the records on a page
     attr_reader :includes
     def includes=(value)
-      @includes = value.is_a?(Array) ? value : [value] # automatically convert to an array
+      @includes = case value
+        when Array, Hash then value 
+        else [value] # automatically convert to an array
+      end
     end
 
     # a collection of columns to load when eager loading is disabled, if it's nil all columns will be loaded
@@ -270,6 +277,7 @@ module ActiveScaffold::DataStructures
       @actions_for_association_links = self.class.actions_for_association_links.clone if @association
       @options = {:format => :i18n_number} if @column.try(:number?)
       @form_ui = :checkbox if @column and @column.type == :boolean
+      @form_ui = :textarea if @column and @column.type == :text
       @allow_add_existing = true
       @form_ui = self.class.association_form_ui if @association && self.class.association_form_ui
       

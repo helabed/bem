@@ -247,7 +247,7 @@ module ActiveScaffold
       def inplace_edit?(record, column)
         if column.inplace_edit
           editable = controller.send(:update_authorized?, record) if controller.respond_to?(:update_authorized?)
-          editable = record.authorized_for?(:action => :update, :column => column.name) if editable.nil? || editable == true
+          editable = record.authorized_for?(:crud_type => :update, :column => column.name) if editable.nil? || editable == true
           editable
         end
       end
@@ -275,7 +275,7 @@ module ActiveScaffold
 
       def inplace_edit_control(column)
         if inplace_edit?(active_scaffold_config.model, column) and inplace_edit_cloning?(column)
-          @record = active_scaffold_config.model.new
+          @record = new_model
           column = column.clone
           column.options = column.options.clone
           column.form_ui = :select if (column.association && column.form_ui.nil?)
@@ -316,7 +316,7 @@ module ActiveScaffold
         all_marked = (marked_records.length >= @page.pager.count)
         tag_options = {:id => "#{controller_id}_mark_heading", :class => "mark_heading in_place_editor_field"}
         tag_options['data-ie_url'] = url_for({:controller => params_for[:controller], :action => 'mark_all', :eid => params[:eid]})
-        content_tag(:span, check_box_tag(nil, !all_marked, all_marked), tag_options)
+        content_tag(:span, check_box_tag("#{controller_id}_mark_heading_span_input", !all_marked, all_marked), tag_options)
       end
 
       def render_column_heading(column, sorting, sort_direction)
@@ -346,10 +346,10 @@ module ActiveScaffold
       def render_nested_view(action_links, url_options, record)
         rendered = []
         action_links.member.each do |link|
-          if link.nested_link? && link.column && @nested_auto_open[link.column.name] && @records.length <= @nested_auto_open[link.column.name] && respond_to?(:render_component) 
+          if link.nested_link? && link.column && @nested_auto_open[link.column.name] && @records.length <= @nested_auto_open[link.column.name] && controller.respond_to?(:render_component_into_view)
             link_url_options = {:adapter => '_list_inline_adapter', :format => :js}.merge(action_link_url_options(link, url_options, record, options = {:reuse_eid => true})) 
             link_id = get_action_link_id(link_url_options, record, link.column)
-            rendered << (render_component(link_url_options) + javascript_tag("ActiveScaffold.ActionLink.get('#{link_id}').set_opened();"))
+            rendered << (controller.send(:render_component_into_view, link_url_options) + javascript_tag("ActiveScaffold.ActionLink.get('#{link_id}').set_opened();"))
           end 
         end
         rendered.join(' ').html_safe
