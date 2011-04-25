@@ -21,4 +21,18 @@ describe ProductsController do
       #  :content => "#{@base_title}")
     end
   end
+
+  describe 'home page', :type => :request do
+    it 'should describe the site' do
+      visit '/'
+      page.should have_content('A Supermarket with a twist!!')
+    end
+
+    it 'should allow user to enter the site' do
+      visit '/'
+      click_on 'enter_the_store'
+      page.should have_content('Products')
+    end
+  end
+
 end

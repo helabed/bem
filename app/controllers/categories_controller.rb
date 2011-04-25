@@ -3,6 +3,11 @@ class CategoriesController < ApplicationController
     conf.nested.add_scoped_link(:children)  #nested link to children
   end
 
+  def edit
+    super
+  end
+
+
   protected
 
   # If nested let active_scaffold manage everything

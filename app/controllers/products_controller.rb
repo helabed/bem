@@ -2,6 +2,9 @@ class ProductsController < ApplicationController
   active_scaffold :product do |conf|
   end
 
+  def edit
+    super
+  end
 
 
 # # GET /products
