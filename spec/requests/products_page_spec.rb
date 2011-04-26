@@ -21,4 +21,11 @@ describe 'products page' do
     page.should have_content('9.77')
     #save_and_open_page
   end
+
+  it "supports js", :js => true do
+    visit products_path
+    click_link "test js"
+    page.should have_content("js works")
+  end
+
 end

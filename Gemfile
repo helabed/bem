@@ -29,7 +29,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'capybara'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
   gem 'pickle'
   gem 'pickler'
   gem 'launchy'

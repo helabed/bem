@@ -14,9 +14,6 @@ module NavigationHelpers
     when /the products page/
       '/products'
 
-    when /^the vehicle show page for #{capture_model}$/
-      vehicle = find_model! $1
-      vehicle_path vehicle
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
