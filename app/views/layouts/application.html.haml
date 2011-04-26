@@ -26,6 +26,9 @@
       #content
         #stuff
           %br
+          = yield
+          %br
           = link_to_function "test js", '$(this).html("js works")'
           %br
-          = yield
+          %br
+          = button_to_function "test button js", '$(this).after("<p>js button works</p>")'
