@@ -1,3 +1,8 @@
+GIT
+  remote: git://github.com/jnicklas/capybara.git
+  revision: 65ba487d229fda3be85aa88377ab3f435075b2f2
+  specs:
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -170,7 +175,7 @@ DEPENDENCIES
   annotate-models
   capistrano
   capistrano-ext
-  capybara
+  capybara!
   cucumber
   cucumber-rails
   database_cleaner
