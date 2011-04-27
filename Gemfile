@@ -14,8 +14,27 @@ group :production do
   gem 'mysql2'
 end
 
+group :development do
+  gem 'mysql2'
+  gem 'rspec-rails'
+  gem 'annotate-models'
+  gem 'faker'
+  gem 'web-app-theme'
+  gem 'heroku'
+  gem 'looksee'
+  gem 'wirble'
+  gem 'rspec'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'cucumber-rails'
+  gem 'cucumber'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'pickle'
+  gem 'pickler'
+  gem 'launchy'
+end
 
-group :development, :test do
+group :test do
   gem 'mysql2'
   gem 'rspec-rails'
   gem 'annotate-models'

@@ -25,13 +25,15 @@ describe 'products page' do
   it "supports js", :js => true do
     visit products_path
     click_link "test js"
+    sleep 10
     page.should have_content("js works")
-    save_and_open_page
+    #save_and_open_page
 
     visit products_path
     click_on "test button js"
+    sleep 10
     page.should have_content("js button works")
-    save_and_open_page
+    #save_and_open_page
   end
 
 end
