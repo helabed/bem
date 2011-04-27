@@ -17,6 +17,8 @@ end
 hostname = `hostname`
 HOSTNAME = hostname.chomp if hostname
 
+# see hack here: http://bendyworks.com/news/excluding-dev-and-test-gems-from-heroku
+#if false
 group :development, :test do
   gem 'mysql2'
   gem 'rspec-rails'
@@ -40,6 +42,7 @@ group :development, :test do
   gem 'pickler'
   gem 'launchy'
 end
+#end
 
 
 #group :test do
