@@ -33,11 +33,12 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  if HOSTNAME == 'maple.site5.com'  # eventhough cap deploy should exclude :development and :test, it is not for some reason.
-    gem 'capybara'
-  else
-    gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git' # for testing javascript
-  end
+  gem 'capybara', :path => 'vendor/cache/git/capybara'
+#  if HOSTNAME == 'maple.site5.com'  # eventhough cap deploy should exclude :development and :test, it is not for some reason.
+#    gem 'capybara'
+#  else
+#    gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git' # for testing javascript
+#  end
   gem 'pickle'
   gem 'pickler'
   gem 'launchy'
