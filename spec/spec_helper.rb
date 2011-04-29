@@ -37,14 +37,15 @@ RSpec.configure do |config|
   end
 
   def test_sign_in(user)
-    controller.sign_in(user)
+    #controller.sign_in(user)
+    integration_sign_in(user)
   end
 
   def integration_sign_in(user)
     visit signin_path
-    fill_in :email,    :with => user.email
-    fill_in :password, :with => user.password
-    click_button
+    fill_in "Email",    :with => user.email
+    fill_in "Password", :with => user.password
+    click_button "Sign in"
   end
 
   def integration_sign_up(user)
@@ -53,7 +54,16 @@ RSpec.configure do |config|
     fill_in "Email",        :with => user.email
     fill_in "Password",     :with => user.password
     fill_in "Confirmation", :with => user.password_confirmation
-    click_button
+    click_button "Sign up"
+  end
+
+  def integration_update_user(user, attr)
+    visit edit_user_path(user)
+    fill_in "Name",         :with => attr[:name]
+    fill_in "Email",        :with => attr[:email]
+    fill_in "Password",     :with => attr[:password]
+    fill_in "Confirmation", :with => attr[:password_confirmation]
+    click_button "Update"
   end
 
 end

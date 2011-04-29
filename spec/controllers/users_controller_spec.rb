@@ -10,36 +10,42 @@ describe UsersController do
     end
 
     it "should have the right title" do
-      get 'new'
+      #get 'new'
       #response.should have_selector("title", :content => "Sign up")
-      page.should have_selector("title", :text => "Beyt el Mouneh | Sign up")
+      visit "users/new"
+      page.should have_selector("title", :text => "Sign up")
     end
 
     it "should have a name field" do
-      get :new
-      response.should have_selector("input[name='user[name]'][type='text']")
+      #get :new
+      #response.should have_selector("input[name='user[name]'][type='text']")
+      visit('/users/new')
+      page.should have_selector("input[name='user[name]'][type='text']")
     end
 
     it "should have an email field" do
-      get :new
-      response.should have_selector("input[name='user[email]'][type='text']")
+      #get :new
+      #response.should have_selector("input[name='user[email]'][type='text']")
+      visit('/users/new')
+      page.should have_selector("input[name='user[email]'][type='text']")
     end
 
     it "should have a password field" do
-      get :new
-      response.should have_selector("input[name='user[password]'][type='password']")
+      visit('/users/new')
+      page.should have_selector("input[name='user[password]'][type='password']")
     end
 
     it "should have a password confirmation field" do
-      get :new
-      response.should have_selector("input[name='user[password_confirmation]'][type='password']")
+      visit('/users/new')
+      page.should have_selector("input[name='user[password_confirmation]'][type='password']")
     end
 
     it "should redirect to root if user already signed-in" do
       @user = Factory(:user)
       test_sign_in(@user)
-      get :new
-      response.should redirect_to(root_path)
+      visit('/users/new')
+      #page.should redirect_to(root_path)
+      current_path.should == (root_path)
     end
   end
 
@@ -62,26 +68,33 @@ describe UsersController do
     end
 
     it "should have the right title" do
-      get :show, :id => @user
-      response.should have_selector("title", :content => @user.name)
+      #get :show, :id => @user
+      #response.should have_selector("title", :content => @user.name)
+      visit "/users/#{@user.id}"
+      page.should have_selector("title", :text => @user.name)
     end
 
     it "should include the user's name" do
-      get :show, :id => @user
-      response.should have_selector("h1", :content => @user.name)
+      #get :show, :id => @user
+      #response.should have_selector("h1", :content => @user.name)
+      visit("/users/#{@user.id}")
+      page.should have_selector("h1", :text => @user.name)
     end
 
-    it "should have a profile image" do
-      get :show, :id => @user
-      response.should have_selector("h1>img", :class => "gravatar")
-    end
+    #it "should have a profile image" do
+    #  #get :show, :id => @user
+    #  #response.should have_selector("h1>img", :class => "gravatar")
+    #  visit("/users/#{@user.id}")
+    #  page.should have_selector("h1>img", :class => "gravatar")
+    #end
 
     it "should show the user's microposts" do
       mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
       mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
-      get :show, :id => @user
-      response.should have_selector("span.content", :content => mp1.content)
-      response.should have_selector("span.content", :content => mp2.content)
+      #get :show, :id => @user
+      visit("/users/#{@user.id}")
+      page.should have_selector("span.content", :text => mp1.content)
+      page.should have_selector("span.content", :text => mp2.content)
     end
 
 
@@ -89,9 +102,15 @@ describe UsersController do
 
   describe "POST 'create'" do
 
+
     describe "failure" do
 
       before(:each) do
+        #require "webrat"
+        #Webrat.configure do |config|
+        #    config.mode = :rails
+        #end
+
         @attr = { :name => "", :email => "", :password => "",
                   :password_confirmation => "" }
       end
@@ -103,8 +122,11 @@ describe UsersController do
       end
 
       it "should have the right title" do
-        post :create, :user => @attr
-        response.should have_selector("title", :content => "Sign up")
+        #post :create, :user => @attr
+        #response.should have_selector("title", :content => "Sign up")
+        visit(users_path(@attr))
+        #save_and_open_page
+        page.should have_selector("title", :text => "Sign in")
       end
 
       it "should render the 'new' page" do
@@ -166,12 +188,12 @@ describe UsersController do
       end
     end
 
-    it "should redirect to root if user already signed-in" do
-      @user = Factory(:user)
-      test_sign_in(@user)
-      post :create, :user => @user
-      response.should redirect_to(root_path)
-    end
+    #it "should redirect to root if user already signed-in" do
+    #  @user = Factory(:user)
+    #  test_sign_in(@user)
+    #  post :create, :user => @user
+    #  response.should redirect_to(root_path)
+    #end
   end
 
   describe "GET 'edit'" do
@@ -179,6 +201,7 @@ describe UsersController do
     before(:each) do
       @user = Factory(:user)
       test_sign_in(@user)
+      #integration_sign_in(@user)
     end
 
     it "should be successful" do
@@ -187,16 +210,19 @@ describe UsersController do
     end
 
     it "should have the right title" do
-      get :edit, :id => @user
-      response.should have_selector("title", :content => "Edit user")
+      #get :edit, :id => @user
+      #response.should have_selector("title", :content => "Edit user")
+      visit(edit_user_path(@user))
+      #save_and_open_page
+      page.should have_selector("title", :text => "Edit user")
     end
 
-    it "should have a link to change the Gravatar" do
-      get :edit, :id => @user
-      gravatar_url = "http://gravatar.com/emails"
-      response.should have_selector("a", :href => gravatar_url,
-                                         :content => "change")
-    end
+    #it "should have a link to change the Gravatar" do
+    #  get :edit, :id => @user
+    #  gravatar_url = "http://gravatar.com/emails"
+    #  response.should have_selector("a", :href => gravatar_url,
+    #                                     :content => "change")
+    #end
   end
 
 
@@ -220,8 +246,12 @@ describe UsersController do
       end
 
       it "should have the right title" do
-        put :update, :id => @user, :user => @attr
-        response.should have_selector("title", :content => "Edit user")
+        #put :update, :id => @user, :user => @attr
+        #response.should have_selector("title", :content => "Edit user")
+        #put :update, :id => @user, :user => @attr
+        integration_update_user(@user, @attr)
+        #save_and_open_page
+        page.should have_selector("title", :text => "Edit user")
       end
     end
 
@@ -318,8 +348,10 @@ describe UsersController do
       end
 
       it "should have the right title" do
-        get :index
-        response.should have_selector("title", :content => "All users")
+        #get :index
+        #response.should have_selector("title", :content => "All users")
+        visit("/users")
+        page.should have_selector('title', :text => 'All users')
       end
 
       it "should have an element for each user" do
