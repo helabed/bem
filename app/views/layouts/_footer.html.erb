@@ -1,0 +1,13 @@
+<footer>
+  <nav class="round">
+    <ul>
+      <% if is_admin? %>
+        <li><%= link_to "Products", products_path %></li>
+        <li><%= link_to "Categories", categories_path %></li>
+      <% end %>
+      <li><%= link_to "About", about_path %></li>
+      <li><%= link_to "Contact", contact_path %></li>
+    </ul>
+  </nav>
+</footer>
+

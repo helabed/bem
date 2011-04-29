@@ -10,6 +10,8 @@ gem 'will_paginate', '3.0.pre2'
 gem 'capistrano'
 gem 'capistrano-ext'
 
+gem 'jquery-rails'
+
 group :production do
   gem 'mysql2'
 end
@@ -29,6 +31,7 @@ group :development, :test do
   gem 'looksee'
   gem 'wirble'
   gem 'rspec'
+  #gem 'webrat', '0.7.1'
   gem 'factory_girl_rails'
   gem 'database_cleaner'
   gem 'cucumber-rails'

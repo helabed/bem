@@ -1,7 +1,35 @@
 Bem::Application.routes.draw do
   resources :categories do as_routes end
-
   resources :products do as_routes end
+
+  resources :sessions, :only => [:new, :create, :destroy]
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  #get "users/new"
+  resources :microposts,    :only => [:create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
+
+  match '/signup',    :to => 'users#new'
+  match '/signin',    :to => 'sessions#new'
+  match '/signout',   :to => 'sessions#destroy'
+
+# get "pages/home"
+# get "pages/contact"
+# get "pages/about"
+# get "pages/help"
+
+  match '/home',    :to => 'pages#home'
+  match '/contact', :to => 'pages#contact'
+  match '/about',   :to => 'pages#about'
+  match '/help',    :to => 'pages#help'
+
+  #match '/', :to => 'pages#home'
+  root :to => "pages#home"
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

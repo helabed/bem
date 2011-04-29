@@ -1,4 +1,9 @@
 class ProductsController < ApplicationController
+  layout 'admin'
+
+  before_filter :authenticate
+  before_filter :admin_user
+
   active_scaffold :product do |conf|
   end
 

@@ -1,4 +1,9 @@
 class CategoriesController < ApplicationController
+  layout 'admin'
+
+  before_filter :authenticate
+  before_filter :admin_user
+
   active_scaffold :category do |conf|
     conf.nested.add_scoped_link(:children)  #nested link to children
   end
