@@ -11,7 +11,8 @@ describe UsersController do
 
     it "should have the right title" do
       get 'new'
-      response.should have_selector("title", :content => "Sign up")
+      #response.should have_selector("title", :content => "Sign up")
+      page.should have_selector("title", :text => "Beyt el Mouneh | Sign up")
     end
 
     it "should have a name field" do
