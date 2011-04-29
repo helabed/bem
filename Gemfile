@@ -11,6 +11,7 @@ gem 'capistrano'
 gem 'capistrano-ext'
 
 gem 'jquery-rails'
+gem 'faker'
 
 group :production do
   gem 'mysql2'
@@ -25,7 +26,6 @@ group :development, :test do
   gem 'mysql2'
   gem 'rspec-rails'
   gem 'annotate-models'
-  gem 'faker'
   gem 'web-app-theme'
   gem 'heroku'
   gem 'looksee'
