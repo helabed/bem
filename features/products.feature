@@ -5,13 +5,13 @@ Feature: products page
 
   Scenario: User goes to products page
     Given I am logged in as an admin
-    Then show me the page
+    #Then show me the page
     And I am on the products page
-    Then show me the page
+    #Then show me the page
 
     Then I should be on the products page
     And I should see "Products"
-    Then show me the page
+    #Then show me the page
     #And I sleep for 10 seconds
 
   @javascript
