@@ -13,26 +13,37 @@ describe "Microposts" do
 
       it "should not make a new micropost" do
         lambda do
-          visit root_path
-          fill_in :micropost_content, :with => ""
-          click_button
-          response.should render_template('pages/home')
-          response.should have_selector("div#error_explanation")
+          visit home_path
+          #save_and_open_page
+          fill_in 'micropost_content', :with => ""
+          click_button "Submit"
+          current_path.should == ('/microposts')
+          page.should have_selector("div#error_explanation")
         end.should_not change(Micropost, :count)
       end
     end
 
     describe "success" do
 
-      it "should make a new micropost" do
+      it "should make a new micropost", :js => true do
+      #it "should make a new micropost" do
+        visit home_path
         content = "Lorem ipsum dolor sit amet"
         lambda do
-          visit root_path
-          fill_in :micropost_content, :with => content
-          click_button
-          response.should have_selector("span.content", :content => content)
+          #user = Factory(:user)
+          #integration_sign_in(user)
+          #save_and_open_page
+          visit home_path
+          #save_and_open_page
+          fill_in('micropost_content', :with => content)
+          #save_and_open_page
+          click_on "Submit"
+          #click_button "Submit"
+          #save_and_open_page
+          page.should have_selector("span.content", :text => content)
           # Test pluralization here, for a single post
-          response.should have_selector("span.microposts", :content => "1 micropost\n")
+          page.should have_selector("div.flash", :text => "Micropost created!")
+          page.should have_selector("span.microposts", :text => "1 micropost")
         end.should change(Micropost, :count).by(1)
       end
 
@@ -40,32 +51,32 @@ describe "Microposts" do
         content1 = "Lorem ipsum dolor sit amet"
         content2 = "my wonderful content"
         lambda do
-          visit root_path
-          fill_in :micropost_content, :with => content1
-          click_button
-          response.should have_selector("span.content", :content => content1)
-          fill_in :micropost_content, :with => content2
-          click_button
-          response.should have_selector("span.content", :content => content2)
-          response.should have_selector("span.microposts", :content => "2 microposts")
+          visit home_path
+          fill_in 'micropost_content', :with => content1
+          click_button "Submit"
+          page.should have_selector("span.content", :text => content1)
+          fill_in 'micropost_content', :with => content2
+          click_button "Submit"
+          page.should have_selector("span.content", :text => content2)
+          page.should have_selector("span.microposts", :text => "2 microposts")
         end.should change(Micropost, :count).by(2)
       end
 
       it "should paginate microposts" do
         lambda do
-          visit root_path
+          visit home_path
           (1..40).each do |num|
             content = "my wonderful content item #{num}"
-            fill_in :micropost_content, :with => content
-            click_button
-            response.should have_selector("span.content", :content => content)
+            fill_in 'micropost_content', :with => content
+            click_button "Submit"
+            page.should have_selector("span.content", :text => content)
           end
-          response.should have_selector("span.microposts", :content => "40 microposts")
-          response.should have_selector("div.pagination>a.next_page", :content => "Next")
+          page.should have_selector("span.microposts", :text => "40 microposts")
+          page.should have_selector("div.pagination>a.next_page", :text => "Next")
           click_link "Next"
-          response.should have_selector("div.pagination>a.previous_page", :content => "Previous")
+          page.should have_selector("div.pagination>a.previous_page", :text => "Previous")
           click_link "Previous"
-          response.should have_selector("div.pagination>a.next_page", :content => "Next")
+          page.should have_selector("div.pagination>a.next_page", :text => "Next")
         end.should change(Micropost, :count).by(40)
       end
     end
@@ -74,22 +85,22 @@ describe "Microposts" do
   describe "micropost delete link" do
 
     it "should show 'delete' link for current_user" do
-      visit root_path
+      visit home_path
       content = "my wonderful content item"
-      fill_in :micropost_content, :with => content
-      click_button
-      response.should have_selector("a", :content => "delete")
+      fill_in 'micropost_content', :with => content
+      click_button "Submit"
+      page.should have_selector("a", :text => "delete")
     end
 
     it "should not show 'delete' link for different user" do
-      visit root_path
+      visit home_path
       content = "my wonderful content item"
-      fill_in :micropost_content, :with => content
-      click_button
+      fill_in 'micropost_content', :with => content
+      click_button "Submit"
       wrong_user = Factory(:user, :email => 'user@example.net')
       integration_sign_in wrong_user
-      visit root_path
-      response.should_not have_selector("a", :content => "delete")
+      visit home_path
+      response.should_not have_selector("a", :text => "delete")
     end
   end
 end

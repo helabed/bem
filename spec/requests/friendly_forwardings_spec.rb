@@ -10,11 +10,12 @@ describe "FriendlyForwardings" do
     # the integration test follows redirects, so testing that the
     # response should redirect_to some URL won't work.
     # I learned this the hard way
-    fill_in :email,    :with => user.email
-    fill_in :password, :with => user.password
-    click_button
+    fill_in 'Email',    :with => user.email
+    fill_in 'Password', :with => user.password
+    click_button "Sign in"
     # The test follows the redirect again, this time to users/edit.
-    response.should render_template('users/edit')
+    #response.should render_template('users/edit')
+    current_path.should == edit_user_path(user)
   end
 
 end

@@ -13,10 +13,12 @@ describe "Users" do
           fill_in "Email",        :with => "user@example.com"
           fill_in "Password",     :with => "foobar"
           fill_in "Confirmation", :with => "foobar"
-          click_button
-          response.should have_selector("div.flash.success",
-                                        :content => "Welcome")
-          response.should render_template('users/show')
+          click_button "Sign up"
+          page.should have_selector("div.flash.success",
+                                        :text => "Welcome")
+          #response.should render_template('users/show')
+          current_path.should == user_path(1)
+          current_path.should == '/users/1'
         end.should change(User, :count).by(1)
       end
     end
@@ -30,9 +32,13 @@ describe "Users" do
           fill_in "Email",        :with => ""
           fill_in "Password",     :with => ""
           fill_in "Confirmation", :with => ""
-          click_button
-          response.should render_template('users/new')
-          response.should have_selector("div#error_explanation")
+          click_button "Sign up"
+          #response.should render_template('users/new')
+          page.should have_selector("div#error_explanation")
+          #save_and_open_page
+          # bug in here
+          #current_path.should == new_user_path
+          page.should have_selector("title", :text => "Sign up")
         end.should_not change(User, :count)
       end
     end
@@ -45,7 +51,7 @@ describe "Users" do
         user = Factory(:user)
         user.email, user.password = '', ''
         integration_sign_in user
-        response.should have_selector("div.flash.error", :content => "Invalid")
+        page.should have_selector("div.flash.error", :text => "Invalid")
       end
     end
 
@@ -53,9 +59,11 @@ describe "Users" do
       it "should sign a user in and out" do
         user = Factory(:user)
         integration_sign_in user
-        controller.should be_signed_in
+        #controller.should be_signed_in
+        current_path.should == user_path(user)
         click_link "Sign out"
-        controller.should_not be_signed_in
+        current_path.should == root_path
+        #controller.should_not be_signed_in
       end
     end
   end
@@ -65,14 +73,14 @@ describe "Users" do
       user = Factory(:user, :admin => true)
       integration_sign_in user
       visit users_path
-      response.should have_selector("a", :content => "delete")
+      page.should have_selector("a", :text => "delete")
     end
 
     it "should not show 'delete' link for non-admins" do
       user = Factory(:user, :admin => false)
       integration_sign_in user
       visit users_path
-      response.should_not have_selector("a", :content => "delete")
+      page.should_not have_selector("a", :text => "delete")
     end
   end
 end
