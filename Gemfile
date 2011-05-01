@@ -45,6 +45,8 @@ group :development, :test do
   gem 'pickle'
   gem 'pickler'
   gem 'launchy'
+  gem 'rcov'
+  gem 'rcov_rails'
 end
 #end
 

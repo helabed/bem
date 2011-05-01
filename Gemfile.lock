@@ -134,6 +134,9 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
+    rcov (0.9.9)
+    rcov_rails (0.3.0)
+      rcov
     rest-client (1.6.1)
       mime-types (>= 1.16)
     rspec (2.5.0)
@@ -188,6 +191,8 @@ DEPENDENCIES
   pickle
   pickler
   rails (= 3.0.3)
+  rcov
+  rcov_rails
   rspec
   rspec-rails
   web-app-theme
