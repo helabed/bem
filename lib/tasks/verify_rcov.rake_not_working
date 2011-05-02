@@ -1,0 +1,21 @@
+require 'rake'
+#require 'spec/rake/verify_rcov'
+
+Task.new(:verify_rcov => 'rcov:all') do |t|
+#RCov::VerifyTask.new(:verify_rcov => 'rcov:all') do |t|
+#RCov::VerifyTask.new(:verify_rcov => 'spec:rcov') do |t|
+  t.require_exact_threshold = true
+
+  # cannot figure out why the difference when rcov:all runs from cruisecontrol.rb
+  # it produces a slightly different coverage from when it is run programmmer's Mac or Ubuntu machines
+  # everybody is still using same version of Ruby/Rails
+#  if `hostname`.chomp == 'nextqa'
+#    t.threshold = 93.81
+#  elsif `hostname`.chomp == 'hani-desktop'
+#    t.threshold = 93.81
+#  else
+    t.threshold = 93.36
+#  end
+
+  t.index_html = "#{RAILS_ROOT}/coverage/index.html"
+end

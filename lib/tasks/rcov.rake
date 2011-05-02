@@ -11,6 +11,8 @@
 # # to get non-aggregated coverage reports for rspec or cucumber separately
 #
 
+#task :default => 'rcov:all'
+
 begin
   require 'cucumber/rake/task'
   require 'rspec/core/rake_task'

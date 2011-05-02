@@ -1,0 +1,26 @@
+#task :default => 'rcov:all'
+
+#     desc 'Run all tests on this project (unit, functional, spec, integration)'
+#     task :test do
+#       errors = %w(rcov:all).collect do |task|
+#       #errors = %w(verify_rcov).collect do |task|
+#       #errors = %w(test:units test:functionals verify_rcov test:integration doc:diagram:models).collect do |task|
+#         begin
+#           Rake::Task[task].invoke
+#           nil
+#         rescue => e
+#           task
+#         end
+#       end.compact
+#
+#     #  if(out = ENV['CC_BUILD_ARTIFACTS'])
+#     #    mv('coverage', out)
+#     #  end
+#
+#       abort "Errors running #{errors.to_sentence}!" if errors.any?
+#
+#     #  if(out = ENV['CC_BUILD_ARTIFACTS'])
+#     #    mv('doc/models.png', out)
+#     #    #mv('doc/controllers.png', out)
+#     #  end
+#     end
