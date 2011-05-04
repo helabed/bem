@@ -1,6 +1,7 @@
 Bem::Application.routes.draw do
   resources :categories do as_routes end
   resources :products do as_routes end
+  match '/product_listing',    :to => 'products#listing'
 
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users do
@@ -27,7 +28,7 @@ Bem::Application.routes.draw do
   match '/help',    :to => 'pages#help'
 
   #match '/', :to => 'pages#home'
-  root :to => "pages#home"
+  root :to => "products#listing"
 
 
 

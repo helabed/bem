@@ -1,15 +1,3 @@
-# == Schema Information
-# Schema version: 20110219214626
-#
-# Table name: users
-#
-#  id         :integer         not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class User < ActiveRecord::Base
   attr_accessor :password
   attr_accessible :name, :email, :password, :password_confirmation
@@ -118,3 +106,19 @@ class User < ActiveRecord::Base
     end
 
 end
+
+# == Schema Information
+# Schema version: 20110418172341
+#
+# Table name: users
+#
+#  id                 :integer(4)      not null, primary key
+#  name               :string(255)
+#  email              :string(255)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  encrypted_password :string(255)
+#  salt               :string(255)
+#  admin              :boolean(1)
+#
+

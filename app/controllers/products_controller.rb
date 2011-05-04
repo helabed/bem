@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  layout 'admin'
+  layout 'admin', :except => [:listing]
 
   before_filter :authenticate
   before_filter :admin_user
@@ -11,6 +11,14 @@ class ProductsController < ApplicationController
     super
   end
 
+  def listing
+    @products = Product.all
+
+    respond_to do |format|
+      format.html { render :layout => 'application' } # listing.html.erb
+      format.xml  { render :xml => @products }
+    end
+  end
 
 # # GET /products
 # # GET /products.xml
