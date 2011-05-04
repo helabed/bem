@@ -1,3 +1,4 @@
+Rake::Task[:default].clear
 
 desc 'Run default task, which happens to be :all_tests_w_rcov for now'
 task :default => :my_tests
