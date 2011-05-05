@@ -18,12 +18,21 @@
   </div>
   <div id="columns">
     <div id="side">
+      <% if @cart %>
+        <%= hidden_div_if(@cart.line_items.empty?, :id => "cart") do %>
+          <%= render @cart %>
+        <% end %>
+      <% end %>
       <a href="/">Home</a><br />
       <a href="/about">About</a><br />
-      <a href="/faq">Questions</a><br />
-
-      <a href="/news">News</a><br />
       <a href="/contact">Contact</a><br />
+      <br />
+      <% if signed_in? %>
+        <a href="/signout">Log out</a><br />
+      <% else %>
+        <a href="/signin">Log in</a><br />
+        <a href="/signup">Register</a><br />
+      <% end %>
     </div>
     <div id="main">
       <%= yield %><!-- <label id="code.depot.e.include"/> -->

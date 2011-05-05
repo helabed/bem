@@ -1,4 +1,8 @@
 Bem::Application.routes.draw do
+  resources :line_items
+
+  resources :carts
+
   get "store/index"
 
   resources :categories do as_routes end
@@ -29,6 +33,8 @@ Bem::Application.routes.draw do
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
   match '/store',   :to => 'store#index'
+  match '/',    :to => 'store#index'
+  match '/root',    :to => 'store#index'
 
   #match '/', :to => 'pages#home'
   #root :to => "products#listing"
