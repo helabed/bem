@@ -1,5 +1,10 @@
 class LineItemsController < ApplicationController
   layout 'store'
+
+  active_scaffold :line_item do |conf|
+  end
+
+
   # GET /line_items
   # GET /line_items.xml
   def index
