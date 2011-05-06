@@ -1,5 +1,8 @@
 class LineItemsController < ApplicationController
-  layout 'store'
+  layout 'admin'
+
+  before_filter :authenticate
+  before_filter :admin_user
 
   active_scaffold :line_item do |conf|
   end
@@ -7,14 +10,14 @@ class LineItemsController < ApplicationController
 
   # GET /line_items
   # GET /line_items.xml
-  def index
-    @line_items = LineItem.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @line_items }
-    end
-  end
+#  def index
+#    @line_items = LineItem.all
+#
+#    respond_to do |format|
+#      format.html { render :layout => 'admin' } # listing.html.erb
+#      format.xml  { render :xml => @line_items }
+#    end
+#  end
 
   # GET /line_items/1
   # GET /line_items/1.xml

@@ -1,10 +1,13 @@
 Bem::Application.routes.draw do
-  resources :line_items
+  #resources :orders
+  #resources :line_items
 
   resources :carts
 
   get "store/index"
 
+  resources :line_items do as_routes end
+  resources :orders do as_routes end
   resources :categories do as_routes end
   resources :products do as_routes end
   match '/product_listing',    :to => 'products#listing'
