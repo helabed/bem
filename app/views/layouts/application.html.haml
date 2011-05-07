@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title Beyt El Mouneh
+    %title= "Beyt El Mouneh | #{@title}"
     = stylesheet_link_tag :all
     //= javascript_include_tag :defaults
     = stylesheet_link_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/ui-lightness/jquery-ui.css'
@@ -15,12 +15,12 @@
   %body
     #wrapper
       .water_mark
-        Beyt El Mouneh
+        Beyt el Mouneh Administration
       #top
         .main_navigation
           =link_to "Home", '/'
           |
-          =link_to "Store", :controller => :pages, :action => :home
+          =link_to "Store", :controller => :store, :action => :index
           |
           =link_to "Products", :controller => :products
           |
@@ -38,3 +38,4 @@
           %br
           %br
           = button_to_function "test button js", '$(this).after("<p>js button works</p>")'
+

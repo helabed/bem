@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  layout 'store'
+
   def home
     @title = "Home"
     #debugger

@@ -1,7 +1,8 @@
 class SessionsController < ApplicationController
+  layout 'store'
 
   def new
-    @title = "Sign in"
+    @title = "Login"
   end
 
   def create
@@ -10,18 +11,21 @@ class SessionsController < ApplicationController
     if user.nil?
       # Create an error message and re-render the signin form.
       flash.now[:error] = "Invalid email/password combination."
-      @title = "Sign in"
+      @title = "Login"
       render :new
     else
       # Sign the user in and redirect to the user's show page.
       sign_in user
       #redirect_to user
-      redirect_back_or user
+      #redirect_back_or root_path
+      flash[:success] = "Welcome back to Beyt el Mouneh"
+      redirect_to root_path
     end
   end
 
   def destroy
     sign_out
+    flash[:success] = "Thank you for shopping at Beyt el Mouneh"
     redirect_to root_path
   end
 end

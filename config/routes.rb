@@ -8,19 +8,22 @@ Bem::Application.routes.draw do
 
   resources :line_items do as_routes end
   resources :orders do as_routes end
+  match '/orders/new_in_store',    :to => 'orders#new_in_store'
   resources :categories do as_routes end
   resources :products do as_routes end
   match '/product_listing',    :to => 'products#listing'
 
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :users do
-    member do
-      get :following, :followers
-    end
-  end
+  resources :users
+  #resources :users do
+  #  member do
+  #    get :following, :followers
+  #  end
+  #end
   #get "users/new"
-  resources :microposts,    :only => [:create, :destroy]
-  resources :relationships, :only => [:create, :destroy]
+
+  #resources :microposts,    :only => [:create, :destroy]
+  #resources :relationships, :only => [:create, :destroy]
 
   match '/signup',    :to => 'users#new'
   match '/signin',    :to => 'sessions#new'
@@ -31,12 +34,12 @@ Bem::Application.routes.draw do
 # get "pages/about"
 # get "pages/help"
 
-  match '/home',    :to => 'pages#home'
+  match '/home',    :to => 'store#index'
   match '/contact', :to => 'pages#contact'
   match '/about',   :to => 'pages#about'
   match '/help',    :to => 'pages#help'
   match '/store',   :to => 'store#index'
-  match '/',    :to => 'store#index'
+  match '/',        :to => 'store#index'
   match '/root',    :to => 'store#index'
 
   #match '/', :to => 'pages#home'

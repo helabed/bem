@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  layout 'admin', :except => [:new, :edit]
 
   before_filter :authenticate
   before_filter :admin_user
@@ -21,7 +20,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   # GET /orders/1.xml
-  def show
+  def show_in_store
     @order = Order.find(params[:id])
 
     respond_to do |format|
@@ -32,7 +31,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   # GET /orders/new.xml
-  def new
+  def new_in_store
     @cart = current_cart
       if @cart.line_items.empty?
         redirect_to store_url, :notice => "Your cart is empty"
@@ -42,21 +41,21 @@ class OrdersController < ApplicationController
     @order = Order.new
 
     respond_to do |format|
-      format.html { render :layout => 'store' } # listing.html.erb
+      format.html { render 'new', :layout => 'store' } # listing.html.erb
       #format.html # new.html.erb
       format.xml  { render :xml => @order }
     end
   end
 
   # GET /orders/1/edit
-  def edit
+  def edit_in_store
     @order = Order.find(params[:id])
     format.html { render :layout => 'store' } # listing.html.erb
   end
 
   # POST /orders
   # POST /orders.xml
-  def create
+  def create_in_store
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
 
@@ -76,7 +75,7 @@ class OrdersController < ApplicationController
 
   # PUT /orders/1
   # PUT /orders/1.xml
-  def update
+  def update_in_store
     @order = Order.find(params[:id])
 
     respond_to do |format|
@@ -92,7 +91,7 @@ class OrdersController < ApplicationController
 
   # DELETE /orders/1
   # DELETE /orders/1.xml
-  def destroy
+  def destroy_in_store
     @order = Order.find(params[:id])
     @order.destroy
 

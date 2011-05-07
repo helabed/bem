@@ -1,10 +1,14 @@
 class ProductsController < ApplicationController
-  layout 'admin', :except => [:listing]
 
   before_filter :authenticate
   before_filter :admin_user
 
   active_scaffold :product do |conf|
+  end
+
+  def index
+    @title = "Products Admin"
+    super
   end
 
   def edit

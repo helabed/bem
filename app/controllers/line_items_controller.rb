@@ -1,8 +1,7 @@
 class LineItemsController < ApplicationController
-  layout 'admin'
 
-  before_filter :authenticate
-  before_filter :admin_user
+  before_filter :authenticate, :except => [:show, :new, :create]
+  #before_filter :admin_user
 
   active_scaffold :line_item do |conf|
   end

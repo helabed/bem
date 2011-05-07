@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   def new
     redirect_to root_path if signed_in?
     @user = User.new
-    @title = 'Sign up'
+    @title = 'Register with us'
+    render :layout => 'store'
   end
 
   def index
@@ -19,8 +20,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
+    render 'show', :layout => 'store'
   end
 
   def create
@@ -34,13 +36,14 @@ class UsersController < ApplicationController
       if @user.save
         # Handle a successful save.
         sign_in @user
-        flash[:success] = "Welcome to the Sample App!"
-        redirect_to @user
+        flash[:success] = "Welcome to Beyt el Mouneh"
+        redirect_to home_path
       else
-        @title = "Sign up"
+        #flash[:error] = "Oh Ooh, something went wrong!!, please re-register"
+        @title = "Register"
         @user.password = ''
         @user.password_confirmation = ''
-        render 'new'
+        render 'new', :layout => 'store'
       end
     end
   end
@@ -48,16 +51,17 @@ class UsersController < ApplicationController
   def edit
     #@user = User.find(params[:id]) # moved to correct_user
     @title = "Edit user"
+    render 'edit', :layout => 'store'
   end
 
   def update
     #@user = User.find(params[:id]) # moved to correct_user
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
-      redirect_to @user
+      redirect_to @user, :layout => 'store'
     else
       @title = "Edit user"
-      render 'edit'
+      render 'edit', :layout => 'store'
     end
   end
 
@@ -69,7 +73,8 @@ class UsersController < ApplicationController
       the_user_to_delete.destroy
       flash[:success] = "User deleted."
     end
-    redirect_to users_path
+    #redirect_to users_path
+    redirect_to home_path
   end
 
   def following
