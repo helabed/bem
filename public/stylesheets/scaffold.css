@@ -14,7 +14,11 @@ body {
   color: #444444; }
   body #wrapper .water_mark {
     color: red;
-    font-size: 12px;
+    font-size: 18px;
+    float: right; }
+  body #wrapper .admin_mark {
+    color: red;
+    font-size: 14px;
     text-align: center; }
   body #wrapper #account_navigation {
     color: #eb6212; }

@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => :destroy
 
   def new
+    @cart = current_cart
     if signed_in?
       redirect_to root_path
     else
@@ -29,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    @cart = current_cart
     # WHY did this fail on me
     #redirect_to root_path if signed_in?
     # AND I had to use the if..else..end statement below ??
@@ -52,12 +54,14 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @cart = current_cart
     #@user = User.find(params[:id]) # moved to correct_user
     @title = "Edit user"
     render 'edit', :layout => 'store'
   end
 
   def update
+    @cart = current_cart
     #@user = User.find(params[:id]) # moved to correct_user
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."

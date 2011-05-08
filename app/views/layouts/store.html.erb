@@ -14,6 +14,11 @@
   <div id="banner">
     <%= @page_title || "Beyt el Mouneh Online Store" %>
   </div>
+  <% if Rails.env != 'production' %>
+    <div class="water_mark">
+      <%= "#{Rails.env}" %>
+    </div>
+  <% end %>
   <div id="columns">
     <div id="side">
       <% if @cart %>

@@ -16,6 +16,12 @@
         border-bottom: 3px dotted #77d;
 }
 
+#store .water_mark {
+  color: red;
+  font-size: 18px;
+  float: right;
+}
+
 /* Styles for products/index */
 
 #product_list table {

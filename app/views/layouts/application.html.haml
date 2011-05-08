@@ -14,7 +14,10 @@
     = csrf_meta_tag
   %body
     #wrapper
-      .water_mark
+      -if Rails.env != 'production'
+        .water_mark
+          ="#{Rails.env}"
+      .admin_mark
         Beyt el Mouneh Administration
       #top
         .main_navigation
@@ -34,8 +37,9 @@
           %br
           = yield
           %br
-          = link_to_function "test js", '$(this).html("js works")'
-          %br
-          %br
-          = button_to_function "test button js", '$(this).after("<p>js button works</p>")'
+          -if Rails.env != 'production'
+            = link_to_function "test js", '$(this).html("js works")'
+            %br
+            %br
+            = button_to_function "test button js", '$(this).after("<p>js button works</p>")'
 

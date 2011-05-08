@@ -3,6 +3,7 @@ class PagesController < ApplicationController
 
   def home
     @title = "Home"
+    @cart = current_cart
     #debugger
     #x = 1  # <--- need this to stop the debugger in meaningful location after 'debugger'
 
@@ -14,13 +15,16 @@ class PagesController < ApplicationController
 
   def contact
     @title = "Contact"
+    @cart = current_cart
   end
 
   def about
     @title = "About"
+    @cart = current_cart
   end
 
   def help
     @title = "Help"
+    @cart = current_cart
   end
 end

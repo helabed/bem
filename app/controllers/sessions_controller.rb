@@ -3,9 +3,11 @@ class SessionsController < ApplicationController
 
   def new
     @title = "Login"
+    @cart = current_cart
   end
 
   def create
+    @cart = current_cart
     user = User.authenticate(params[:session][:email],
                              params[:session][:password])
     if user.nil?
