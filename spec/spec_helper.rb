@@ -52,7 +52,7 @@ RSpec.configure do |config|
     fill_in "Password", :with => user.password
     #save_and_open_page
     #sleep 10
-    click_button "Sign in"
+    click_button "Login"
     #sleep 10
   end
 
@@ -62,7 +62,7 @@ RSpec.configure do |config|
     fill_in "Email",        :with => user.email
     fill_in "Password",     :with => user.password
     fill_in "Confirmation", :with => user.password_confirmation
-    click_button "Sign up"
+    click_button "Register"
   end
 
   def integration_update_user(user, attr)

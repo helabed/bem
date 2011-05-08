@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
       #redirect_to user
       #redirect_back_or root_path
       flash[:success] = "Welcome back to Beyt el Mouneh"
-      redirect_to root_path
+      redirect_to home_path
     end
   end
 

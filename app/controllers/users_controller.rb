@@ -5,10 +5,13 @@ class UsersController < ApplicationController
   before_filter :admin_user,   :only => :destroy
 
   def new
-    redirect_to root_path if signed_in?
-    @user = User.new
-    @title = 'Register with us'
-    render :layout => 'store'
+    if signed_in?
+      redirect_to root_path
+    else
+      @user = User.new
+      @title = 'Register with us'
+      render :layout => 'store'
+    end
   end
 
   def index

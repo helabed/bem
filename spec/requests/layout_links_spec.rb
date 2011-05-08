@@ -26,31 +26,30 @@ describe "LayoutLinks" do
 
   it "should have a signup page at '/signup'" do
     visit '/signup'
-    page.should have_selector('title', :text => "Sign up")
+    page.should have_selector('title', :text => "Register")
   end
 
   it "should have the right links on the layout" do
     visit home_path
     click_link "About"
     page.should have_selector('title', :text => "About")
-    click_link "Help"
-    page.should have_selector('title', :text => "Help")
+    #click_link "Help"
+    #page.should have_selector('title', :text => "Help")
     click_link "Contact"
     page.should have_selector('title', :text => "Contact")
     click_link "Home"
     page.should have_selector('title', :text => "Home")
     visit '/'
-    click_link 'enter_the_store'
-    click_link "Sign up now!"
-    page.should have_selector('title', :text => "Sign up")
+    click_link 'Login'
+    page.should have_selector('title', :text => "Login")
   end
 
   describe "when not signed in" do
     it "should have a signin link" do
       visit root_path
-      click_link 'enter_the_store'
+      click_link 'Login'
       page.should have_selector("a", :href => signin_path,
-                                         :text => "Sign in")
+                                         :text => "Login")
     end
   end
 
@@ -64,13 +63,13 @@ describe "LayoutLinks" do
     it "should have a signout link" do
       visit home_path
       page.should have_selector("a", :href => signout_path,
-                                         :text => "Sign out")
+                                         :text => "Logout")
     end
 
     it "should have a profile link" do
       visit home_path
       page.should have_selector("a", :href => user_path(@user),
-                                         :text => "Profile")
+                                         :text => "Settings")
     end
   end
 end

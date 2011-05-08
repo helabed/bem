@@ -12,6 +12,6 @@ Given /^I am logged in as an admin$/ do
   fill_in 'Email',    :with => user.email
   fill_in 'Password', :with => user.password
   #save_and_open_page
-  click_button "Sign in"
+  click_button "Login"
 end
 

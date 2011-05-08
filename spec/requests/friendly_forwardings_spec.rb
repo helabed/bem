@@ -12,10 +12,10 @@ describe "FriendlyForwardings" do
     # I learned this the hard way
     fill_in 'Email',    :with => user.email
     fill_in 'Password', :with => user.password
-    click_button "Sign in"
+    click_button "Login"
     # The test follows the redirect again, this time to users/edit.
     #response.should render_template('users/edit')
-    current_path.should == edit_user_path(user)
+    current_path.should == home_path
   end
 
 end

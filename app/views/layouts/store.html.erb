@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Beyt el Mouneh Online Store</title>
+  <title>Beyt el Mouneh | <%= "#{@title}" %></title>
   <%= stylesheet_link_tag "store", :media => "all" %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
@@ -26,10 +26,10 @@
       <a href="/contact">Contact</a><br />
       <br />
       <% if signed_in? %>
-        <a href="/signout">Log out</a><br />
+        <a href="/signout">Logout</a><br />
        <%= link_to "Settings", edit_user_path(current_user) %><br />
       <% else %>
-        <a href="/signin">Log in</a><br />
+        <a href="/signin">Login</a><br />
         <a href="/signup">Register</a><br />
       <% end %>
       <% if is_admin? %>

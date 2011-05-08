@@ -12,9 +12,9 @@ describe UsersController do
 
     it "should have the right title" do
       #get 'new'
-      #response.should have_selector("title", :content => "Sign up")
+      #response.should have_selector("title", :content => "Register")
       visit "users/new"
-      page.should have_selector("title", :text => "Sign up")
+      page.should have_selector("title", :text => "Register")
     end
 
     it "should have a name field" do
@@ -90,6 +90,7 @@ describe UsersController do
     #end
 
     it "should show the user's microposts" do
+      pending "microposts not implemented"
       mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
       mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
       #get :show, :id => @user
@@ -124,10 +125,10 @@ describe UsersController do
 
       it "should have the right title" do
         #post :create, :user => @attr
-        #response.should have_selector("title", :content => "Sign up")
+        #response.should have_selector("title", :content => "Register")
         visit(users_path(@attr))
         #save_and_open_page
-        page.should have_selector("title", :text => "Sign in")
+        page.should have_selector("title", :text => "Login")
       end
 
       #it "should render the 'new' page" do
@@ -171,9 +172,9 @@ describe UsersController do
         end.should change(User, :count).by(1)
       end
 
-      it "should redirect to the user show page" do
+      it "should redirect to the home page" do
         post :create, :user => @attr
-        response.should redirect_to(user_path(assigns(:user)))
+        response.should redirect_to(home_path)
       end
 
       it "should have a welcome message" do
@@ -184,7 +185,7 @@ describe UsersController do
         post :create, :user => @attr
         #puts response.inspect
         #response.should have_selector("div", :class => "flash success", :content => "Welcome to the Sample App!")
-        flash[:success].should =~ /welcome to the sample app/i
+        flash[:success].should =~ /welcome to beyt el mouneh/i
       end
 
       it "should sign the user in" do
@@ -345,7 +346,7 @@ describe UsersController do
       it "should deny access" do
         get :index
         response.should redirect_to(signin_path)
-        flash[:notice].should =~ /sign in/i
+        flash[:notice].should =~ /login/i
       end
     end
 
@@ -447,11 +448,12 @@ describe UsersController do
         find_link('delete').click
         page.should have_content('User deleted.')
         #save_and_open_page
-        current_path.should == users_path
+        current_path.should == home_path
         #response.should redirect_to(users_path)
       end
 
       it "should prevent an admin from deleting herself" do
+        pending "user administration not implemented yet"
         lambda do
           visit "/users"
           # deleting first user
@@ -469,15 +471,16 @@ describe UsersController do
   end
 
   describe "follow pages" do
-
     describe "when not signed in" do
 
       it "should protect 'following'" do
+pending "followers/following not implemented"
         get :following, :id => 1
         response.should redirect_to(signin_path)
       end
 
       it "should protect 'followers'" do
+pending "followers/following not implemented"
         get :followers, :id => 1
         response.should redirect_to(signin_path)
       end
@@ -493,6 +496,7 @@ describe UsersController do
       end
 
       it "should show user following" do
+pending "followers/following not implemented"
         #get :following, :id => @user
         visit "/users/#{@user.id}/following"
         #page.should have_selector("a", :href => user_path(@other_user),
@@ -502,6 +506,7 @@ describe UsersController do
       end
 
       it "should show user followers" do
+pending "followers/following not implemented"
         #get :followers, :id => @other_user
         visit "/users/#{@other_user.id}/followers"
         page.should have_selector("a", :text => @user.name)

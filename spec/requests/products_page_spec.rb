@@ -30,12 +30,14 @@ describe 'products page' do
   it 'lets the user add a product' do
     visit products_path
     click_on 'Create New'  # this be an Ajax button -- only works with Selenium
-    fill_in 'Title', :with => 'Fool Mudamas'
+    fill_in 'Title', :with => 'Foule Mudammas'
     fill_in 'Description', :with => 'tasty fava beans'
     fill_in 'Price', :with => '9.99'
+    fill_in 'Image url', :with => '/images/foule_mudammas.jpg'
     #save_and_open_page
     click_on 'Create'  # this be an Ajax button -- only works with Selenium
-    page.should have_content('Fool Mudamas')
+    #save_and_open_page
+    page.should have_content('Foule Mudammas')
     page.should have_content('tasty fava beans')
     page.should have_content('9.99')
     #save_and_open_page

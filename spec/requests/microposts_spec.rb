@@ -12,6 +12,7 @@ describe "Microposts" do
     describe "failure" do
 
       it "should not make a new micropost" do
+      pending "will be implemented later"
         lambda do
           visit home_path
           #save_and_open_page
@@ -26,6 +27,7 @@ describe "Microposts" do
     describe "success" do
 
       it "should make a new micropost", :js => true do
+      pending "will be implemented later"
       #it "should make a new micropost" do
         visit home_path
         content = "Lorem ipsum dolor sit amet"
@@ -48,6 +50,7 @@ describe "Microposts" do
       end
 
       it "should pluralize microposts" do
+      pending "will be implemented later"
         content1 = "Lorem ipsum dolor sit amet"
         content2 = "my wonderful content"
         lambda do
@@ -63,6 +66,7 @@ describe "Microposts" do
       end
 
       it "should paginate microposts" do
+      pending "will be implemented later"
         lambda do
           visit home_path
           (1..40).each do |num|
@@ -85,6 +89,7 @@ describe "Microposts" do
   describe "micropost delete link" do
 
     it "should show 'delete' link for current_user" do
+      pending "will be implemented later"
       visit home_path
       content = "my wonderful content item"
       fill_in 'micropost_content', :with => content
@@ -93,6 +98,7 @@ describe "Microposts" do
     end
 
     it "should not show 'delete' link for different user" do
+      pending "will be implemented later"
       visit home_path
       content = "my wonderful content item"
       fill_in 'micropost_content', :with => content

@@ -13,12 +13,12 @@ describe "Users" do
           fill_in "Email",        :with => "user@example.com"
           fill_in "Password",     :with => "foobar"
           fill_in "Confirmation", :with => "foobar"
-          click_button "Sign up"
+          click_button "Register"
           page.should have_selector("div.flash.success",
                                         :text => "Welcome")
           #response.should render_template('users/show')
-          current_path.should == user_path(1)
-          current_path.should == '/users/1'
+          current_path.should == home_path
+          current_path.should == '/home'
         end.should change(User, :count).by(1)
       end
     end
@@ -32,13 +32,13 @@ describe "Users" do
           fill_in "Email",        :with => ""
           fill_in "Password",     :with => ""
           fill_in "Confirmation", :with => ""
-          click_button "Sign up"
+          click_button "Register"
           #response.should render_template('users/new')
           page.should have_selector("div#error_explanation")
           #save_and_open_page
           # bug in here
           #current_path.should == new_user_path
-          page.should have_selector("title", :text => "Sign up")
+          page.should have_selector("title", :text => "Register")
         end.should_not change(User, :count)
       end
     end
@@ -60,8 +60,8 @@ describe "Users" do
         user = Factory(:user)
         integration_sign_in user
         #controller.should be_signed_in
-        current_path.should == user_path(user)
-        click_link "Sign out"
+        current_path.should == home_path
+        click_link "Logout"
         current_path.should == root_path
         #controller.should_not be_signed_in
       end
