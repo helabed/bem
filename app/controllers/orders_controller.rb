@@ -6,6 +6,10 @@ class OrdersController < ApplicationController
   active_scaffold :order do |conf|
   end
 
+  def edit
+    super
+  end
+
 
   # GET /orders
   # GET /orders.xml
@@ -14,7 +18,7 @@ class OrdersController < ApplicationController
     @orders = Order.all
 
     respond_to do |format|
-      format.html { render :index, :layout => 'store' } # listing.html.erb
+      format.html { render 'orders_in_store/index', :layout => 'store' } # listing.html.erb
       format.xml  { render :xml => @orders }
     end
   end
@@ -26,7 +30,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     respond_to do |format|
-      format.html { render :show, :layout => 'store' } # show.html.erb
+      format.html { render 'orders_in_store/show', :layout => 'store' } # show.html.erb
       format.xml  { render :xml => @order }
     end
   end
@@ -43,7 +47,7 @@ class OrdersController < ApplicationController
     @order = Order.new
 
     respond_to do |format|
-      format.html { render 'new', :layout => 'store' } # listing.html.erb
+      format.html { render 'orders_in_store/new', :layout => 'store' } # listing.html.erb
       #format.html # new.html.erb
       format.xml  { render :xml => @order }
     end
@@ -53,7 +57,7 @@ class OrdersController < ApplicationController
   def edit_in_store
     @cart = current_cart
     @order = Order.find(params[:id])
-    format.html { render :edit, :layout => 'store' } # listing.html.erb
+    format.html { render 'orders_in_store/edit', :layout => 'store' } # listing.html.erb
   end
 
   # POST /orders
@@ -71,7 +75,7 @@ class OrdersController < ApplicationController
         #format.html { redirect_to(@order, :notice => 'Order was successfully created.') }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
-        format.html { render :action => "new", :layout => 'store' }
+        format.html { render  "orders_in_store/new", :layout => 'store' }
         format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
       end
     end
@@ -85,10 +89,10 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.update_attributes(params[:order])
-        format.html { redirect_to(@order, :notice => 'Order was successfully updated.') }
+        format.html { redirect_to( :action => 'show_in_store', :notice => 'Order was successfully updated.') }
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+        format.html { render "edit_in_store/edit" }
         format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
       end
     end
