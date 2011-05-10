@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
   before_filter :authenticate
   before_filter :admin_user
 
-  active_scaffold :product do |conf|
+  active_scaffold :product do |config|
+    config.list.columns.exclude :line_items
+
+    config.create.columns.exclude :line_items
+    config.update.columns.exclude :line_items
   end
 
   def index

@@ -4,6 +4,7 @@ class LineItemsController < ApplicationController
   #before_filter :admin_user
 
   active_scaffold :line_item do |conf|
+    #config.list.columns.exclude :id
   end
 
 
