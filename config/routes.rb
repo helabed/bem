@@ -9,6 +9,8 @@ Bem::Application.routes.draw do
   resources :line_items do as_routes end
   resources :orders do as_routes end
   match '/orders/new_in_store',    :to => 'orders#new_in_store'
+  match '/orders/edit_in_store',    :to => 'orders#edit_in_store'
+  match '/orders/create_in_store',    :to => 'orders#create_in_store'
   resources :categories do as_routes end
   resources :products do as_routes end
   match '/product_listing',    :to => 'products#listing'

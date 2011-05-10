@@ -43,11 +43,11 @@
     </div>
     <div id="main">
       <% if not flash.empty? %>
-      <section class="round">
-        <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, :class => "flash #{key}") %>
-        <% end %>
-      </section>
+        <section class="round">
+          <% flash.each do |key, value| %>
+            <%= content_tag(:div, value, :class => "flash #{key}") %>
+          <% end %>
+        </section>
       <% end %>
       <%= yield %>
     </div>

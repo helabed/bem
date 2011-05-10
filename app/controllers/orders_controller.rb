@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   before_filter :authenticate
-  before_filter :admin_user
+  before_filter :admin_user, :except => [:new_in_store, :edit_in_store, :create_in_store, :update_in_store]
 
   active_scaffold :order do |conf|
   end
@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
   def index_in_store
+    @cart = current_cart
     @orders = Order.all
 
     respond_to do |format|
@@ -21,6 +22,7 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.xml
   def show_in_store
+    @cart = current_cart
     @order = Order.find(params[:id])
 
     respond_to do |format|
@@ -49,6 +51,7 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit_in_store
+    @cart = current_cart
     @order = Order.find(params[:id])
     format.html { render :edit, :layout => 'store' } # listing.html.erb
   end
@@ -56,6 +59,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.xml
   def create_in_store
+    @cart = current_cart
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
 
@@ -76,6 +80,7 @@ class OrdersController < ApplicationController
   # PUT /orders/1
   # PUT /orders/1.xml
   def update_in_store
+    @cart = current_cart
     @order = Order.find(params[:id])
 
     respond_to do |format|
@@ -92,6 +97,7 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.xml
   def destroy_in_store
+    @cart = current_cart
     @order = Order.find(params[:id])
     @order.destroy
 
