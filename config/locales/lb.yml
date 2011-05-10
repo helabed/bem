@@ -11,7 +11,7 @@ lb:
     currency:
       format:
         unit:      "LBP"
-        precision: 2
+        precision: 0
         #separator: ","
         #delimiter: "."
         separator: "."
