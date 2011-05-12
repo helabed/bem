@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec/spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/../../db/seeds')
 
 And /^(?:|I )sleep for (.+) seconds$/ do |seconds|
   sleep seconds.to_i
@@ -14,4 +15,12 @@ Given /^I am logged in as an admin$/ do
   #save_and_open_page
   click_button "Login"
 end
+
+Given /^the products database is seeded$/ do
+  #pending # express the regexp above with the code you wish you had
+  #SeedDatabase::seed_db
+  include SeedDatabase
+  seed_db
+end
+
 
