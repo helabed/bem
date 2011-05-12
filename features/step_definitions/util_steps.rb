@@ -24,3 +24,19 @@ Given /^the products database is seeded$/ do
 end
 
 
+When /^(?:|I )press "([^"]*)" and switch to alert window$/ do |button|
+  page.evaluate_script('window.confirm = function() { return true; }')
+  #page.click("#{button}")
+  click_button(button)
+end
+
+Then /^I switch to alert window$/ do
+  #pending # express the regexp above with the code you wish you had
+
+  # code below not working, got it from stack overflow: 
+  #
+  #page.driver.browser.switch_to.alert
+end
+
+
+

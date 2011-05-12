@@ -31,14 +31,16 @@ Feature: shopping cart feature
     Then I should see "Please login to access this page"
     #And I should see "Empty cart" button
     And I sleep for 5 seconds
-    And I press "Empty cart"
+    And I press "Empty cart" and switch to alert window
     And I sleep for 5 seconds
+
+    #And I switch to alert window
     #Then I should see "Are you sure?"
 
     # press OK to confirm delete
-
     #And I press "OK"
-    #Then I should not see "Your Cart"
+    Then I should not see "Your Cart"
+    And I sleep for 5 seconds
 
     #Then I should see "Please Enter Your Details"
 
