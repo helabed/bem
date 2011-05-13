@@ -1,38 +1,62 @@
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation
+  attr_accessible :first_name, :last_name, :address, :city, :country, :phone, :email, :password, :password_confirmation
 
-  has_many :microposts, :dependent => :destroy
+  CITIES = [ "Beirut" ]
+  COUNTRIES = [ "Lebanon" ]
 
-  has_many :relationships, :foreign_key => "follower_id",
-                           :dependent => :destroy
+  has_many :orders, :dependent => :destroy
 
-  has_many :following, :through => :relationships,
-                       :source => :followed
+  validates :first_name, :presence => true,
+                   :length => {:maximum => 50}
+  validates :last_name, :presence => true,
+                   :length => {:maximum => 50}
 
-  has_many :reverse_relationships, :foreign_key => "followed_id",
-                       :class_name => "Relationship",
-                       :dependent => :destroy
+  validates :address, :presence => true,
+                   :length => {:maximum => 150}
 
-  has_many :followers, :through => :reverse_relationships,
-                       :source => :follower
+  validates :phone, :presence => true,
+                   :length => {:maximum => 150}
+
+  validates :city,    :inclusion => CITIES
+  validates :country, :inclusion => COUNTRIES
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-
-  validates :name, :presence => true,
-                   :length => {:maximum => 50}
 
   validates :email, :presence => true,
                     :format => email_regex,
                     #:uniqueness => true
                     :uniqueness => {:case_sensitive => false}
 
+
   # Automatically create the virtual attribute 'password_confirmation'.
   validates :password, :presence     => true,
                        :confirmation => true,
                        :length       => { :within => 6..40 }
 
+  has_many :microposts, :dependent => :destroy
+  has_many :relationships, :foreign_key => "follower_id",
+                           :dependent => :destroy
+  has_many :following, :through => :relationships,
+                       :source => :followed
+  has_many :reverse_relationships, :foreign_key => "followed_id",
+                       :class_name => "Relationship",
+                       :dependent => :destroy
+  has_many :followers, :through => :reverse_relationships,
+                       :source => :follower
+
+
   before_save :encrypt_password
+
+  def name= (combined_name)
+    unless combined_name.blank?
+      first_name, last_name = combined_name.split(' ',2)
+    end
+  end
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 
   # Return true if the user's password matches the submitted password.
   def has_password?(submitted_password)

@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
   has_many :line_items, :dependent => :destroy
+  belongs_to :user
 
   PAYMENT_TYPES = [ "Cash on Delivery (COD)" ]
   validates :name, :address, :pay_type, :presence => true

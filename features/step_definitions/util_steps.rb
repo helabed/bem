@@ -24,7 +24,7 @@ Given /^the products database is seeded$/ do
 end
 
 
-When /^(?:|I )press "([^"]*)" and switch to alert window$/ do |button|
+When /^(?:|I )press "([^"]*)" and skip alert window$/ do |button|
   page.evaluate_script('window.confirm = function() { return true; }')
   #page.click("#{button}")
   click_button(button)
@@ -38,5 +38,11 @@ Then /^I switch to alert window$/ do
   #page.driver.browser.switch_to.alert
 end
 
+Given /^no (.*) in database$/ do |records|
+  model_for(records).delete_all
+end
 
+Then /^there should be "([^\"]*)" (.*)$/ do |num_records, records|
+  model_for(records).count.should == num_records.to_i
+end
 

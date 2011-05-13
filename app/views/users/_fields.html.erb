@@ -1,8 +1,31 @@
 <%= render 'shared/error_messages', :object => f.object %>
 
 <div class="field">
-  <%= f.label :name %><br />
-  <%= f.text_field :name %>
+  <%= f.label :first_name %><br />
+  <%= f.text_field :first_name, :size => 40 %>
+</div>
+<div class="field">
+  <%= f.label :last_name %><br />
+  <%= f.text_field :last_name, :size => 40 %>
+</div>
+<div class="field">
+  <%= f.label :address %><br />
+
+  <%= f.text_area :address, :rows => 3, :cols => 40 %>
+</div>
+<div class="field">
+  <%= f.label :city %><br />
+  <%= f.select :city, User::CITIES,
+                :prompt => 'Select a city' %>
+</div>
+<div class="field">
+  <%= f.label :country %><br />
+  <%= f.select :country, User::COUNTRIES,
+                :prompt => 'Select a country' %>
+</div>
+<div class="field">
+  <%= f.label :phone %><br />
+  <%= f.text_field :phone %>
 </div>
 <div class="field">
   <%= f.label :email %><br />
