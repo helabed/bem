@@ -71,7 +71,7 @@ Feature: shopping cart feature
     And I sleep for 5 seconds
     And I press "Register"
     Then I should see "Welcome to Beyt el Mouneh"
-    And I follow "Settings"
+    And I follow "Profile"
     And I should see "Edit user"
     And I follow "Home"
     And I press "Checkout"

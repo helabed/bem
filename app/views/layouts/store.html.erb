@@ -32,7 +32,7 @@
       <br />
       <% if signed_in? %>
         <a href="/signout">Logout</a><br />
-       <%= link_to "Settings", edit_user_path(current_user) %><br />
+       <%= link_to "Profile", edit_user_path(current_user) %><br />
       <% else %>
         <a href="/signin">Login</a><br />
         <a href="/signup">Register</a><br />

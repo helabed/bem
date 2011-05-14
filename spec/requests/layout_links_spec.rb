@@ -69,7 +69,7 @@ describe "LayoutLinks" do
     it "should have a profile link" do
       visit home_path
       page.should have_selector("a", :href => user_path(@user),
-                                         :text => "Settings")
+                                         :text => "Profile")
     end
   end
 end

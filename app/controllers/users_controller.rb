@@ -23,6 +23,7 @@ class UsersController < ApplicationController
 
 
   def show
+    @cart = current_cart
     @user = User.find(params[:id])
     #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
