@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
 
+  active_scaffold :user do |config|
+  end
+
   def new
     @cart = current_cart
     if signed_in?

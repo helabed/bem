@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
   before_filter :authenticate
   before_filter :admin_user, :except => [:new_in_store, :edit_in_store, :create_in_store, :update_in_store]
 
-  active_scaffold :order do |conf|
+  active_scaffold :order do |config|
+    config.list.columns.exclude   :user
+    config.create.columns.exclude :user
+    config.update.columns.exclude :user
   end
 
   def edit
@@ -66,6 +69,7 @@ class OrdersController < ApplicationController
     @cart = current_cart
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
+    @order.user = current_user
 
     respond_to do |format|
       if @order.save
