@@ -9,9 +9,9 @@ class Order < ActiveRecord::Base
 
 
   validates :email, :presence => true,
-                    :format => email_regex,
+                    :format => email_regex
                     #:uniqueness => true
-                    :uniqueness => {:case_sensitive => false}
+                    #:uniqueness => {:case_sensitive => false}
 
   def add_line_items_from_cart(cart)
     cart.line_items.each do |item|

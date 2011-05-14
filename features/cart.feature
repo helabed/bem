@@ -62,13 +62,13 @@ Feature: shopping cart feature
     And I fill in "Phone" with "11-0811-207"
     And I select "Beirut" from "City"
     And I select "Lebanon" from "Country"
-    And I sleep for 2 seconds
+    And I sleep for 1 seconds
     And I fill in "Email" with "Joe@Shmoe.com"
-    And I sleep for 2 seconds
+    And I sleep for 1 seconds
     And I fill in "Password" with "cucumber"
-    And I sleep for 2 seconds
+    And I sleep for 1 seconds
     And I fill in "Confirmation" with "cucumber"
-    And I sleep for 2 seconds
+    And I sleep for 1 seconds
     And I press "Register"
     Then I should see "Welcome to Beyt el Mouneh"
     And I follow "Profile"
@@ -77,7 +77,7 @@ Feature: shopping cart feature
     And I press "Checkout"
 
     Then I should see "Please Update or Confirm Your Order"
-    And I sleep for 5 seconds
+    And I sleep for 2 seconds
 
     #Then show me the page
 
@@ -88,10 +88,20 @@ Feature: shopping cart feature
     And the "order_name" field should contain "Joe Shmoe"
     And the "order_email" field should contain "Joe@Shmoe.com"
 
-    #And the "order_name" element should have a value of "Joe Shmoe"
-    #And the "order_email" element should have a value of "Joe@Shmoe.com"
+    And I select "Cash on Delivery (COD)" from "Pay type"
 
     And I press "Place your order"
+    And I should see "Thank you for your order."
 
+    #Then show me the page
 
+    # logged in user continues shopping
+    When I am on the home page
+    And I press "Add to Cart"
+    Then I should see "Your Cart"
+    Then I should see "Total"
+    And I press "Checkout"
+    And I select "Cash on Delivery (COD)" from "Pay type"
+    And I press "Place your order"
+    Then I should not see "Email has already been taken"
 
