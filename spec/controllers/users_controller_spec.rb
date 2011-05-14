@@ -5,28 +5,22 @@ describe UsersController do
 
   describe "GET 'new'" do
     it "should be successful" do
-      #get 'new'
       visit "users/new"
       response.should be_success
     end
 
     it "should have the right title" do
-      #get 'new'
-      #response.should have_selector("title", :content => "Register")
       visit "users/new"
       page.should have_selector("title", :text => "Register")
     end
 
-    it "should have a name field" do
-      #get :new
-      #response.should have_selector("input[name='user[name]'][type='text']")
+    it "should have a name fields" do
       visit('/users/new')
-      page.should have_selector("input[name='user[name]'][type='text']")
+      page.should have_selector("input[name='user[first_name]'][type='text']")
+      page.should have_selector("input[name='user[last_name]'][type='text']")
     end
 
     it "should have an email field" do
-      #get :new
-      #response.should have_selector("input[name='user[email]'][type='text']")
       visit('/users/new')
       page.should have_selector("input[name='user[email]'][type='text']")
     end
@@ -69,17 +63,14 @@ describe UsersController do
     end
 
     it "should have the right title" do
-      #get :show, :id => @user
-      #response.should have_selector("title", :content => @user.name)
       visit "/users/#{@user.id}"
       page.should have_selector("title", :text => @user.name)
     end
 
     it "should include the user's name" do
-      #get :show, :id => @user
-      #response.should have_selector("h1", :content => @user.name)
       visit("/users/#{@user.id}")
-      page.should have_selector("h1", :text => @user.name)
+      page.should have_selector("h1", :text => @user.first_name)
+      page.should have_selector("h1", :text => @user.last_name)
     end
 
     #it "should have a profile image" do
@@ -113,7 +104,14 @@ describe UsersController do
         #    config.mode = :rails
         #end
 
-        @attr = { :name => "", :email => "", :password => "",
+        @attr = { :first_name => "",
+                  :last_name => "",
+                  :email => "",
+                  :address => "",
+                  :phone => "",
+                  :city => "",
+                  :country => "",
+                  :password => "",
                   :password_confirmation => "" }
       end
 
@@ -131,39 +129,49 @@ describe UsersController do
         page.should have_selector("title", :text => "Login")
       end
 
-      #it "should render the 'new' page" do
-      #  post :create, :user => @attr
-      #  response.should render_template('new')
-      #  response.body.should include("error_explanation")
-      #  #response.should have_selector("div", :id => "error_explanation")
-      #  response.should have_selector("ul>li", :content => "Name can't be blank")
-      #  response.should have_selector("ul>li", :content => "Email can't be blank")
-      #  response.should have_selector("ul>li", :content => "Email is invalid")
-      #  response.should have_selector("ul>li", :content => "Password can't be blank")
-      #  response.should have_selector("ul>li", :content => "Password is too short (minimum is 6 characters)")
-      #end
+      it "should render the 'new' page" do
+        pending 'fix this'
+        post :create, :user => @attr
+        response.should render_template('new')
+        response.body.should include("error_explanation")
+        #response.should have_selector("div", :id => "error_explanation")
+        response.should have_selector("ul>li", :content => "Name can't be blank")
+        response.should have_selector("ul>li", :content => "Email can't be blank")
+        response.should have_selector("ul>li", :content => "Email is invalid")
+        response.should have_selector("ul>li", :content => "Password can't be blank")
+        response.should have_selector("ul>li", :content => "Password is too short (minimum is 6 characters)")
+      end
 
-      #it "should reset the password field in the 'new' page" do
-      #  post :create, :user => @attr.merge(:password => "valid_password")
-      #  response.should render_template('new')
-      #  #response.should have_selector("input[name='user[password]'][type='password'][value='']")
-      #  #response.body.should include("input[name='user[password]'][type='password'][value='']")
-      #  save_and_open_page
-      #  page.should have_content("input[name='user[password]'][type='password'][value='']")
-      #end
+      it "should reset the password field in the 'new' page" do
+        pending 'fix this'
+        post :create, :user => @attr.merge(:password => "valid_password")
+        response.should render_template('new')
+        #response.should have_selector("input[name='user[password]'][type='password'][value='']")
+        #response.body.should include("input[name='user[password]'][type='password'][value='']")
+        save_and_open_page
+        page.should have_content("input[name='user[password]'][type='password'][value='']")
+      end
 
-      #it "should reset the password confirmation field in the 'new' page" do
-      #  post :create, :user => @attr.merge(:password_confirmation => "valid_password")
-      #  response.should render_template('new')
-      #  response.should have_selector("input[name='user[password_confirmation]'][type='password'][value='']")
-      #end
+      it "should reset the password confirmation field in the 'new' page" do
+        pending 'fix this'
+        post :create, :user => @attr.merge(:password_confirmation => "valid_password")
+        response.should render_template('new')
+        response.should have_selector("input[name='user[password_confirmation]'][type='password'][value='']")
+      end
     end
 
     describe "success" do
 
       before(:each) do
-        @attr = { :name => "New User", :email => "user@example.com",
-                  :password => "foobar", :password_confirmation => "foobar" }
+        @attr = { :first_name => "New",
+                  :last_name  => "User",
+                  :email => "user@example.com",
+                  :address    => "13 rue edisson",
+                  :phone      => "011-111-2222",
+                  :city       => "Beirut",
+                  :country    => "Lebanon",
+                  :password => "foobar",
+                  :password_confirmation => "foobar" }
       end
 
       it "should create a user" do
@@ -243,7 +251,16 @@ describe UsersController do
     describe "failure" do
 
       before(:each) do
-        @attr = { :email => "", :name => "", :password => "",
+        #@attr = { :email => "", :name => "", :password => "",
+        #          :password_confirmation => "" }
+        @attr = { :first_name => "",
+                  :last_name => "",
+                  :email => "",
+                  :address => "",
+                  :phone => "",
+                  :city => "",
+                  :country => "",
+                  :password => "",
                   :password_confirmation => "" }
       end
 
@@ -271,15 +288,25 @@ describe UsersController do
     describe "success" do
 
       before(:each) do
-        @attr = { :name => "New Name", :email => "user@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz" }
+        #@attr = { :name => "New Name", :email => "user@example.org",
+        #          :password => "barbaz", :password_confirmation => "barbaz" }
+        @attr = { :first_name => "New",
+                  :last_name  => "Name",
+                  :email => "user@example.com",
+                  :address    => "13 rue edisson",
+                  :phone      => "011-111-2222",
+                  :city       => "Beirut",
+                  :country    => "Lebanon",
+                  :password => "barbaz",
+                  :password_confirmation => "barbaz" }
       end
 
       it "should change the user's attributes" do
         #put :update, :id => @user, :user => @attr
         integration_update_user(@user, @attr)
         @user.reload
-        @user.name.should  == @attr[:name]
+        @user.first_name.should  == @attr[:first_name]
+        @user.last_name.should  == @attr[:last_name]
         @user.email.should == @attr[:email]
       end
 
@@ -355,8 +382,8 @@ describe UsersController do
       before(:each) do
         @user = Factory(:user)
         test_sign_in(@user)
-        second = Factory(:user, :name => "Bob", :email => "another@example.com")
-        third  = Factory(:user, :name => "Ben", :email => "another@example.net")
+        second = Factory(:user, :first_name => "Bob", :email => "another@example.com")
+        third  = Factory(:user, :first_name => "Ben", :email => "another@example.net")
 
         @users = [@user, second, third]
         30.times do
@@ -381,7 +408,7 @@ describe UsersController do
         #get :index
         visit("/users")
         @users[0..2].each do |user|
-          page.should have_selector("li", :text => user.name)
+          page.should have_selector("li", :text => user.first_name)
         end
       end
 

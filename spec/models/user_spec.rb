@@ -3,12 +3,21 @@ require 'spec_helper'
 describe User do
 
   before(:each) do
-    @attr = {
-      :name => "Example User",
-      :email => "user@example.com",
-      :password => "foobar",
-      :password_confirmation => "foobar"
-    }
+    #@attr = {
+    #  :name => "Example User",
+    #  :email => "user@example.com",
+    #  :password => "foobar",
+    #  :password_confirmation => "foobar"
+    #}
+    @attr = { :first_name => "Example",
+              :last_name  => "User",
+              :email => "user@example.com",
+              :address    => "13 rue edisson",
+              :phone      => "011-111-2222",
+              :city       => "Beirut",
+              :country    => "Lebanon",
+              :password => "foobar",
+              :password_confirmation => "foobar" }
   end
 
   it "should create a new instance given valid attributes" do
@@ -16,7 +25,7 @@ describe User do
   end
 
   it "should require a name" do
-    no_name_user = User.new(@attr.merge(:name => ""))
+    no_name_user = User.new(@attr.merge(:first_name => ""))
     no_name_user.should_not be_valid
     no_name_user.valid?.should_not == true
   end
@@ -28,7 +37,7 @@ describe User do
 
   it "should reject names that are too long" do
     long_name = "a" * 51
-    long_name_user = User.new(@attr.merge(:name => long_name))
+    long_name_user = User.new(@attr.merge(:first_name => long_name))
     long_name_user.should_not be_valid
   end
 
@@ -259,8 +268,8 @@ describe User do
     end
 
     it "should destroy associated relatioinships" do
-      user_john = Factory(:user, :email => Factory.next(:email), :name => 'john')
-      user_tom  = Factory(:user, :email => Factory.next(:email), :name => 'tom')
+      user_john = Factory(:user, :email => Factory.next(:email), :first_name => 'john')
+      user_tom  = Factory(:user, :email => Factory.next(:email), :first_name => 'tom')
       rel_1 = @user.follow!(user_john)
       rel_2 = @user.follow!(user_tom)
       lambda do

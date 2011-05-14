@@ -9,8 +9,13 @@ describe "Users" do
       it "should make a new user" do
         lambda do
           visit signup_path
-          fill_in "Name",         :with => "Example User"
+          fill_in "First name",   :with => "Example"
+          fill_in "Last name",    :with => "User"
           fill_in "Email",        :with => "user@example.com"
+          fill_in "Address",      :with => "101 main st"
+          fill_in "Phone",        :with => "608-888-9990"
+          select  "Beirut",       :from => "City"
+          select  "Lebanon",      :from => "Country"
           fill_in "Password",     :with => "foobar"
           fill_in "Confirmation", :with => "foobar"
           click_button "Register"
@@ -28,8 +33,13 @@ describe "Users" do
       it "should not make a new user" do
         lambda do
           visit signup_path
-          fill_in "Name",         :with => ""
+          fill_in "First name",   :with => ""
+          fill_in "Last name",    :with => ""
           fill_in "Email",        :with => ""
+          fill_in "Address",      :with => ""
+          fill_in "Phone",        :with => ""
+          #select  "",             :from => "City"
+          #select  "",             :from => "Country"
           fill_in "Password",     :with => ""
           fill_in "Confirmation", :with => ""
           click_button "Register"

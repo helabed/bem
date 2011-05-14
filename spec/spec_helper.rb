@@ -40,11 +40,13 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # same as in login
   def test_sign_in(user)
     #controller.sign_in(user)
     integration_sign_in(user)
   end
 
+  # same as in login
   def integration_sign_in(user)
     visit signin_path
 #debugger
@@ -56,10 +58,16 @@ RSpec.configure do |config|
     #sleep 10
   end
 
+  # same as in register
   def integration_sign_up(user)
     visit signup_path
-    fill_in "Name",         :with => user.name
+    fill_in "First name",   :with => user.first_name
+    fill_in "Last name",    :with => user.last_name
     fill_in "Email",        :with => user.email
+    fill_in "Address",      :with => user.address
+    fill_in "Phone",        :with => user.phone
+    select  user.city,      :from => "City"
+    select  user.country,   :from => "Country"
     fill_in "Password",     :with => user.password
     fill_in "Confirmation", :with => user.password_confirmation
     click_button "Register"
@@ -67,8 +75,13 @@ RSpec.configure do |config|
 
   def integration_update_user(user, attr)
     visit edit_user_path(user)
-    fill_in "Name",         :with => attr[:name]
+    fill_in "First name",   :with => attr[:first_name]
+    fill_in "Last name",    :with => attr[:last_name]
     fill_in "Email",        :with => attr[:email]
+    fill_in "Address",      :with => attr[:address]
+    fill_in "Phone",        :with => attr[:phone]
+    select  attr[:city],    :from => "City"
+    select  attr[:country], :from => "Country"
     fill_in "Password",     :with => attr[:password]
     fill_in "Confirmation", :with => attr[:password_confirmation]
 #    save_and_open_page
