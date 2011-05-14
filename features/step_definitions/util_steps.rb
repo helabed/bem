@@ -46,3 +46,4 @@ Then /^there should be "([^\"]*)" (.*)$/ do |num_records, records|
   model_for(records).count.should == num_records.to_i
 end
 
+
