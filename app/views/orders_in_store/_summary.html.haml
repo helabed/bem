@@ -1,53 +1,53 @@
-= form_for(@order, :url => { :action => "create_in_store" }) do |f|
-  - if @order.errors.any?
-    %div{ :id => "error_explanation"}
-      %h2
-        = pluralize(@order.errors.count, "error")
-        prohibited this order from being saved:
-      %ul
-        - @order.errors.full_messages.each do |msg|
-          %li= msg
+%table
+  %tr
+    %td{:style => 'vertical-align: top'}
+      %h1
+        Please verify or update the items in your order
+      %div#ordered_items
+        = render(:partial => 'line_items/ordered_items')
+      %div{:style => 'align: center; vertical-align: bottom'}
+      = button_to "Continue Shopping", home_path
+  %tr
+    %td
+      %h1
+        Please verify or update your address and payment type for this order
+      = form_for(@order, :url => { :action => "create_in_store" }) do |f|
+        - if @order.errors.any?
+          %div{ :id => "error_explanation"}
+            %h2
+              = pluralize(@order.errors.count, "error")
+              prohibited this order from being saved:
+            %ul
+              - @order.errors.full_messages.each do |msg|
+                %li= msg
 
-  -u = current_user
-  %div{ :class => "field"}
-    = f.label 'Order name'
-    %br
-    - now = Time.now
-    - the_order_time = now.to_formatted_s(:long_ordinal) + ":#{now.sec}"
-    - the_order_name = "#{u.first_name} #{u.last_name}'s order on #{the_order_time}"
-    = f.text_field :name, :size => 40, :value => the_order_name, :disabled => false
+        -u = current_user
+        %div{ :class => "field"}
+          = f.label 'Order name'
+          %br
+          - now = Time.now
+          - the_order_time = now.to_formatted_s(:long_ordinal) + ":#{now.sec}"
+          - the_order_name = "#{u.first_name} #{u.last_name}'s order on #{the_order_time}"
+          = f.text_field :name, :size => 40, :value => the_order_name, :disabled => false
 
-  %div{ :class => "field"}
-    = f.label :email
-    %br
-    = f.text_field :email, :size => 40, :value => u.email, :disabled => false
+        %div{ :class => "field"}
+          = f.label :email
+          %br
+          = f.text_field :email, :size => 40, :value => u.email, :disabled => false
 
-  %div{ :class => "field"}
-    = f.label :address
-    %br
-    - order_address = u.address + "\n" + u.city +  "\n" + u.country +  "\n" + u.phone 
-    = f.text_area :address, :rows => 5, :cols => 40, :value => order_address, :disabled => false
+        %div{ :class => "field"}
+          = f.label :address
+          %br
+          - order_address = u.address + "\n" + u.city +  "\n" + u.country +  "\n" + u.phone 
+          = f.text_area :address, :rows => 4, :cols => 40, :value => order_address, :disabled => false
 
-  %div{ :class => "field"}
-    = f.label :pay_type
-    %br
-    = f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
+        %div{ :class => "field"}
+          = f.label :pay_type
+          %br
+          = f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
 
-  %br
+        %div{ :class => "actions", :style => 'align: center; vertical-align: bottom' }
+          = f.submit 'Place your order'
+      = button_to "Continue Shopping", home_path
 
-  %div{ :class => "actions" }
-    = f.submit 'Place your order'
-
-Or
-
-%br
-
-
-= button_to "Continue Shopping", home_path
-
-
-%br
-
-%div#ordered_items
-  = render(:partial => 'line_items/ordered_items')
 

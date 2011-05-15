@@ -13,5 +13,5 @@
 
 <%= button_to "Checkout", :action => 'new_in_store', :controller => :orders, :method => :get %>
 <%= button_to 'Empty cart', cart, :method => :delete,
-    :confirm => 'Are you sure?' %>
+    :confirm => "Press 'Ok' to delete all items from this cart, 'Cancel' to keep them" %>
 <% end %>

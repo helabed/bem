@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   before_filter :authenticate
-  before_filter :admin_user, :except => [:new_in_store, :edit_in_store, :create_in_store, :update_in_store]
+  before_filter :admin_user, :except => [:cart_in_store, :new_in_store, :edit_in_store, :create_in_store, :update_in_store]
 
   active_scaffold :order do |config|
     config.list.columns.exclude   :user
@@ -34,6 +34,24 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html { render 'orders_in_store/show', :layout => 'store' } # show.html.erb
+      format.xml  { render :xml => @order }
+    end
+  end
+
+  # GET /orders/cart
+  # GET /orders/cart.xml
+  def cart_in_store
+    @cart = current_cart
+      if @cart.line_items.empty?
+        redirect_to store_url, :notice => "Your cart is empty"
+      return
+    end
+
+    @order = Order.new
+
+    respond_to do |format|
+      format.html { render 'orders_in_store/cart', :layout => 'store' } # listing.html.erb
+      #format.html # new.html.erb
       format.xml  { render :xml => @order }
     end
   end
