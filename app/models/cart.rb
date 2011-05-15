@@ -23,3 +23,14 @@ class Cart < ActiveRecord::Base
     id
   end
 end
+
+# == Schema Information
+# Schema version: 20110513044037
+#
+# Table name: carts
+#
+#  id         :integer(4)      not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#
+

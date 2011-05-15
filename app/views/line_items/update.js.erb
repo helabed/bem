@@ -1,0 +1,5 @@
+$("#notice").hide();
+//if ($('#cart tr').length === 2) { $('#cart').show('blind', 1000); }
+//$('#ordered_items:hidden').fadeIn(2000);
+$('div#ordered_items').html("<%= escape_javascript(render(:partial => 'line_items/ordered_items')) %>");
+$('tr#current_ordered_item').css({'background-color':'#88ff88'}).animate({'background-color':'#EEFFEE'}, 2000);

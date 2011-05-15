@@ -36,3 +36,5 @@
   %div{ :class => "actions" }
     = f.submit 'Place your order'
 
+%div#ordered_items
+  = render(:partial => 'line_items/ordered_items')

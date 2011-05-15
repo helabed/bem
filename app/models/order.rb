@@ -20,3 +20,19 @@ class Order < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+# Schema version: 20110513044037
+#
+# Table name: orders
+#
+#  id         :integer(4)      not null, primary key
+#  name       :string(255)
+#  address    :text
+#  email      :string(255)
+#  pay_type   :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#  user_id    :integer(4)
+#
+

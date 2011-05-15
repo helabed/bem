@@ -131,18 +131,24 @@ class User < ActiveRecord::Base
 
 end
 
+
 # == Schema Information
-# Schema version: 20110418172341
+# Schema version: 20110513044037
 #
 # Table name: users
 #
 #  id                 :integer(4)      not null, primary key
-#  name               :string(255)
 #  email              :string(255)
 #  created_at         :datetime
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  admin              :boolean(1)
+#  first_name         :string(255)
+#  last_name          :string(255)
+#  address            :string(255)
+#  city               :string(255)
+#  country            :string(255)
+#  phone              :string(255)
 #
 

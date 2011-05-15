@@ -76,11 +76,16 @@ class LineItemsController < ApplicationController
   # PUT /line_items/1
   # PUT /line_items/1.xml
   def update
+    @cart = current_cart
     @line_item = LineItem.find(params[:id])
 
     respond_to do |format|
       if @line_item.update_attributes(params[:line_item])
         format.html { redirect_to(@line_item, :notice => 'Line item was successfully updated.') }
+        format.js   do
+          @current_item = @line_item
+          #redirect_to(store_url) 
+        end
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
