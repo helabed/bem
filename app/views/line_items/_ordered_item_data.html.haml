@@ -1,0 +1,8 @@
+%td
+  = form_for( ordered_item, :url => {:controller => 'line_items', :action => "update", :id => ordered_item.id}, :remote => true) do |f|
+    = f.text_field :quantity, :value => ordered_item.quantity, :size => 4
+    = f.submit 'Update'
+%td= ordered_item.product.title
+%td{ :class => "item_price"}= number_to_currency(ordered_item.total_price, :locale => :lb)
+= form_for(ordered_item, :url => {:controller => 'line_items', :action => "destroy", :id => ordered_item.id}, :remote => true) do |f|
+  %td= f.submit 'Delete'

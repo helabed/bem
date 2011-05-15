@@ -1,19 +1,6 @@
 -if ordered_item == @current_item
   %tr{:id => "current_ordered_item"}
-    = form_for( ordered_item, :url => {:controller => 'line_items', :action => "update", :id => ordered_item.id}, :remote => true) do |f|
-      %td= f.text_field :quantity, :value => ordered_item.quantity, :size => 4
-      %td= f.submit 'Update'
-    %td= ordered_item.product.title
-    %td{ :class => "item_price"}= number_to_currency(ordered_item.total_price, :locale => :lb)
-    = form_for(ordered_item, :url => {:controller => 'line_items', :action => "destroy", :id => ordered_item.id}, :remote => true) do |f|
-      %td= f.submit 'Delete'
+    =render(:partial => 'line_items/ordered_item_data', :locals => {:ordered_item => ordered_item})
 -else
   %tr
-    = form_for( ordered_item, :url => {:controller => 'line_items', :action => "update", :id => ordered_item.id}, :remote => true) do |f|
-      %td= f.text_field :quantity, :value => ordered_item.quantity, :size => 4
-      %td= f.submit 'Update'
-    %td= ordered_item.product.title
-    %td{ :class => "item_price"}= number_to_currency(ordered_item.total_price, :locale => :lb)
-    = form_for(ordered_item, :url => {:controller => 'line_items', :action => "destroy", :id => ordered_item.id}, :remote => true) do |f|
-      %td= f.submit 'Delete'
-
+    =render(:partial => 'line_items/ordered_item_data', :locals => {:ordered_item => ordered_item})

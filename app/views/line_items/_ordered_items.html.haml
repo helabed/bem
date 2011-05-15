@@ -3,13 +3,12 @@
 
 %table
   %tr
-    %th Quantity
-    %th Update
+    %th Quantity Update
     %th Item
     %th Price
     %th Delete
   = render(:partial => 'line_items/ordered_item', :collection => @cart.line_items)
   %tr{:class => "total_line"}
-    %td{:colspan => "3"}Total
+    %td{:colspan => "2"}Total
     %td{:class => "total_cell"}= number_to_currency(@cart.total_price, :locale => :lb)
 
