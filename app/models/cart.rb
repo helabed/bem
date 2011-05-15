@@ -11,6 +11,18 @@ class Cart < ActiveRecord::Base
     current_item
   end
 
+  def remove_line_item(line_item)
+    current_item = line_item
+    if current_item
+      current_item.quantity = 0
+      current_item.cart    = nil
+      current_item.product = nil
+      current_item.order   = nil
+      current_item.save
+    end
+    current_item
+  end
+
   def total_price
     line_items.to_a.sum { |item| item.total_price }
   end

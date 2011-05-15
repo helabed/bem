@@ -2,6 +2,8 @@ $("#notice").hide();
 // update ordered items list
 $('div#ordered_items').html("<%= escape_javascript(render(:partial => 'line_items/ordered_items')) %>");
 $('tr#current_ordered_item').css({'background-color':'#88ff88'}).animate({'background-color':'#EEFFEE'}, 2000);
+$('tr#current_ordered_item').hide();
 // update the side column cart
 $('#cart').html("<%= escape_javascript(render(@cart)) %>");
 $('#current_item').css({'background-color':'#88ff88'}).animate({'background-color':'#114411'}, 2000);
+$('#current_item').hide();

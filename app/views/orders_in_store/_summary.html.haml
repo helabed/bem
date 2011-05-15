@@ -33,8 +33,21 @@
     %br
     = f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
 
+  %br
+
   %div{ :class => "actions" }
     = f.submit 'Place your order'
 
+Or
+
+%br
+
+
+= button_to "Continue Shopping", home_path
+
+
+%br
+
 %div#ordered_items
   = render(:partial => 'line_items/ordered_items')
+
