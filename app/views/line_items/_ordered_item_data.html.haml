@@ -1,9 +1,9 @@
-%td
+%td{:style => 'padding: 5px'}
   = form_for( ordered_item, :url => {:controller => 'line_items', :action => "update", :id => ordered_item.id}, :remote => true) do |f|
     = f.text_field :quantity, :value => ordered_item.quantity, :size => 4
     = f.submit 'Update'
-%td= ordered_item.product.title
-%td= number_to_currency(ordered_item.product.price, :locale => :lb)
-%td= image_tag(ordered_item.product.image_url, :size => '32x32')
-%td{ :class => "item_price"}= number_to_currency(ordered_item.total_price, :locale => :lb)
-%td= button_to "Delete", ordered_item, :method => :delete, :confirm => "Press 'Ok' to delete item, 'Cancel' to keep it", :remote => true
+%td{:style => 'padding: 5px'}= ordered_item.product.title
+%td{:style => 'padding: 5px'}= number_to_currency(ordered_item.product.price, :locale => :lb)
+%td{:style => 'padding: 5px'}= image_tag(ordered_item.product.image_url, :size => '48x48')
+%td{ :class => "item_price", :style => 'padding: 5px'}= number_to_currency(ordered_item.total_price, :locale => :lb)
+%td{:style => 'padding: 5px'}= button_to "Delete", ordered_item, :method => :delete, :confirm => "Press 'Ok' to delete this item, 'Cancel' to keep it", :remote => true

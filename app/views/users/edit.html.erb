@@ -1,12 +1,17 @@
-<h1>Edit user</h1>
+<div class="depot_form">
+  <fieldset>
+    <legend>Update your info</legend>
 
-<%= form_for(@user) do |f| %>
+    <%= form_for(@user) do |f| %>
 
-  <%= render 'fields', :f => f  %>
+      <%= render 'fields', :f => f  %>
 
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
+      <div class="actions">
+        <%= f.submit "Update" %>
+      </div>
+    <% end %>
+  </fieldset>
+</div>
+
 
 

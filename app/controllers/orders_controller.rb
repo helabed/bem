@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  before_filter :authenticate
+  before_filter :authenticate, :except => [:cart_in_store]
   before_filter :admin_user, :except => [:cart_in_store, :new_in_store, :edit_in_store, :create_in_store, :update_in_store]
 
   active_scaffold :order do |config|

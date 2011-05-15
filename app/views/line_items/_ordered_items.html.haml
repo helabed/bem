@@ -1,16 +1,16 @@
 %table
   %tr
-    %th Quantity Update
-    %th Item
-    %th
+    %th{:style => 'padding: 5px'} Quantity Update
+    %th{:style => 'padding: 5px'} Item
+    %th{:style => 'padding: 5px'}
       Unit
       %br
       Price
-    %th Picture
-    %th Price
-    %th Delete
+    %th{:style => 'padding: 5px'} Picture
+    %th{:style => 'padding: 5px'} Price
+    %th{:style => 'padding: 5px'} Delete
   = render(:partial => 'line_items/ordered_item', :collection => @cart.line_items)
   %tr{:class => "total_line"}
-    %td{:colspan => "4"}Total
-    %td{:class => "total_cell"}= number_to_currency(@cart.total_price, :locale => :lb)
+    %td{:colspan => "4", :style => 'padding: 5px'}Total
+    %td{:class => "total_cell", :style => 'padding: 5px'}= number_to_currency(@cart.total_price, :locale => :lb)
 
