@@ -36,7 +36,7 @@ Feature: shopping cart feature
     #And I press "OK"
 
     And I sleep for 5 seconds
-    Then I should not see "Your Cart"
+    Then I should not see "Total"
     And I sleep for 5 seconds
     Then there should be "0" line_items
 
