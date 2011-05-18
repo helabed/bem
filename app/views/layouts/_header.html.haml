@@ -1,0 +1,17 @@
+%header
+  = link_to logo, product_listing_path
+  %nav.round
+    %ul
+      %li= link_to "Home", home_path
+      %li= link_to "Products", product_listing_path
+      - if is_admin?
+        %li= link_to "Admin", products_path
+      - if signed_in?
+        %li= link_to "Users", users_path
+        %li= link_to "Profile", current_user
+        %li= link_to "Settings", edit_user_path(current_user)
+      %li= link_to "Help", help_path
+      - if signed_in?
+        %li= link_to "Sign out", signout_path, :method => :delete
+      - else
+        %li= link_to "Sign in", signin_path

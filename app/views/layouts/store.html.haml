@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %title
+      Beyt el Mouneh | #{"#{@title}"}
+    = stylesheet_link_tag "store", :media => "all"
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body#store
+    #logo
+      = image_tag("beyt_el_mouneh.jpg", :size => '90x60')
+    #banner
+      = @page_title || "Beyt el Mouneh Online Store"
+    - if Rails.env != 'production'
+      .water_mark
+        = "#{Rails.env}"
+    - else
+      .water_mark
+        Beta Testing
+    #columns
+      #side
+        - if @cart
+          = hidden_div_if(@cart.line_items.empty?, :id => "cart") do
+            = render @cart
+        %a{:href => "/"} Home
+        %br/
+        %a{:href => "/about"} About
+        %br/
+        %a{:href => "/contact"} Contact
+        %br/
+        %a{:href => "/cart"} Your Cart
+        %br/
+        %br/
+        - if signed_in?
+          %a{:href => "/signout"} Logout
+          %br/
+          = link_to "Profile", edit_user_path(current_user)
+          %br/
+        - else
+          %a{:href => "/signin"} Login
+          %br/
+          %a{:href => "/signup"} Register
+          %br/
+        - if is_admin?
+          %a{:href => "/products"} Admin
+          %br/
+      #main
+        - if not flash.empty?
+          %section.round
+            - flash.each do |key, value|
+              = content_tag(:div, value, :class => "flash #{key}")
+        = yield
