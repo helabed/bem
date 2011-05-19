@@ -1,0 +1,6 @@
+-if line_item == @current_item
+  %tr#current_item
+    =render(:partial => 'line_items/line_item_data', :locals => {:line_item => line_item})
+-else
+  %tr
+    =render(:partial => 'line_items/line_item_data', :locals => {:line_item => line_item})
