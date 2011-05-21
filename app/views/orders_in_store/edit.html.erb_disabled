@@ -1,6 +1,0 @@
-<h1>Editing order</h1>
-
-<%= render 'orders_in_store/form' %>
-
-<%= link_to 'Show', @order %> |
-<%= link_to 'Back', orders_path %>
