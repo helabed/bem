@@ -1,0 +1,9 @@
+.depot_form
+  %fieldset
+    %legend Register for a new account
+    = form_for(@user) do |f|
+      = render 'fields', :f => f
+      .actions
+        = f.submit "Register"
+    %p
+      Already a user? #{link_to "Login now!", signin_path}
