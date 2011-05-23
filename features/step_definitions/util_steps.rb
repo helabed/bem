@@ -47,3 +47,10 @@ Then /^there should be "([^\"]*)" (.*)$/ do |num_records, records|
 end
 
 
+When /^I press "([^"]*)" for "([^"]*)"$/ do |button, product|
+  #pending # express the regexp above with the code you wish you had
+  the_product = Product.find_by_title(product)
+  button_id = "button_for_product_id_#{the_product.id}"
+  click_button(button_id)
+end
+

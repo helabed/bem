@@ -1,7 +1,7 @@
 %td{:style => 'padding: 5px'}
   = form_for( ordered_item, :url => {:controller => 'line_items', :action => "update", :id => ordered_item.id}, :remote => true) do |f|
-    = f.text_field :quantity, :value => ordered_item.quantity, :size => 4
-    = f.submit 'Update'
+    = f.text_field :quantity, :value => ordered_item.quantity, :size => 4, :id => "ordered_item_quantity_field_for_ordered_item_id_#{ordered_item.id}"
+    = f.submit 'Update', :id => "ordered_item_update_button_for_ordered_item_id_#{ordered_item.id}"
 %td{:style => 'padding: 5px'}= ordered_item.product.title
 %td{:style => 'padding: 5px'}= number_to_currency(ordered_item.product.price, :locale => :lb)
 %td{:style => 'padding: 5px'}= image_tag(ordered_item.product.image_url, :size => '48x48')
