@@ -1,7 +1,8 @@
 %h1 Beyt el Mouneh's products
 - @products.each do |product|
   .entry
-    = image_tag(product.image_url)
+    -unless product.image_url.blank?
+      = image_tag(product.image_url)
     %h3= product.title
     = sanitize(product.description)
     .price_line
