@@ -22,6 +22,7 @@ rescue LoadError
 else
   namespace :rcov do
     Cucumber::Rake::Task.new(:cucumber_run) do |t|
+      t.cucumber_opts = %w{--format progress}
       t.rcov = true
       t.rcov_opts = %w{--rails --exclude osx\/objc,gems\/,spec\/,features\/ --aggregate coverage.data}
       t.rcov_opts << %[-o "coverage"]
