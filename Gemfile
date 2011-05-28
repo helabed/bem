@@ -47,6 +47,7 @@ group :development, :test do
   gem 'launchy'
   gem 'rcov'
   gem 'rcov_rails'
+  gem 'ruby-debug'
 end
 #end
 

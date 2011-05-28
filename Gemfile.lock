@@ -52,6 +52,7 @@ GEM
       capistrano (>= 1.0.0)
     childprocess (0.1.8)
       ffi (~> 1.0.6)
+    columnize (0.3.2)
     configuration (1.2.0)
     crack (0.1.8)
     cucumber (0.10.2)
@@ -93,6 +94,7 @@ GEM
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
+    linecache (0.43)
     looksee (1.0.2)
     mail (2.2.17)
       activesupport (>= 2.3.6)
@@ -152,6 +154,11 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.5.0)
+    ruby-debug (0.10.4)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.4.0)
+    ruby-debug-base (0.10.4)
+      linecache (>= 0.3)
     rubyzip (0.9.4)
     selenium-webdriver (0.2.0)
       childprocess (>= 0.1.7)
@@ -195,6 +202,7 @@ DEPENDENCIES
   rcov_rails
   rspec
   rspec-rails
+  ruby-debug
   web-app-theme
   will_paginate (= 3.0.pre2)
   wirble
