@@ -15,10 +15,12 @@ Feature: shopping cart feature
     Given the products database is seeded
     And I am on the home page
     And I sleep for 5 seconds
-    When I press "Add to Cart"
+    When I press "Add to Cart" for "Apples - misc."
     And I sleep for 5 seconds
-    And I press "Add to Cart"
+    And I press "Add to Cart" for "Brownberry wheat bread"
     And I sleep for 5 seconds
+    And I press "Add to Cart" for "Pita bread"
+    Then there should be "3" line_items
     Then I should see "Your Cart"
     Then I should see "Total"
     And I sleep for 5 seconds
@@ -29,11 +31,6 @@ Feature: shopping cart feature
     Then I should see "Please login to access this page"
     And I sleep for 5 seconds
     And I press "Empty cart" and skip alert window
-
-    #And I switch to alert window
-    #Then I should see "Are you sure?"
-    # press OK to confirm delete
-    #And I press "OK"
 
     And I sleep for 5 seconds
     Then I should not see "Total"
@@ -46,7 +43,12 @@ Feature: shopping cart feature
   Scenario: Non-logged in User adding items to shopping cart and regitering
     Given the products database is seeded
     And I am on the home page
-    When I press "Add to Cart"
+    When I press "Add to Cart" for "Apples - misc."
+    And I sleep for 5 seconds
+    And I press "Add to Cart" for "Brownberry wheat bread"
+    And I sleep for 5 seconds
+    And I press "Add to Cart" for "Pita bread"
+    Then there should be "3" line_items
     Then I should see "Your Cart"
     Then I should see "Total"
     And I sleep for 2 seconds
@@ -77,7 +79,15 @@ Feature: shopping cart feature
     And I press "Checkout"
 
     Then I should see "Please Update or Confirm Your Order"
+    And I fill in the update field of "Brownberry wheat bread" with "5"
+    And I sleep for 5 seconds
+    When I press "Update" for cart item "Brownberry wheat bread"
+    And I sleep for 5 seconds
+    Then there should be "3" line_items
     And I sleep for 2 seconds
+    When I press "Delete" for cart item "Apples - misc."
+    And I sleep for 5 seconds
+    Then there should be "2" line_items
 
     #Then show me the page
 
@@ -97,7 +107,7 @@ Feature: shopping cart feature
 
     # logged in user continues shopping
     When I am on the home page
-    And I press "Add to Cart"
+    When I press "Add to Cart" for "Apples - misc."
     Then I should see "Your Cart"
     Then I should see "Total"
     And I press "Checkout"
