@@ -23,31 +23,34 @@
           = hidden_div_if(@cart.line_items.empty?, :id => "cart") do
             = render @cart
         %a{:href => "/"} Home
-        %br/
+        %br
         %a{:href => "/about"} About
-        %br/
+        %br
         %a{:href => "/contact"} Contact
-        %br/
+        %br
         %a{:href => "/cart"} Your Cart
-        %br/
-        %br/
+        %br
+        %br
         - if signed_in?
           %a{:href => "/signout"} Logout
-          %br/
+          %br
           = link_to "Profile", edit_user_path(current_user)
-          %br/
+          %br
         - else
           %a{:href => "/signin"} Login
-          %br/
+          %br
           %a{:href => "/signup"} Register
-          %br/
+          %br
         - if is_admin?
           %a{:href => "/products"} Admin
-          %br/
+          %br
+          %br
+        = link_to "All Categories", :controller => 'store', :action => 'index'
         %br
         -categories = Category.all
         -categories.each do |cat|
-          %li=cat.name
+          = link_to "#{cat.name}", :controller => 'store', :action => 'index', :category_id => cat.id
+          %br
       #main
         - if not flash.empty?
           %section.round
