@@ -44,6 +44,10 @@
         - if is_admin?
           %a{:href => "/products"} Admin
           %br/
+        %br
+        -categories = Category.all
+        -categories.each do |cat|
+          %li=cat.name
       #main
         - if not flash.empty?
           %section.round
