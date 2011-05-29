@@ -44,7 +44,7 @@
         - if is_admin?
           %a{:href => "/products"} Admin
           %br
-          %br
+        %br
         = link_to "All Categories", :controller => 'store', :action => 'index'
         %br
         -categories = Category.all
