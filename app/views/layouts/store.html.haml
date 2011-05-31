@@ -45,7 +45,7 @@
           %a{:href => "/products"} Admin
           %br
         %br
-        = link_to "All Categories", :controller => 'store', :action => 'index'
+        = link_to "All Products", :controller => 'store', :action => 'index'
         %br
         -categories = Category.all
         -categories.each do |cat|
