@@ -49,6 +49,8 @@
         %br
         -categories = Category.all
         -categories.each do |cat|
+          -(0..(cat.depth)).each do
+            %span &nbsp;
           = link_to "#{cat.name}", :controller => 'store', :action => 'index', :category_id => cat.id
           %br
       #main

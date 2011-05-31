@@ -1,4 +1,9 @@
-%h1 Beyt el Mouneh's products
+%h1
+  Beyt el Mouneh's products
+  -if @category
+    -@category.ancestors.each do |cat|
+      =" >> #{cat.name}"
+    =" >> #{@category.name}"
 - @products.each do |product|
   .entry
     -unless product.image_url.blank?
