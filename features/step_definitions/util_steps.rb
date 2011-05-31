@@ -22,6 +22,11 @@ Given /^the products database is seeded$/ do
 end
 
 
+When /^(?:|I )follow "([^"]*)" and skip alert window$/ do |link|
+  page.evaluate_script('window.confirm = function() { return true; }')
+  click_link(link)
+end
+
 When /^(?:|I )press "([^"]*)" and skip alert window$/ do |button|
   page.evaluate_script('window.confirm = function() { return true; }')
   #page.click("#{button}")
