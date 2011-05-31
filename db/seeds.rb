@@ -32,6 +32,12 @@ module SeedDatabase
       :image_url => '/images/pita_bread.jpg',
       :price => 750)
 
+    mankoushe = Product.create(:title => 'Mankoushe',
+      :description =>
+        %{Mankoushe be zatar},
+      :image_url => '/images/mankoushe.jpg',
+      :price => 950)
+
     brownberry_wheat = Product.create(:title => 'Brownberry wheat bread',
       :description =>
         %{one kilogram of wheat toast bread},
@@ -50,28 +56,112 @@ module SeedDatabase
       :image_url => '/images/foule_mudammas.jpg',
       :price => 899)
 
+    croissant_plain = Product.create(:title => 'Croissant - plain',
+      :description =>
+        %{tasty plain croissant backed in our specialty ovens},
+      :image_url => '/images/croissant_plain.jpg',
+      :price => 750)
+
+    croissant_chocolate = Product.create(:title => 'Croissant - chocolate',
+      :description =>
+        %{tasty chocolate croissant backed in our specialty ovens},
+      :image_url => '/images/croissant_chocolate.jpg',
+      :price => 950)
+
+    tide = Product.create(:title => 'Tide with bleach',
+      :description =>
+        %{large container of the number 1 detergent with bleach},
+      :image_url => '/images/tide.jpg',
+      :price => 18950)
+
+    lemon_shampoo = Product.create(:title => 'Tisserand Lemon shampoo',
+      :description =>
+        %{Tisserand all natural organic Lemon shampoo},
+      :image_url => '/images/lemon_shampoo.png',
+      :price => 9950)
+
+    helloum_cheese = Product.create(:title => 'Helloum Cheese - local',
+      :description =>
+        %{Teanail Helloum Cheese},
+      :image_url => '/images/helloum_cheese.jpg',
+      :price => 2950)
+
+    labaneh = Product.create(:title => 'Labaneh - local',
+      :description =>
+        %{Teanail Labaneh - 1 kg.},
+      :image_url => '/images/labneh.jpg',
+      :price => 2950)
+
+    lean_cuisine_pasta_chicken = Product.create(:title => 'Pasta chicken',
+      :description =>
+        %{Lean Cuisine Bowe tie pasta chciken},
+      :image_url => '/images/lean_cuisine_pasta_chicken.jpg',
+      :price => 3950)
+
+    cucumber = Product.create(:title => 'Cucumbers',
+      :description =>
+        %{Fresh cucumber - 1 kg.},
+      :image_url => '/images/cucumbers.jpg',
+      :price => 950)
+
+    tomato = Product.create(:title => 'Tomatoes',
+      :description =>
+        %{Fresh tomato - 1 kg.},
+      :image_url => '/images/tomatoes.jpg',
+      :price => 1550)
+
+    green_bean = Product.create(:title => 'Green Beans',
+      :description =>
+        %{Fresh green beans - 1 kg.},
+      :image_url => '/images/green_beans.jpg',
+      :price => 1250)
+
+    coke = Product.create(:title => 'Coca Cola Classic',
+      :description =>
+        %{Coca Cola Classic - 1 can},
+      :image_url => '/images/coke.jpg',
+      :price => 1250)
+
+    seven_up = Product.create(:title => '7 Up',
+      :description =>
+        %{7 Up lemon drink - 1 can},
+      :image_url => '/images/seven_up.jpg',
+      :price => 1250)
 
     ################# Categories table #################
     breads_and_croissants = Category.create(:name => 'Breads and Croissants')
       breads = breads_and_croissants.children.create(:name => 'Breads')
+        breads.products << mankoushe
         white_bread = breads.children.create(:name => 'White Bread')
           white_bread.products << pita
           white_bread.products << brownberry_white
         dark_bread = breads.children.create(:name => 'Dark Bread')
           dark_bread.products << brownberry_wheat
-      breads_and_croissants.children.create(:name => 'Croissants')
+      croissants = breads_and_croissants.children.create(:name => 'Croissants')
+        croissants.products << croissant_plain
+        croissants.products << croissant_chocolate
 
     detergents = Category.create(:name => 'Detergents')
+      detergents.products << tide
     personal_hygiene = Category.create(:name => 'Personal Hygiene')
+      personal_hygiene.products << lemon_shampoo
     groceries_and_canned_food = Category.create(:name => 'Groceries and Canned Foods')
       groceries_and_canned_food.products << foule
     milk_and_cheese = Category.create(:name => 'Milk and Cheese')
+      milk_and_cheese.products << helloum_cheese
+      milk_and_cheese.products << labaneh
     frozen_foods = Category.create(:name => 'Frozen Foods')
+      frozen_foods.products << lean_cuisine_pasta_chicken
     fruits = Category.create(:name => 'Fruits')
       fruits.products << apples
       fruits.products << oranges
     vegetables = Category.create(:name => 'Vegetables')
+      vegetables.products << cucumber
+      vegetables.products << tomato
+      vegetables.products << green_bean
     drinks = Category.create(:name => 'Drinks')
+      drinks.products << coke
+      drinks.products << seven_up
     sweets_and_snacks = Category.create(:name => 'Sweets and Snacks')
     cigarettes_and_tobaccos = Category.create(:name => 'Cigarettes and Tobaccos')
 
