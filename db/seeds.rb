@@ -128,6 +128,36 @@ module SeedDatabase
       :image_url => '/images/seven_up.jpg',
       :price => 1250)
 
+    baklava = Product.create(:title => 'Baklava',
+      :description =>
+        %{Delicious baklava ready to eat - 1 kg.},
+      :image_url => '/images/baklava.jpg',
+      :price => 8250)
+
+    marlboro = Product.create(:title => 'Marlboro Cigarettes',
+      :description =>
+        %{Malboro cigarettes - 1 pack},
+      :image_url => '/images/marlboro.jpg',
+      :price => 5550)
+
+    rothmans = Product.create(:title => 'Rothmans Cigarettes',
+      :description =>
+        %{Rothmans cigarettes - 1 pack},
+      :image_url => '/images/rothmans.gif',
+      :price => 5950)
+
+    kent = Product.create(:title => 'Kent Cigarettes',
+      :description =>
+        %{Kent cigarettes - 1 pack},
+      :image_url => '/images/kent.gif',
+      :price => 7250)
+
+    lucky_strike = Product.create(:title => 'Lucky Strike Cigarettes',
+      :description =>
+        %{Lucky Strike cigarettes - 1 pack},
+      :image_url => '/images/lucky_strike.gif',
+      :price => 3250)
+
     ################# Categories table #################
     breads_and_croissants = Category.create(:name => 'Breads and Croissants')
       breads = breads_and_croissants.children.create(:name => 'Breads')
@@ -163,7 +193,9 @@ module SeedDatabase
       drinks.products << coke
       drinks.products << seven_up
     sweets_and_snacks = Category.create(:name => 'Sweets and Snacks')
+      sweets_and_snacks.products << baklava
     cigarettes_and_tobaccos = Category.create(:name => 'Cigarettes and Tobaccos')
+      cigarettes_and_tobaccos.products << marlboro << lucky_strike << kent << rothmans
 
   end
 end
