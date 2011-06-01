@@ -8,6 +8,9 @@ class CategoriesController < ApplicationController
     config.list.columns.exclude   :position
     config.create.columns.exclude :position
     config.update.columns.exclude :position
+
+    config.create.columns.exclude :products
+    config.update.columns.exclude :products
   end
 
   def edit

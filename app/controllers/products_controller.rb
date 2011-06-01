@@ -8,6 +8,8 @@ class ProductsController < ApplicationController
 
     config.create.columns.exclude :line_items
     config.update.columns.exclude :line_items
+
+    config.columns[:category].form_ui = :select
   end
 
   def index
