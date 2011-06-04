@@ -246,3 +246,14 @@ display: inline;
   font-size: 12px;
   list-style: square;
 }
+
+
+.nested_categories {
+  margin-left: 10px;
+}
+
+/* uncomment block below if you want to restrict the nesting left margin up to say five level deep */
+/*
+.nested_categories .nested_categories .nested_categories.nested_categories  .nested_categories {
+  margin-left: 0;
+}*/
