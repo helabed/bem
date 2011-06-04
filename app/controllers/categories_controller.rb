@@ -11,6 +11,8 @@ class CategoriesController < ApplicationController
 
     config.create.columns.exclude :products
     config.update.columns.exclude :products
+
+    config.create.columns << :parent
   end
 
   def edit
@@ -33,4 +35,9 @@ class CategoriesController < ApplicationController
       record.send("#{nested.scope}").send(:<<, parent) unless parent.nil?
     end
   end
+
+  #def conditions_for_collection
+  #  #['ORDER BY (?)', 'name']
+  #  Category.order(:name)
+  #end
 end 
