@@ -50,8 +50,7 @@
         -categories = Category.all
         -categories.each do |cat|
           -if cat.is_root?
-            = link_to "#{cat.name}", :controller => 'store', :action => 'index', :category_id => cat.id
-            %br
+            = content_tag(:div, link_to("#{cat.name}", {:controller => 'store', :action => 'index', :category_id => cat.id}), :class => 'categories')
             -if cat.has_children?
               = display_sub_categories(cat.children)
 
