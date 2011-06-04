@@ -13,6 +13,11 @@ class CategoriesController < ApplicationController
     config.update.columns.exclude :products
 
     config.create.columns << :parent
+
+      # from http://vhochstein.wordpress.com/2011/01/21/activescaffold-refresh-list-after-crud/
+    config.create.refresh_list = true
+    config.update.refresh_list = true
+
   end
 
   def edit
@@ -40,4 +45,26 @@ class CategoriesController < ApplicationController
   #  #['ORDER BY (?)', 'name']
   #  Category.order(:name)
   #end
+
+  def before_create_save(record)
+    set_parent_id_for_active_scaffold_record record, params
+  end
+
+  def after_create_save(record)
+    #list and return
+  end
+
+  def after_update_save(record)
+    #list and return
+  end
+
+
+  def set_parent_id_for_active_scaffold_record record, params
+    if record and params and params['record']
+      parent_id = params['record']['parent_id']
+      if parent_id
+        record.parent_id = parent_id
+      end
+    end
+  end
 end 
