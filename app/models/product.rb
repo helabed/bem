@@ -2,6 +2,8 @@ class Product < ActiveRecord::Base
   belongs_to :category
   has_many :line_items
 
+  mount_uploader :image, ImageUploader
+
   default_scope :order => 'title'
 
   validates :title, :description, :price, :presence => true

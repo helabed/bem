@@ -13,6 +13,9 @@ gem 'capistrano-ext'
 gem 'jquery-rails'
 gem 'faker'
 
+gem 'carrierwave'
+gem 'rmagick'
+
 group :production do
   gem 'mysql2'
 end

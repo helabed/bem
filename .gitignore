@@ -12,7 +12,6 @@ doc/models.png
 log/*.log
 *.log
 metrics
-public/system
 roodi.yml
 storage
 tmp/**/*

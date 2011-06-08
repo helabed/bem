@@ -6,6 +6,6 @@
 %td{:style => 'padding: 5px'}= number_to_currency(ordered_item.product.price, :locale => :lb)
 %td{:style => 'padding: 5px'}
   -unless ordered_item.product.image_url.blank?
-    = image_tag(ordered_item.product.image_url, :size => '48x48')
+    = image_tag(ordered_item.product.image_url(:thumb_small), :size => '50x50')
 %td{ :class => "item_price", :style => 'padding: 5px'}= number_to_currency(ordered_item.total_price, :locale => :lb)
 %td{:style => 'padding: 5px'}= button_to "Delete", ordered_item, :method => :delete, :confirm => "Press 'Ok' to delete this item, 'Cancel' to keep it", :remote => true
