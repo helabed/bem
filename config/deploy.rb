@@ -6,11 +6,8 @@ require 'capistrano/ext/multistage'
 
 
 # ============================================================================================================
-# Use 'cap demo    db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/demo/'
-# Use 'cap sandbox db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/sandbox/'
 # Use 'cap staging db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/staging/'
-# Use 'cap standby db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/standby/'
-# Use 'cap secure  db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/secure/'
+# Use 'cap production db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/secure/'
 # ============================================================================================================
 namespace :db do
   desc 'Dumps the database to db/data.yml on the remote server'
@@ -66,11 +63,11 @@ end
 #   The programmer also gets a backup copy of the dumped file so that it can be safely stored on the Git 
 #   repository on nt_data/db_backups. (not a perfect backup system, but works for small databases ).
 #
-# Use './script/bem/refresh_all_databases_from_prod.sh' to refresh the standby, sandbox, and staging DB from
+# Use './script/bem/refresh_all_databases_from_production.sh' to refresh the standby, sandbox, and staging DB from
 #           the prod DB and to get a copy of the *.sql.tar.gz sql dump file in 'db/temp_backups/' on programmer's machine.
 #           the demo DB is not refreshed because it contains demonstration/experimental data that we don't want to change/lose.
 #
-# Use './script/bem/refresh_staging_db_from_prod.sh' to refresh the staging DB from the prod DB
+# Use './script/bem/refresh_staging_db_from_production.sh' to refresh the staging DB from the prod DB
 #           and to get a copy of the *.sql.tar.gz sql dump file in 'db/temp_backups/' on programmer's machine.
 #
 # ============================================================================================================
@@ -166,7 +163,7 @@ namespace :refresh do
       run " echo 'newest file is: #{backups}/#{file_with_latest_timestamp}'"
       run "cd #{backups} && " +
         " tar -xvzf #{file_with_latest_timestamp}  && " +
-        " mysql -urubywebw_bem -prachid -hlocalhost rubywebw_bem < bem_prod.sql && " +
+        " mysql -urubywebw_bem_sta -prachid -hlocalhost rubywebw_bemstaging < bem_prod.sql && " +
         " rm bem_prod.sql"
 
       run " echo '======================================================================='"

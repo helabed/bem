@@ -37,6 +37,7 @@ set :domain_short, 'prod'
 set :application, 'bem'
 set :github_user, 'helabed'
 set :github_domain, 'github.com'
+set :rails_env, 'production'
 
 # file paths
 # The following repository setting would have worked if I had a git
