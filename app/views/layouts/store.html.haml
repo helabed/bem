@@ -15,8 +15,12 @@
       .water_mark
         = "#{Rails.env}"
     - else
-      .water_mark
-        Beta Testing
+      - if Rails.root.to_s.include?('staging')
+        .water_mark
+          Staging Server
+      -else
+        .water_mark
+          Production Beta Testing
     #columns
       #side
         - if @cart

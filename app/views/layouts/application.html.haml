@@ -17,6 +17,10 @@
       -if Rails.env != 'production'
         .water_mark
           ="#{Rails.env}"
+      -else
+        - if Rails.root.to_s.include?('staging')
+          .water_mark
+            Staging Server
       .admin_mark
         Beyt el Mouneh Administration
       #top
