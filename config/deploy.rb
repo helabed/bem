@@ -23,7 +23,7 @@ namespace :db do
   task :remote_db_dump, :roles => :db, :only => { :primary => true } do
 
     run "cd #{deploy_to}/#{current_dir} && " +
-      "rake RAILS_ENV=#{rails_env} db:data:dump --trace" 
+      "rake RAILS_ENV=production db:data:dump --trace"
 
     run "cd #{deploy_to}/#{current_dir}/db/  && " +
       " tar -cvzf #{timestamped_data_file_name} data.yml && " +
