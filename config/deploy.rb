@@ -16,14 +16,14 @@ set :staging_db_pass, 'rachid'
 
 # ============================================================================================================
 # Use 'cap staging db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/staging/'
-# Use 'cap production db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/secure/'
+# Use 'cap production db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/prod/'
 # ============================================================================================================
 namespace :db do
   desc 'Dumps the database to db/data.yml on the remote server'
   task :remote_db_dump, :roles => :db, :only => { :primary => true } do
 
     run "cd #{deploy_to}/#{current_dir} && " +
-      "rake RAILS_ENV=#{rails_env} db:dump --trace" 
+      "rake RAILS_ENV=#{rails_env} db:data:dump --trace" 
 
     run "cd #{deploy_to}/#{current_dir}/db/  && " +
       " tar -cvzf #{timestamped_data_file_name} data.yml && " +

@@ -16,6 +16,8 @@ gem 'faker'
 gem 'carrierwave'
 gem 'rmagick'
 
+gem 'yaml_db'
+
 group :production do
   gem 'mysql2'
 end
