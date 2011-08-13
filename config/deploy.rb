@@ -4,6 +4,15 @@ set :backups, '/home/rubywebw/backups'
 
 require 'capistrano/ext/multistage'
 
+set :production_db_file, 'bem_prod.sql'
+
+set :production_db_name, 'rubywebw_bem'
+set :production_db_user, 'rubywebw_bem'
+set :production_db_pass, 'rachid'
+
+set :staging_db_name, 'rubywebw_bemstaging'
+set :staging_db_user, 'rubywebw_bem_sta'
+set :staging_db_pass, 'rachid'
 
 # ============================================================================================================
 # Use 'cap staging db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/staging/'
@@ -81,9 +90,9 @@ namespace :refresh do
       run " echo '======================================================================='"
 
       run "cd #{backups} && " +
-        " mysqldump -urubywebw_bem -prachid -hlocalhost  rubywebw_bem -rbem_#{domain_short}.sql && " +
-        " tar -cvzf #{timestamped_file_name} bem_#{domain_short}.sql && " +
-        " rm bem_prod.sql"
+        " mysqldump -u#{production_db_user} -p#{production_db_pass} -hlocalhost  #{production_db_name} -r#{production_db_file} && " +
+        " tar -cvzf #{timestamped_file_name} #{production_db_file} && " +
+        " rm #{production_db_file}"
     else
       run " echo 'domain is: #{domain}'... ignoring this task"
       run " echo 'rails env is: #{rails_env}'... ignoring this task"
@@ -161,10 +170,13 @@ namespace :refresh do
       newest_file = Dir.glob("#{local_dir}/bem_prod_db_upTo_*__at__*.sql.tar.gz").max {|a,b| File::ctime(a) <=> File::ctime(b)}
       file_with_latest_timestamp = newest_file.split('/').last  # how to determine latest *.sql.tar.gz file name ??
       run " echo 'newest file is: #{backups}/#{file_with_latest_timestamp}'"
+      db_user = "#{rails_env}_db_user"
+      db_pass = "#{rails_env}_db_pass"
+      db_name = "#{rails_env}_db_name"
       run "cd #{backups} && " +
         " tar -xvzf #{file_with_latest_timestamp}  && " +
-        " mysql -urubywebw_bem_sta -prachid -hlocalhost rubywebw_bemstaging < bem_prod.sql && " +
-        " rm bem_prod.sql"
+        " mysql -u#{send(db_user.to_sym)} -p#{send(db_pass.to_sym)} -hlocalhost #{send(db_name.to_sym)} < #{production_db_file} && " +
+        " rm #{production_db_file}"
 
       run " echo '======================================================================='"
       run " echo '==SUCCESS WITH REFRESH TO   #{domain}  RAILS_ENV = #{rails_env} ======='"
