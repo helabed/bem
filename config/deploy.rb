@@ -4,16 +4,6 @@ set :backups, '/home/rubywebw/backups'
 
 require 'capistrano/ext/multistage'
 
-set :production_db_file, 'bem_prod.sql'
-
-set :production_db_name, 'rubywebw_bem'
-set :production_db_user, 'rubywebw_bem'
-set :production_db_pass, 'rachid'
-
-set :staging_db_name, 'rubywebw_bemstaging'
-set :staging_db_user, 'rubywebw_bem_sta'
-set :staging_db_pass, 'rachid'
-
 # ============================================================================================================
 # Use 'cap staging db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/staging/'
 # Use 'cap production db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/prod/'
@@ -81,6 +71,46 @@ end
 #
 # ============================================================================================================
 namespace :refresh do
+  desc "Get misc. DB properties from remote servers"
+  task :acquire_db_properties, :roles => :db, :only => { :primary => true } do
+
+    set :production_db_file, 'bem_prod.sql'
+
+    if domain_short == 'prod'
+      run " echo '======================================================================='"
+      run " echo '=================   Acquire Production     DB properties   #{domain}    =============='"
+      run " echo '======================================================================='"
+
+      db_props_hash = get_db_properties_from_remote_server(domain,options)
+
+      puts ""
+      puts ""
+      puts "db_props_hash.inspect: #{db_props_hash.inspect}"
+      puts ""
+      puts ""
+
+      set :production_db_name, db_props_hash['database']
+      set :production_db_user, db_props_hash['username']
+      set :production_db_pass, db_props_hash['password']
+    else
+      run " echo '======================================================================='"
+      run " echo '=================   Acquire DB properties for  #{domain}    =============='"
+      run " echo '======================================================================='"
+
+      db_props_hash = get_db_properties_from_remote_server(domain,options)
+
+      puts ""
+      puts ""
+      puts "db_props_hash.inspect: #{db_props_hash.inspect}"
+      puts ""
+      puts ""
+
+      set "#{rails_env}_db_name".to_sym, db_props_hash['database']
+      set "#{rails_env}_db_user".to_sym, db_props_hash['username']
+      set "#{rails_env}_db_pass".to_sym, db_props_hash['password']
+    end
+  end
+
   desc "Dumps the prod database to #{backups} on the maple remote server"
   task :prod_db_dump, :roles => :db, :only => { :primary => true } do
     if domain_short == 'prod'
@@ -170,9 +200,12 @@ namespace :refresh do
       newest_file = Dir.glob("#{local_dir}/bem_prod_db_upTo_*__at__*.sql.tar.gz").max {|a,b| File::ctime(a) <=> File::ctime(b)}
       file_with_latest_timestamp = newest_file.split('/').last  # how to determine latest *.sql.tar.gz file name ??
       run " echo 'newest file is: #{backups}/#{file_with_latest_timestamp}'"
+
+
+      db_name = "#{rails_env}_db_name"
       db_user = "#{rails_env}_db_user"
       db_pass = "#{rails_env}_db_pass"
-      db_name = "#{rails_env}_db_name"
+
       run "cd #{backups} && " +
         " tar -xvzf #{file_with_latest_timestamp}  && " +
         " mysql -u#{send(db_user.to_sym)} -p#{send(db_pass.to_sym)} -hlocalhost #{send(db_name.to_sym)} < #{production_db_file} && " +
@@ -190,6 +223,7 @@ namespace :refresh do
     set :timestamped_file_name, Time.now.strftime('bem_prod_db_upTo_%Y_%m_%d__%a__at___%H_%M_%S_.sql.tar.gz')
     run " echo 'timestamped_file_name is: #{backups}/#{timestamped_file_name}'"
 
+    acquire_db_properties
     prod_db_dump
     prod_db_download
     prod_db_copy
@@ -280,6 +314,28 @@ end  # end of refresh namespace
 
 
 
+def get_db_properties_from_remote_server domain, options
+  run " echo '======================================================================='"
+  run " echo '======= #{domain} database.yml Download to local/programmer machine   =========='"
+  run " echo '======================================================================='"
+
+  set :shared_folder, "/home/rubywebw/#{domain}/shared"
+  set :database_yml_file, 'database.yml'
+
+  run "cd #{shared_folder} && " +
+    " ls #{shared_folder}/#{database_yml_file}"
+  execute_on_servers(options) do |servers|
+    self.sessions[servers.first].sftp.connect do |tsftp|
+      tsftp.download!("#{shared_folder}/#{database_yml_file}", "db/temp_backups/#{database_yml_file}")
+    end
+  end
+
+  production_hash = YAML.load(File.read("db/temp_backups/#{database_yml_file}"))
+
+  File.delete "db/temp_backups/#{database_yml_file}"  # cleanup downloaded file
+
+  db_props_hash = production_hash['production']
+end
 
 
 
