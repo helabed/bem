@@ -84,6 +84,12 @@ class LineItemsController < ApplicationController
   def update
     @cart = current_cart
     @line_item = LineItem.find(params[:id])
+    if params[:line_item]
+      quantity = params[:line_item][:quantity]
+      if quantity and (quantity.to_i < 0)
+        params[:line_item][:quantity] = '0'
+      end
+    end
 
     respond_to do |format|
       if @line_item.update_attributes(params[:line_item])

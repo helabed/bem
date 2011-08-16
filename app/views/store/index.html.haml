@@ -18,5 +18,5 @@
         = form_for( 'add_to_cart', :url => {:controller => 'line_items', :action => "create", :product_id => product.id}, :remote => true) do |f|
           = f.submit 'Add to Cart', :id => "button_for_product_id_#{product.id}"
           = image_tag('minus_sign.gif', :width => '14px', :height => '14px', :class => 'minus_one_item', :id => "minus_one_id_for_prod_#{product.id}", :style => 'float:none; width:14px; margin-top:0px; margin-bottom:0px; margin-right:0px; margin-left:10px')
-          = f.text_field :quantity, :value => '1', :size => 2, :id => "ordered_item_quantity_for_prod_id_#{product.id}"
+          = f.text_field :quantity, :value => '1', :size => 2, :id => "ordered_item_quantity_field_id_#{product.id}"
           = image_tag('plus_sign.gif', :width => '14px', :height => '14px', :class => 'plus_one_item', :id => "plus_one_id_for_prod_#{product.id}", :style => 'float:none; width:14px; margin-top:0px; margin-bottom:0px; margin-right:10px; margin-left:0px')
