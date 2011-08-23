@@ -1,11 +1,11 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
-gem "rails", "3.0.3"
+gem "rails", "3.0.10"
 
 gem 'haml', '3.0.25'
 
-gem 'will_paginate', '3.0.pre2'
+gem 'will_paginate'
 
 gem 'capistrano'
 gem 'capistrano-ext'
@@ -41,7 +41,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'capybara', :path => 'vendor/cache/git/capybara'
+  gem 'capybara'
+  #gem 'capybara', :path => 'vendor/cache/git/capybara'
 #  if HOSTNAME == 'maple.site5.com'  # eventhough cap deploy should exclude :development and :test, it is not for some reason.
 #    gem 'capybara'
 #  else

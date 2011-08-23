@@ -5,12 +5,12 @@ describe UsersController do
 
   describe "GET 'new'" do
     it "should be successful" do
-      visit "users/new"
+      visit "/users/new"
       response.should be_success
     end
 
     it "should have the right title" do
-      visit "users/new"
+      visit "/users/new"
       page.should have_selector("title", :text => "Register")
     end
 
