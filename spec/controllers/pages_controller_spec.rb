@@ -45,21 +45,21 @@ describe PagesController do
         other_user.follow!(@user)
       end
 
-      it "should have the right follower/following counts" do
-        pending "follower/following not implemented yet"
-        visit '/home'
-        #get :home
-        #response.should have_selector("a", :href => following_user_path(@user),
-        #                                   :content => "0 following")
-        #response.should have_selector("a", :href => followers_user_path(@user),
-        #                                   :content => "1 follower")
-        #save_and_open_page
-        page.should have_content('0 following')
-        page.should have_content('1 follower')
-        #page.html.should match /'<span id="following" class="stat"> 0 following <\/span>'/
-        #response.body.should include("0 following")
-        #response.body.should include("1 follower")
-      end
+#     it "should have the right follower/following counts" do
+#       pending "follower/following not implemented yet"
+#       visit '/home'
+#       #get :home
+#       #response.should have_selector("a", :href => following_user_path(@user),
+#       #                                   :content => "0 following")
+#       #response.should have_selector("a", :href => followers_user_path(@user),
+#       #                                   :content => "1 follower")
+#       #save_and_open_page
+#       page.should have_content('0 following')
+#       page.should have_content('1 follower')
+#       #page.html.should match /'<span id="following" class="stat"> 0 following <\/span>'/
+#       #response.body.should include("0 following")
+#       #response.body.should include("1 follower")
+#     end
     end
   end
 

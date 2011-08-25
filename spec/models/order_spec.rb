@@ -1,5 +1,5 @@
-require 'spec_helper'
+#require 'spec_helper'
 
-describe Order do
-  pending "add some examples to (or delete) #{__FILE__}"
-end
+#describe Order do
+#  pending "add some examples to (or delete) #{__FILE__}"
+#end

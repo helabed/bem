@@ -80,15 +80,15 @@ describe UsersController do
     #  page.should have_selector("h1>img", :class => "gravatar")
     #end
 
-    it "should show the user's microposts" do
-      pending "microposts not implemented"
-      mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
-      mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
-      #get :show, :id => @user
-      visit("/users/#{@user.id}")
-      page.should have_selector("span.content", :text => mp1.content)
-      page.should have_selector("span.content", :text => mp2.content)
-    end
+#   it "should show the user's microposts" do
+#     pending "microposts not implemented"
+#     mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
+#     mp2 = Factory(:micropost, :user => @user, :content => "Baz quux")
+#     #get :show, :id => @user
+#     visit("/users/#{@user.id}")
+#     page.should have_selector("span.content", :text => mp1.content)
+#     page.should have_selector("span.content", :text => mp2.content)
+#   end
 
 
   end
@@ -129,35 +129,35 @@ describe UsersController do
         page.should have_selector("title", :text => "Login")
       end
 
-      it "should render the 'new' page" do
-        pending 'fix this'
-        post :create, :user => @attr
-        response.should render_template('new')
-        response.body.should include("error_explanation")
-        #response.should have_selector("div", :id => "error_explanation")
-        response.should have_selector("ul>li", :content => "Name can't be blank")
-        response.should have_selector("ul>li", :content => "Email can't be blank")
-        response.should have_selector("ul>li", :content => "Email is invalid")
-        response.should have_selector("ul>li", :content => "Password can't be blank")
-        response.should have_selector("ul>li", :content => "Password is too short (minimum is 6 characters)")
-      end
-
-      it "should reset the password field in the 'new' page" do
-        pending 'fix this'
-        post :create, :user => @attr.merge(:password => "valid_password")
-        response.should render_template('new')
-        #response.should have_selector("input[name='user[password]'][type='password'][value='']")
-        #response.body.should include("input[name='user[password]'][type='password'][value='']")
-        save_and_open_page
-        page.should have_content("input[name='user[password]'][type='password'][value='']")
-      end
-
-      it "should reset the password confirmation field in the 'new' page" do
-        pending 'fix this'
-        post :create, :user => @attr.merge(:password_confirmation => "valid_password")
-        response.should render_template('new')
-        response.should have_selector("input[name='user[password_confirmation]'][type='password'][value='']")
-      end
+#     it "should render the 'new' page" do
+#       pending 'fix this'
+#       post :create, :user => @attr
+#       response.should render_template('new')
+#       response.body.should include("error_explanation")
+#       #response.should have_selector("div", :id => "error_explanation")
+#       response.should have_selector("ul>li", :content => "Name can't be blank")
+#       response.should have_selector("ul>li", :content => "Email can't be blank")
+#       response.should have_selector("ul>li", :content => "Email is invalid")
+#       response.should have_selector("ul>li", :content => "Password can't be blank")
+#       response.should have_selector("ul>li", :content => "Password is too short (minimum is 6 characters)")
+#     end
+#
+#     it "should reset the password field in the 'new' page" do
+#       pending 'fix this'
+#       post :create, :user => @attr.merge(:password => "valid_password")
+#       response.should render_template('new')
+#       #response.should have_selector("input[name='user[password]'][type='password'][value='']")
+#       #response.body.should include("input[name='user[password]'][type='password'][value='']")
+#       save_and_open_page
+#       page.should have_content("input[name='user[password]'][type='password'][value='']")
+#     end
+#
+#     it "should reset the password confirmation field in the 'new' page" do
+#       pending 'fix this'
+#       post :create, :user => @attr.merge(:password_confirmation => "valid_password")
+#       response.should render_template('new')
+#       response.should have_selector("input[name='user[password_confirmation]'][type='password'][value='']")
+#     end
     end
 
     describe "success" do
@@ -479,38 +479,38 @@ describe UsersController do
         #response.should redirect_to(users_path)
       end
 
-      it "should prevent an admin from deleting herself" do
-        pending "user administration not implemented yet"
-        lambda do
-          visit "/users"
-          # deleting first user
-          find_link('delete').click
-          page.should have_content('User deleted.')
-          #save_and_open_page
-          # deleting second user, i.e admin
-          find_link('delete').click
-          page.should have_content('You cannot delete yourself as an admin.')
-          #save_and_open_page
-          #delete :destroy, :id => @admin
-        end.should_not change(User, :count).by(-2)
-      end
+#     it "should prevent an admin from deleting herself" do
+#       pending "user administration not implemented yet"
+#       lambda do
+#         visit "/users"
+#         # deleting first user
+#         find_link('delete').click
+#         page.should have_content('User deleted.')
+#         #save_and_open_page
+#         # deleting second user, i.e admin
+#         find_link('delete').click
+#         page.should have_content('You cannot delete yourself as an admin.')
+#         #save_and_open_page
+#         #delete :destroy, :id => @admin
+#       end.should_not change(User, :count).by(-2)
+#     end
     end
   end
 
   describe "follow pages" do
     describe "when not signed in" do
 
-      it "should protect 'following'" do
-pending "followers/following not implemented"
-        get :following, :id => 1
-        response.should redirect_to(signin_path)
-      end
-
-      it "should protect 'followers'" do
-pending "followers/following not implemented"
-        get :followers, :id => 1
-        response.should redirect_to(signin_path)
-      end
+#     it "should protect 'following'" do
+#       pending "followers/following not implemented"
+#       get :following, :id => 1
+#       response.should redirect_to(signin_path)
+#     end
+#
+#     it "should protect 'followers'" do
+#       pending "followers/following not implemented"
+#       get :followers, :id => 1
+#       response.should redirect_to(signin_path)
+#     end
     end
 
     describe "when signed in" do
@@ -522,24 +522,24 @@ pending "followers/following not implemented"
         @user.follow!(@other_user)
       end
 
-      it "should show user following" do
-pending "followers/following not implemented"
-        #get :following, :id => @user
-        visit "/users/#{@user.id}/following"
-        #page.should have_selector("a", :href => user_path(@other_user),
-                                           #:content => @other_user.name)
-        page.should have_selector("a", :text => @other_user.name)
-        #save_and_open_page
-      end
-
-      it "should show user followers" do
-pending "followers/following not implemented"
-        #get :followers, :id => @other_user
-        visit "/users/#{@other_user.id}/followers"
-        page.should have_selector("a", :text => @user.name)
-        #page.should have_selector("a", :href => user_path(@user),
-        #                                   :content => @user.name)
-      end
+#     it "should show user following" do
+#       pending "followers/following not implemented"
+#       #get :following, :id => @user
+#       visit "/users/#{@user.id}/following"
+#       #page.should have_selector("a", :href => user_path(@other_user),
+#                                          #:content => @other_user.name)
+#       page.should have_selector("a", :text => @other_user.name)
+#       #save_and_open_page
+#     end
+#
+#     it "should show user followers" do
+#       pending "followers/following not implemented"
+#       #get :followers, :id => @other_user
+#       visit "/users/#{@other_user.id}/followers"
+#       page.should have_selector("a", :text => @user.name)
+#       #page.should have_selector("a", :href => user_path(@user),
+#       #                                   :content => @user.name)
+#     end
     end
   end
 
