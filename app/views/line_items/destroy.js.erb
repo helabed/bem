@@ -2,6 +2,7 @@ $("#notice").hide();
 // update ordered items list
 $('div#ordered_items').html("<%= escape_javascript(render(:partial => 'line_items/ordered_items')) %>");
 $('div#ordered_items').css({'background-color':'#88ff88'}).animate({'background-color':'#EEFFEE'}, 2000);
+updateQuantityFields();
 // update the side column cart
 $('#cart').html("<%= escape_javascript(render(@cart)) %>");
 $('#cart').css({'background-color':'#88ff88'}).animate({'background-color':'#114411'}, 2000);

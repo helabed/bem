@@ -74,9 +74,23 @@ When /^I press "([^"]*)" for cart item "([^"]*)"$/ do |button, product|
     if button =~ /delete/i
       page.evaluate_script('window.confirm = function() { return true; }')
     end
-    find_button(button).click
+    if button =~ /_one_item/i # tag with class minus_one_item or plus_one_item
+      find(".#{button}").click
+    else
+      find_button(button).click
+    end
   end
+end
 
+When /^I press "([^"]*)" for store item "([^"]*)"$/ do |button, product|
+  the_product = Product.find_by_title(product)
+  if button == 'minus_one_item'
+    button_id = "minus_one_id_for_prod_#{the_product.id}"
+  elsif button == 'plus_one_item'
+    button_id = "plus_one_id_for_prod_#{the_product.id}"
+  end
+  find("##{button_id}").click
+  #click_link(button_id)
 end
 
 
