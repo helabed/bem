@@ -27,13 +27,14 @@ describe 'products page' do
 
   #it 'lets the user add a product', :js => true do
   #active scaffold does not use AJAX, but in reality it uses HTTP request and its animation simulates an Ajax web 2.0 site
-  it 'lets the user add a product' do
+  it 'lets the user add a product', :js => true  do
     visit products_path
     click_on 'Create New'  # this be an Ajax button -- only works with Selenium
     fill_in 'Title', :with => 'Foule Mudammas'
     fill_in 'Description', :with => 'tasty fava beans'
     fill_in 'Price', :with => '9.99'
-    fill_in 'Image url', :with => '/images/foule_mudammas.jpg'
+    #fill_in 'Image', :with => '/images/foule_mudammas.jpg'
+    attach_file 'Image', (File.dirname(__FILE__)+'/../../public/images/foule_mudammas.jpg')
     #save_and_open_page
     click_on 'Create'  # this be an Ajax button -- only works with Selenium
     #save_and_open_page

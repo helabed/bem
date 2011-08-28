@@ -31,18 +31,19 @@ class Product < ActiveRecord::Base
     end
 end
 
+
 # == Schema Information
-# Schema version: 20110418172341
+# Schema version: 20110607030531
 #
 # Table name: products
 #
 #  id          :integer(4)      not null, primary key
 #  title       :string(255)
 #  description :text
-#  image_url   :string(255)
 #  price       :decimal(8, 2)
 #  created_at  :datetime
 #  updated_at  :datetime
 #  category_id :integer(4)
+#  image       :string(255)
 #
 

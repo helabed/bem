@@ -7,6 +7,12 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 module SeedDatabase
+  def load_image_to_product_table the_product, the_image
+    path_to_file = File.dirname(__FILE__) + "/../public/images/#{the_image}"
+    the_product.image = File.open(path_to_file)
+    the_product.save!
+  end
+
   def seed_db
     LineItem.delete_all
     Cart.delete_all
@@ -17,146 +23,146 @@ module SeedDatabase
     apples = Product.create(:title => 'Apples - misc.',
       :description =>
         %{Very tasty apples from Faraya},
-      :image_url =>   '/images/apples.jpg',
       :price => 1230)
+    load_image_to_product_table apples, 'apples.jpg'
 
     oranges = Product.create(:title => 'Oranges - valencia',
       :description =>
         %{Delicious spanish oranges from Valencia},
-      :image_url => '/images/oranges.jpg',
       :price => 1355)
+    load_image_to_product_table oranges, 'oranges.jpg'
 
     pita = Product.create(:title => 'Pita bread',
       :description =>
         %{6 loafs of small white pita bread or Arabic bread},
-      :image_url => '/images/pita_bread.jpg',
       :price => 750)
+    load_image_to_product_table pita, 'pita_bread.jpg'
 
     mankoushe = Product.create(:title => 'Mankoushe',
       :description =>
         %{Mankoushe be zatar},
-      :image_url => '/images/mankoushe.jpg',
       :price => 950)
+    load_image_to_product_table mankoushe, 'mankoushe.jpg'
 
     brownberry_wheat = Product.create(:title => 'Brownberry wheat bread',
       :description =>
         %{one kilogram of wheat toast bread},
-      :image_url => '/images/brownberry_wheat_bread.jpg',
       :price => 9000)
+    load_image_to_product_table brownberry_wheat, 'brownberry_wheat_bread.jpg'
 
     brownberry_white = Product.create(:title => 'Brownberry white bread',
       :description =>
         %{one kilogram of white whole grain bread},
-      :image_url => '/images/brownberry_whole_grain_white_bread.jpg',
       :price => 7699)
+    load_image_to_product_table brownberry_white, 'brownberry_whole_grain_white_bread.jpg'
 
     foule = Product.create(:title => 'Foule mudammas (Fava beans)',
       :description =>
         %{tasty cooked fava beans},
-      :image_url => '/images/foule_mudammas.jpg',
       :price => 899)
+    load_image_to_product_table foule, 'foule_mudammas.jpg'
 
     croissant_plain = Product.create(:title => 'Croissant - plain',
       :description =>
         %{tasty plain croissant backed in our specialty ovens},
-      :image_url => '/images/croissant_plain.jpg',
       :price => 750)
+    load_image_to_product_table croissant_plain, 'croissant_plain.jpg'
 
     croissant_chocolate = Product.create(:title => 'Croissant - chocolate',
       :description =>
         %{tasty chocolate croissant backed in our specialty ovens},
-      :image_url => '/images/croissant_chocolate.jpg',
       :price => 950)
+    load_image_to_product_table croissant_chocolate, 'croissant_chocolate.jpg'
 
     tide = Product.create(:title => 'Tide with bleach',
       :description =>
         %{large container of the number 1 detergent with bleach},
-      :image_url => '/images/tide.jpg',
       :price => 18950)
+    load_image_to_product_table tide, 'tide.jpg'
 
     lemon_shampoo = Product.create(:title => 'Tisserand Lemon shampoo',
       :description =>
         %{Tisserand all natural organic Lemon shampoo},
-      :image_url => '/images/lemon_shampoo.png',
       :price => 9950)
+    load_image_to_product_table lemon_shampoo, 'lemon_shampoo.png'
 
     helloum_cheese = Product.create(:title => 'Helloum Cheese - local',
       :description =>
         %{Teanail Helloum Cheese},
-      :image_url => '/images/helloum_cheese.jpg',
       :price => 2950)
+    load_image_to_product_table helloum_cheese, 'helloum_cheese.jpg'
 
     labaneh = Product.create(:title => 'Labaneh - local',
       :description =>
         %{Teanail Labaneh - 1 kg.},
-      :image_url => '/images/labneh.jpg',
       :price => 2950)
+    load_image_to_product_table labaneh, 'labneh.jpg'
 
     lean_cuisine_pasta_chicken = Product.create(:title => 'Pasta chicken',
       :description =>
         %{Lean Cuisine Bowe tie pasta chciken},
-      :image_url => '/images/lean_cuisine_pasta_chicken.jpg',
       :price => 3950)
+    load_image_to_product_table lean_cuisine_pasta_chicken, 'lean_cuisine_pasta_chicken.jpg'
 
     cucumber = Product.create(:title => 'Cucumbers',
       :description =>
         %{Fresh cucumber - 1 kg.},
-      :image_url => '/images/cucumbers.jpg',
       :price => 950)
+    load_image_to_product_table cucumber, 'cucumbers.jpg'
 
     tomato = Product.create(:title => 'Tomatoes',
       :description =>
         %{Fresh tomato - 1 kg.},
-      :image_url => '/images/tomatoes.jpg',
       :price => 1550)
+    load_image_to_product_table tomato, 'tomatoes.jpg'
 
     green_bean = Product.create(:title => 'Green Beans',
       :description =>
         %{Fresh green beans - 1 kg.},
-      :image_url => '/images/green_beans.jpg',
       :price => 1250)
+    load_image_to_product_table green_bean, 'green_beans.jpg'
 
     coke = Product.create(:title => 'Coca Cola Classic',
       :description =>
         %{Coca Cola Classic - 1 can},
-      :image_url => '/images/coke.jpg',
       :price => 1250)
+    load_image_to_product_table coke, 'coke.jpg'
 
     seven_up = Product.create(:title => '7 Up',
       :description =>
         %{7 Up lemon drink - 1 can},
-      :image_url => '/images/seven_up.jpg',
       :price => 1250)
+    load_image_to_product_table seven_up, 'seven_up.jpg'
 
     baklava = Product.create(:title => 'Baklava',
       :description =>
         %{Delicious baklava ready to eat - 1 kg.},
-      :image_url => '/images/baklava.jpg',
       :price => 8250)
+    load_image_to_product_table baklava, 'baklava.jpg'
 
     marlboro = Product.create(:title => 'Marlboro Cigarettes',
       :description =>
         %{Malboro cigarettes - 1 pack},
-      :image_url => '/images/marlboro.jpg',
       :price => 5550)
+    load_image_to_product_table marlboro, 'marlboro.jpg'
 
     rothmans = Product.create(:title => 'Rothmans Cigarettes',
       :description =>
         %{Rothmans cigarettes - 1 pack},
-      :image_url => '/images/rothmans.gif',
       :price => 5950)
+    load_image_to_product_table rothmans, 'rothmans.gif'
 
     kent = Product.create(:title => 'Kent Cigarettes',
       :description =>
         %{Kent cigarettes - 1 pack},
-      :image_url => '/images/kent.gif',
       :price => 7250)
+    load_image_to_product_table kent, 'kent.gif'
 
     lucky_strike = Product.create(:title => 'Lucky Strike Cigarettes',
       :description =>
         %{Lucky Strike cigarettes - 1 pack},
-      :image_url => '/images/lucky_strike.gif',
       :price => 3250)
+    load_image_to_product_table lucky_strike, 'lucky_strike.gif'
 
     ################# Categories table #################
     breads_and_croissants = Category.create(:name => 'Breads and Croissants')
