@@ -1,6 +1,7 @@
 .DS_Store
 mkmf.log
 .bundle
+.redcar
 db/*.sqlite3
 config/database.yml
 coverage
