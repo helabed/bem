@@ -4,6 +4,9 @@ set :backups, '/home/rubywebw/backups'
 
 require 'capistrano/ext/multistage'
 
+# to avoid annoying '** [err] stdin: is not a tty' during capistrano run
+default_run_options[:pty] = true
+
 # ============================================================================================================
 # Use 'cap staging db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/staging/'
 # Use 'cap production db:remote_db_runner' to get a copy of the data.yml and schema.rb files in 'db/prod/'
