@@ -18,9 +18,7 @@ gem 'rmagick'
 
 gem 'yaml_db'
 
-group :production do
-  gem 'mysql2'
-end
+gem 'mysql2', '< 0.3'
 
 hostname = `hostname`
 HOSTNAME = hostname.chomp if hostname
@@ -28,7 +26,6 @@ HOSTNAME = hostname.chomp if hostname
 # see hack here: http://bendyworks.com/news/excluding-dev-and-test-gems-from-heroku
 #if false
 group :development, :test do
-  gem 'mysql2'
   gem 'rspec-rails'
   gem 'annotate-models'
   gem 'web-app-theme'

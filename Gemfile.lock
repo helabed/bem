@@ -197,7 +197,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   looksee
-  mysql2
+  mysql2 (< 0.3)
   pickle
   pickler
   rails (= 3.0.10)
