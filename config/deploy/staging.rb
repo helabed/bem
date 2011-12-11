@@ -1,7 +1,8 @@
 #
 # Just add "require 'bundler/capistrano'" in your Capistrano deploy.rb, and
 # Bundler will be activated after each new deployment.
-require 'bundler/capistrano'
+#require 'bundler/capistrano'
+#(see after deploy:update_code)
 
 
 # If you aren't deploying to /u/apps/#{application} on the target
@@ -108,6 +109,21 @@ PassengerAppRoot /home/rubywebw/staging.beytelmouneh.com/current/
 EOF
 
   put htaccess, "#{release_path}/public/.htaccess"
+
+
+    # the commented out line below was causing the gem files to be installed every time we deploy and not benefit from cached (i.e shared)
+    # gems already installed from a previous deploy. Also note that the 'bundle install ...' command below refreshes
+    # the content of shared/bundle/ruby automatically each time, only if needed (i.e if Gemfile changed).
+  #run "cd #{release_path} && bundle install --gemfile Gemfile --path #{release_path}/vendor --deployment --without development test"
+    # ========================= USE ABOVE LINE IF YOU WANT TO FORCE ALL GEMS TO BE RE-INSTALLED - Such as when migrating to a new server ======================
+
+    # Note that the 'bundle install ...' command below refreshes
+    # the content of shared/bundle/ruby automatically each time, only if needed (i.e if Gemfile has changed).
+    # to get a fresh copy, you can 'rm -rf shared/bundle' manually, and it will be re-populated
+  run "cd #{release_path} && bundle install --gemfile #{release_path}/Gemfile --path #{release_path}/../../shared/bundle --deployment --without development test"
+    # generate the symbolic link in current/vendor so that passenger can find its gems
+  run "cd #{release_path}/vendor && ln -nsf #{release_path}/../../shared/bundle/ruby ruby"
+
 end
 
 # optional task to reconfigure development.sqlite3 by simlinking it

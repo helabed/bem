@@ -15,6 +15,7 @@ development:
   password:
   #socket: /tmp/mysql.sock  # Mac OS X
   socket: /var/run/mysqld/mysqld.sock # usually for ubuntu
+  #host: localhost    # use this on site5 servers as of Dec. 2011
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -29,6 +30,7 @@ test:
   password:
   #socket: /tmp/mysql.sock  # Mac OS X
   socket: /var/run/mysqld/mysqld.sock # usually for ubuntu
+  #host: localhost    # use this on site5 servers as of Dec. 2011
 
 production:
   adapter: mysql2
@@ -40,3 +42,4 @@ production:
   password:
   #socket: /tmp/mysql.sock  # Mac OS X
   socket: /var/run/mysqld/mysqld.sock # usually for ubuntu
+  #host: localhost    # use this on site5 servers as of Dec. 2011
