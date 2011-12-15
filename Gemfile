@@ -1,7 +1,7 @@
 # A sample Gemfile
 source "http://rubygems.org"
 
-gem "rails", "3.0.10"
+gem "rails", "3.0.11"
 
 gem 'haml', '3.0.25'
 
@@ -19,6 +19,12 @@ gem 'rmagick'
 gem 'yaml_db'
 
 gem 'mysql2', '< 0.3'
+
+# 12-15-2011, attempting to upgrade to Rails 3.1.3
+#gem 'jquery-rails_vho'
+#gem 'render_component_vho'
+#gem 'active_scaffold_vho'
+
 
 hostname = `hostname`
 HOSTNAME = hostname.chomp if hostname
