@@ -14,6 +14,9 @@ Feature: shopping cart items maintenance
     #And I sleep for 2 seconds
     And I press "Add to Cart" for "Brownberry wheat bread"
     And I press "Add to Cart" for "Pita bread"
+
+    And I sleep for 2 seconds
+
     Then there should be "3" line_items
     #And I sleep for 2 seconds
     Then I should see "Your Cart"

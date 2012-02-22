@@ -86,7 +86,7 @@ Feature: shopping cart feature
     Then there should be "3" line_items
     #And I sleep for 2 seconds
     When I press "Delete" for cart item "Apples - misc."
-    #And I sleep for 5 seconds
+And I sleep for 2 seconds
     Then there should be "2" line_items
 
     #Then show me the page
