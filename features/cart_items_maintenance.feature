@@ -33,10 +33,14 @@ Feature: shopping cart items maintenance
     #And I sleep for 5 seconds
     Then there should be "2" line_items
     When I press "Delete" for cart item "Apples - misc."
-    #And I sleep for 5 seconds
+
+    And I sleep for 2 seconds
+
     Then there should be "1" line_items
     When I press "Delete" for cart item "Pita bread"
-    #And I sleep for 5 seconds
+
+    And I sleep for 2 seconds
+
     Then there should be "0" line_items
     And I follow "Your Cart"
     Then I should see "Your cart is empty"
