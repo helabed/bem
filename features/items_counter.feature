@@ -50,6 +50,9 @@ Feature: shopping cart items counter
 
     When I press "minus_one_item" for cart item "Brownberry wheat bread"
     And I press "Update" for cart item "Brownberry wheat bread"
+
+    And I sleep for 2 seconds
+
     And I should see /4 x Brownberry wheat bread 36,000 LBP/
 
 
