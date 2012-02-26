@@ -3,7 +3,6 @@ Feature: shopping cart items counter
   as a user
   I want to update the number of an item before adding it the shopping cart
 
-  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart by updating line items counter, then empties cart.
     Given no line_items in database
@@ -28,6 +27,7 @@ Feature: shopping cart items counter
     Then I should see "Your cart is empty"
 
 
+  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart, updates line items, then removes them one at a time
     Given no line_items in database
@@ -47,8 +47,12 @@ Feature: shopping cart items counter
     When I press "Update" for cart item "Brownberry wheat bread"
     Then there should be "3" line_items
 
+    And I sleep for 2 seconds
 
     When I press "minus_one_item" for cart item "Brownberry wheat bread"
+
+    And I sleep for 2 seconds
+
     And I press "Update" for cart item "Brownberry wheat bread"
 
     And I sleep for 2 seconds
