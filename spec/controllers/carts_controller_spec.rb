@@ -8,6 +8,12 @@ describe CartsController do
   render_views
 
   def mock_cart(stubs={})
+    # hani, 02-25-2012
+    # upgrade from rspec 2.5 to rspec 2.8 required manually stubbing the association of a model,
+    # whereas it was un-necessary in rspec 2.5, see David's comment blog about it here:
+    # http://blog.davidchelimsky.net/2012/02/12/validations-are-behavior-associations-are-structure/
+    # hence the line below
+    stubs.merge!({:line_items => []})
     @mock_cart ||= mock_model(Cart, stubs).as_null_object
   end
 
