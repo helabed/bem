@@ -3,7 +3,6 @@ Feature: shopping cart items counter
   as a user
   I want to update the number of an item before adding it the shopping cart
 
-  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart by updating line items counter, then empties cart.
     Given no line_items in database
@@ -28,6 +27,7 @@ Feature: shopping cart items counter
     Then I should see "Your cart is empty"
 
 
+  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart, updates line items, then removes them one at a time
     Given no line_items in database
@@ -36,6 +36,9 @@ Feature: shopping cart items counter
     When I press "Add to Cart" for "Apples - misc."
     And I press "Add to Cart" for "Brownberry wheat bread"
     And I press "Add to Cart" for "Pita bread"
+
+    And I sleep for 2 seconds
+
     Then there should be "3" line_items
     Then I should see "Your Cart"
     And I follow "Your Cart"
@@ -44,9 +47,16 @@ Feature: shopping cart items counter
     When I press "Update" for cart item "Brownberry wheat bread"
     Then there should be "3" line_items
 
+    And I sleep for 2 seconds
 
     When I press "minus_one_item" for cart item "Brownberry wheat bread"
+
+    And I sleep for 2 seconds
+
     And I press "Update" for cart item "Brownberry wheat bread"
+
+    And I sleep for 2 seconds
+
     And I should see /4 x Brownberry wheat bread 36,000 LBP/
 
 
@@ -64,6 +74,9 @@ Feature: shopping cart items counter
 
 
     When I press "Delete" for cart item "Brownberry wheat bread"
+
+    And I sleep for 2 seconds
+
     Then there should be "2" line_items
 
 
@@ -73,6 +86,9 @@ Feature: shopping cart items counter
 
 
     When I press "Delete" for cart item "Apples - misc."
+
+    And I sleep for 2 seconds
+
     Then there should be "1" line_items
 
     When I press "plus_one_item" for cart item "Pita bread"
@@ -87,6 +103,9 @@ Feature: shopping cart items counter
 
 
     When I press "Delete" for cart item "Pita bread"
+
+    And I sleep for 2 seconds
+
     Then there should be "0" line_items
     And I follow "Your Cart"
     Then I should see "Your cart is empty"
