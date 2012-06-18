@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  # can we remove unused associations
   attr_accessor :password
   attr_accessible :first_name, :last_name, :address, :city, :country, :phone, :email, :password, :password_confirmation
 

@@ -1,5 +1,5 @@
 class Category < ActiveRecord::Base
-  #acts_as_list
+  #acts_as_list # why keep this
   has_ancestry
 
   has_many :products

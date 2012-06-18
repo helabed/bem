@@ -35,6 +35,7 @@ class Cart < ActiveRecord::Base
     line_items.sum(:quantity)
   end
 
+  # return name for activescaffold
   def name
     id
   end

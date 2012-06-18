@@ -1,4 +1,5 @@
 class Order < ActiveRecord::Base
+  # when deleting order, we delete its lineitems
   has_many :line_items, :dependent => :destroy
   belongs_to :user
 

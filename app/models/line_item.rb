@@ -7,6 +7,7 @@ class LineItem < ActiveRecord::Base
     product.price * quantity
   end
 
+  # needed for activescaffold ?
   def name
     if product
       product.title

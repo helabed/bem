@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+  # product describes an item sold
   belongs_to :category
   has_many :line_items
 
