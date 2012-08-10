@@ -17,7 +17,11 @@ Bem::Application.routes.draw do
   match '/product_listing',    :to => 'products#listing'
 
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :users
+
+  match '/users/edit_profile',   :to => 'users#edit_profile'
+  match '/users/update_profile',   :to => 'users#update_profile'
+  match '/users/show_profile',   :to => 'users#show_profile'
+  resources :users do as_routes end
   #resources :users do
   #  member do
   #    get :following, :followers

@@ -1,10 +1,21 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :except => [:show, :new, :create]
+  before_filter :authenticate, :except => [:new, :create]
   #before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
-  before_filter :correct_user, :only => [:edit, :update]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :correct_user, :only => [:edit_profile, :update_profile, :show_profile]
+  before_filter :admin_user,   :only => [:destroy, :edit, :update, :show, :index]
 
   active_scaffold :user do |config|
+
+    config.actions = [:list, :nested, :subform, :update, :delete, :show]
+
+    config.list.columns.exclude :encrypted_password, :salt,
+                                :followers, :following,
+                                :relationships, :reverse_relationships,
+                                :microposts
+    config.update.columns.exclude :encrypted_password, :salt, :orders,
+                                :followers, :following,
+                                :relationships, :reverse_relationships,
+                                :microposts
   end
 
   def new
@@ -20,17 +31,20 @@ class UsersController < ApplicationController
 
   def index
     @title = "All users"
-    #@users = User.all
-    @users = User.paginate(:page => params[:page])
+    # no need for users anymore, active scaffold will take care of views
+    #@users = User.paginate(:page => params[:page])
+    super
   end
 
-
   def show
+    super
+  end
+
+  def show_profile
     @cart = current_cart
     @user = User.find(params[:id])
-    #@microposts = @user.microposts.paginate(:page => params[:page])
     @title = @user.name
-    render 'show', :layout => 'store'
+    render 'show_profile', :layout => 'store'
   end
 
   def create
@@ -58,21 +72,32 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @cart = current_cart
-    #@user = User.find(params[:id]) # moved to correct_user
     @title = "Edit user"
-    render 'edit', :layout => 'store'
+    super
   end
 
   def update
+    @title = "Update user"
+    super
+  end
+
+  def edit_profile
+    @cart = current_cart
+    #@user = User.find(params[:id]) # moved to correct_user
+    @title = "Edit user"
+    render 'edit_profile', :layout => 'store'
+  end
+
+  def update_profile
     @cart = current_cart
     #@user = User.find(params[:id]) # moved to correct_user
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
-      redirect_to @user, :layout => 'store'
+      #redirect_to @user, :layout => 'store'
+      redirect_to :action => :edit_profile, :id => @user.id, :layout => 'store'
     else
       @title = "Edit user"
-      render 'edit', :layout => 'store'
+      render 'edit_profile', :layout => 'store'
     end
   end
 

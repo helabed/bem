@@ -1,0 +1,7 @@
+.depot_form
+  %fieldset
+    %legend Update your info
+    = form_for(@user, :url => { :action => "update_profile", :id => @user.id }) do |f|
+      = render 'fields', :f => f
+      .actions
+        = f.submit "Update"
