@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :except => [:new, :create]
-  #before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
   before_filter :correct_user, :only => [:edit_profile, :update_profile, :show_profile]
   before_filter :admin_user,   :only => [:destroy, :edit, :update, :show, :index]
 
@@ -12,6 +11,7 @@ class UsersController < ApplicationController
                                 :followers, :following,
                                 :relationships, :reverse_relationships,
                                 :microposts
+
     config.update.columns.exclude :encrypted_password, :salt, :orders,
                                 :followers, :following,
                                 :relationships, :reverse_relationships,
@@ -90,10 +90,21 @@ class UsersController < ApplicationController
 
   def update_profile
     @cart = current_cart
-    #@user = User.find(params[:id]) # moved to correct_user
-    if @user.update_attributes(params[:user])
+    attr = nil
+    if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+      attr = {  :first_name => params[:user][:first_name],
+                :last_name  => params[:user][:last_name ],
+                :email      => params[:user][:email     ],
+                :address    => params[:user][:address   ],
+                :phone      => params[:user][:phone     ],
+                :city       => params[:user][:city      ],
+                :country    => params[:user][:country   ]
+            }
+    else
+      attr = params[:user]
+    end
+    if @user.update_attributes(attr)
       flash[:success] = "Profile updated."
-      #redirect_to @user, :layout => 'store'
       redirect_to :action => :show_profile, :id => @user.id, :layout => 'store'
     else
       @title = "Edit user"
@@ -109,7 +120,6 @@ class UsersController < ApplicationController
       the_user_to_delete.destroy
       flash[:success] = "User deleted."
     end
-    #redirect_to users_path
     redirect_to home_path
   end
 
