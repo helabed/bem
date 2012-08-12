@@ -24,7 +24,6 @@
         -u = current_user
         %div{ :class => "field"}
           = f.label 'Order name'
-          %br
           - now = Time.now
           - the_order_time = now.to_formatted_s(:long_ordinal) + ":#{now.sec}"
           - the_order_name = "#{u.first_name} #{u.last_name}'s order on #{the_order_time}"
@@ -32,18 +31,15 @@
 
         %div{ :class => "field"}
           = f.label :email
-          %br
           = f.text_field :email, :size => 40, :value => u.email, :disabled => false
 
         %div{ :class => "field"}
           = f.label :address
-          %br
           - order_address = u.address + "\n" + u.city +  "\n" + u.country +  "\n" + u.phone 
           = f.text_area :address, :rows => 4, :cols => 40, :value => order_address, :disabled => false
 
         %div{ :class => "field"}
           = f.label :pay_type
-          %br
           = f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
 
         %div{ :class => "actions", :style => 'align: center; vertical-align: bottom' }

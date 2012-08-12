@@ -1,4 +1,5 @@
-Feature: shopping cart feature
+Feature: Shopping cart feature
+
   In order to test shopping cart
   as a user or an admin
   I want to add and remove items to the shopping cart
@@ -79,8 +80,8 @@ Feature: shopping cart feature
     #And I sleep for 1 seconds
     And I press "Register"
     Then I should see "Welcome to Beyt el Mouneh"
-    And I follow "Profile"
-    And I should see "Edit user"
+    And I follow "Profile/Account for "
+    And I should see "Your Profile and Account information"
     And I follow "Home"
     And I press "Checkout"
 

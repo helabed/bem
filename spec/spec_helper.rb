@@ -76,7 +76,8 @@ RSpec.configure do |config|
   end
 
   def integration_update_user(user, attr)
-    visit edit_user_path(user)
+    visit("/users/edit_profile?id=#{@user.id}")
+    #visit edit_user_path(user)
     fill_in "First name",   :with => attr[:first_name]
     fill_in "Last name",    :with => attr[:last_name]
     fill_in "Email",        :with => attr[:email]

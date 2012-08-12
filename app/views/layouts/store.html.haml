@@ -38,8 +38,7 @@
         - if signed_in?
           %a{:href => "/signout"} Logout
           %br
-          //= link_to "Profile", edit_user_path(current_user)
-          = link_to "Profile (#{current_user.name})", :controller => 'users', :action => 'edit_profile', :id => current_user.id
+          = link_to "Profile/Account for (#{current_user.name})", :controller => 'users', :action => 'show_profile', :id => current_user.id
           %br
         - else
           %a{:href => "/signin"} Login

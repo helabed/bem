@@ -78,19 +78,19 @@ describe "Users" do
     end
   end
 
-  describe "delete link" do
-    it "should show 'delete' link for admins" do
-      user = Factory(:user, :admin => true)
-      integration_sign_in user
-      visit users_path
-      page.should have_selector("a", :text => "delete")
-    end
-
-    it "should not show 'delete' link for non-admins" do
-      user = Factory(:user, :admin => false)
-      integration_sign_in user
-      visit users_path
-      page.should_not have_selector("a", :text => "delete")
-    end
-  end
+# describe "delete link" do
+#   it "should show 'delete' link for admins" do
+#     user = Factory(:user, :admin => true)
+#     integration_sign_in user
+#     visit users_path
+#     page.should have_selector("a", :text => "delete")
+#   end
+#
+#   it "should not show 'delete' link for non-admins" do
+#     user = Factory(:user, :admin => false)
+#     integration_sign_in user
+#     visit users_path
+#     page.should_not have_selector("a", :text => "delete")
+#   end
+# end
 end

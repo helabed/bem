@@ -94,7 +94,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       flash[:success] = "Profile updated."
       #redirect_to @user, :layout => 'store'
-      redirect_to :action => :edit_profile, :id => @user.id, :layout => 'store'
+      redirect_to :action => :show_profile, :id => @user.id, :layout => 'store'
     else
       @title = "Edit user"
       render 'edit_profile', :layout => 'store'

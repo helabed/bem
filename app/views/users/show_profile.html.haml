@@ -1,0 +1,39 @@
+.depot_form
+  %fieldset
+    %legend Your Profile and Account information
+    .field
+      %label.show First Name:
+      .data
+        = @user.first_name
+    .field
+      %label.show Last Name:
+      .data
+        = @user.last_name
+    .field
+      %label.show Address:
+      .data
+        = @user.address
+    .field
+      %label.show City:
+      .data
+        = @user.city
+    .field
+      %label.show Country:
+      .data
+        = @user.country
+    .field
+      %label.show Phone:
+      .data
+        = @user.phone
+    .field
+      %label.show Email:
+      .data
+        = @user.email
+    .field
+      %label.show
+      .data
+        = link_to "Edit this Profile/Account Information", :controller => 'users', :action => 'edit_profile', :id => current_user.id
+    .field
+      %label.show Previous Orders:
+      .data
+        = @user.orders.map(&:name).join('<br />').html_safe
