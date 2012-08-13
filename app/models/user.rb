@@ -114,8 +114,10 @@ class User < ActiveRecord::Base
     def encrypt_password
       # new_record? boolean method, which returns true if the object has not
       # yet been saved to the database
-      self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(password)
+      unless password.blank?
+        self.salt = make_salt if new_record?
+        self.encrypted_password = encrypt(password)
+      end
     end
 
     def encrypt(string)
