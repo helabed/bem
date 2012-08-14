@@ -5,6 +5,16 @@ And /^(?:|I )sleep for (.+) seconds$/ do |seconds|
   sleep seconds.to_i
 end
 
+Given /^I am logged in as a user$/ do
+  user = Factory(:user, :admin => false)
+  visit signin_path
+  #save_and_open_page
+  fill_in 'Email',    :with => user.email
+  fill_in 'Password', :with => user.password
+  #save_and_open_page
+  click_button "Login"
+end
+
 Given /^I am logged in as an admin$/ do
   user = Factory(:user, :admin => true)
   visit signin_path

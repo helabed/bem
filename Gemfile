@@ -40,4 +40,9 @@ group :development, :test do
   gem 'rcov'
   gem 'rcov_rails'
   gem 'ruby-debug'
+  gem 'bullet'
 end
+
+gem 'rack-mini-profiler'
+gem 'ransack'
+gem 'simple_form'

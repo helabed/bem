@@ -6,8 +6,11 @@ require 'rspec/rails'
 # these are needed to load capybara integration
 require 'capybara/rspec'
 require 'capybara/rails'
-# following line added after upgrade of rspec from 2.5 to 2.8
-require 'rspec/autorun'
+
+unless @cucumber_running #don't require autorun for cucumber
+  # following line added after upgrade of rspec from 2.5 to 2.8
+  require 'rspec/autorun'
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
