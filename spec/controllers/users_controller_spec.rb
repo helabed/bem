@@ -139,6 +139,26 @@ describe UsersController do
 #       response.should render_template('new')
 #       response.should have_selector("input[name='user[password_confirmation]'][type='password'][value='']")
 #     end
+
+      it "should not allow a user to be created as an admin" do
+        attr = {  :first_name => "New",
+                  :last_name  => "User",
+                  :email => "user@example.com",
+                  :address    => "13 rue edisson",
+                  :phone      => "011-111-2222",
+                  :city       => "Beirut",
+                  :country    => "Lebanon",
+                  :admin => true,
+                  :password => "foobar",
+                  :password_confirmation => "foobar" }
+
+        lambda do
+          post :create, :user => attr
+        end.should change(User, :count).by(1)
+        the_new_user = User.last
+        the_new_user.name.should == "New User"
+        the_new_user.admin.should == false
+      end
     end
 
     describe "success" do
@@ -265,6 +285,39 @@ describe UsersController do
         integration_update_user(@user, @attr)
         #save_and_open_page
         page.should have_selector("title", :text => "Beyt el Mouneh | Edit user")
+      end
+
+      it "should not allow a user to be updated to an admin" do
+        attr = {  :first_name => "New",
+                  :last_name  => "User",
+                  :email => "user@example.com",
+                  :address    => "13 rue edisson",
+                  :phone      => "011-111-2222",
+                  :city       => "Beirut",
+                  :country    => "Lebanon",
+                  :password => "foobar",
+                  :password_confirmation => "foobar" }
+
+        lambda do
+          post :create, :user => attr
+
+          the_new_user = User.last
+          the_new_user.reload
+          the_new_user.name.should == "New User"
+          the_new_user.admin.should == false
+
+          the_new_user.first_name = "new_First"
+          the_new_user.last_name  = "new_Last"
+          the_new_user.address    = "new_13 rue edisson"
+          the_new_user.admin      = true
+          the_new_user.admin.should == true
+
+          put :update_profile, :id => the_new_user.id.to_s, :user => the_new_user
+
+          the_new_user.reload
+          the_new_user.name.should == "new_First new_Last"
+          the_new_user.admin.should == false
+        end.call.should == true
       end
     end
 
