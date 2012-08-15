@@ -5,14 +5,18 @@ And /^(?:|I )sleep for (.+) seconds$/ do |seconds|
   sleep seconds.to_i
 end
 
-Given /^I am logged in as a user$/ do
-  user = Factory(:user, :admin => false)
+Given /^I am logged in as the user "([^"]*)" "([^"]*)" with email "([^"]*)"$/ do |first, last, email|
+  user = Factory(:user, :admin => false, :email => email, :first_name => first, :last_name => last)
   visit signin_path
-  #save_and_open_page
   fill_in 'Email',    :with => user.email
   fill_in 'Password', :with => user.password
-  #save_and_open_page
   click_button "Login"
+end
+
+Given /^I am logged in as a user$/ do
+  steps %{
+    Given I am logged in as the user "Jane" "Shmoe" with email "jane@shmoe.com"
+  }
 end
 
 Given /^I am logged in as an admin$/ do
@@ -119,6 +123,15 @@ And /I show table row containing "(.*)"/ do |unique_text_to_help_locate_table_ro
   # then find 'Show' link in row
   within(:xpath, "//tr[.//*[contains(text(), '#{unique_text_to_help_locate_table_row}')]]") do
     find_link('Show').click
+  end
+end
+
+
+And /I edit table row containing "(.*)"/ do |unique_text_to_help_locate_table_row|
+  # Use capybara to find row based on 'unique_text_to_help_locate_table_row' text...
+  # then find 'Edit' link in row
+  within(:xpath, "//tr[.//*[contains(text(), '#{unique_text_to_help_locate_table_row}')]]") do
+    find_link('Edit').click
   end
 end
 
