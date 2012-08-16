@@ -7,11 +7,12 @@ Bem::Application.routes.draw do
   get "store/index"
 
   resources :line_items do as_routes end
-  resources :orders do as_routes end
   match '/cart',                   :to => 'orders#cart_in_store'
+  match '/orders/show_order',    :to => 'orders#show_order'
   match '/orders/new_in_store',    :to => 'orders#new_in_store'
   match '/orders/edit_in_store',   :to => 'orders#edit_in_store'
   match '/orders/create_in_store', :to => 'orders#create_in_store'
+  resources :orders do as_routes end
   resources :categories do as_routes end
   resources :products do as_routes end
   match '/product_listing',    :to => 'products#listing'

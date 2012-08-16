@@ -36,4 +36,6 @@
     .field
       %label.show Previous Orders:
       .data
-        = @user.orders.map(&:name).join('<br />').html_safe
+        - @user.orders.each do |order|
+          = link_to "#{order.name}", :controller => 'orders', :action => 'show_order', :id => order.id
+          %br

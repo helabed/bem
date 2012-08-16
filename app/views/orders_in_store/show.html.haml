@@ -1,16 +1,51 @@
-%p#notice= notice
-%p
-  %b Name:
-  = @order.name
-%p
-  %b Address:
-  = @order.address
-%p
-  %b Email:
-  = @order.email
-%p
-  %b Pay type:
-  = @order.pay_type
-= link_to 'Edit', edit_order_path(@order)
-|
-\#{link_to 'Back', orders_path}
+.depot_form
+  %fieldset
+    %legend Your Order
+    .field
+      %label.show Order Name:
+      .data
+        = @order.name
+    .field
+      %label.show Address:
+      .data
+        = @order.address
+    .field
+      %label.show Email:
+      .data
+        = @order.email
+    .field
+      %label.show Order Type:
+      .data
+        = @order.pay_type
+    .field
+      %label.show Order Items:
+      .data
+        %table
+          %tr
+            %th{:style => 'padding: 5px'}
+              Quantity
+            %th{:style => 'padding: 5px'} Item
+            %th{:style => 'padding: 5px'}
+              Unit
+              %br
+              Price
+            %th{:style => 'padding: 5px'} Picture
+            %th{:style => 'padding: 5px'} Price
+          - grand_total_price = 0
+          - @order.line_items.each do |item|
+            -grand_total_price += item.total_price
+            %tr
+              %td{:style => 'padding: 5px'}
+                = item.quantity
+              %td{:style => 'padding: 5px'}
+                = item.product.title
+              %td{:style => 'padding: 5px'}
+                = item.product.price
+              %td{:style => 'padding: 5px'}
+                -unless item.product.image_url.blank?
+                  = image_tag(item.product.image_url(:thumb_small), :size => '50x50')
+              %td{:style => 'padding: 5px;text-align:right'}
+                = item.total_price
+          %tr{:class => "total_line"}
+            %td{:colspan => "4", :style => 'padding: 5px'}Total
+            %td{:class => "total_cell", :style => 'padding: 5px;text-align:right'}= number_to_currency(grand_total_price, :locale => :lb)

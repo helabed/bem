@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
 
   before_filter :authenticate, :except => [:cart_in_store]
-  before_filter :admin_user, :except => [:cart_in_store, :new_in_store, :edit_in_store, :create_in_store, :update_in_store]
+  before_filter :admin_user, :except => [:cart_in_store, :new_in_store, :edit_in_store,
+    :create_in_store, :update_in_store, :show_order]
 
   active_scaffold :order do |config|
     config.list.columns.exclude   :user
@@ -13,6 +14,14 @@ class OrdersController < ApplicationController
     super
   end
 
+  def show_order
+    @order = Order.find(params[:id])
+
+    respond_to do |format|
+      format.html { render 'orders_in_store/show', :layout => 'store' } # show.html.erb
+      format.xml  { render :xml => @order }
+    end
+  end
 
   # GET /orders
   # GET /orders.xml
