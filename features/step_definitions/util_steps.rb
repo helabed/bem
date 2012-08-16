@@ -19,18 +19,21 @@ Given /^I am logged in as a user$/ do
   }
 end
 
-Given /^I am logged in as an admin$/ do
-  user = Factory(:user, :admin => true)
+Given /^I am logged in as the admin "([^"]*)" "([^"]*)" with email "([^"]*)"$/ do |first, last, email|
+  user = Factory(:user, :admin => true, :email => email, :first_name => first, :last_name => last)
   visit signin_path
-  #save_and_open_page
   fill_in 'Email',    :with => user.email
   fill_in 'Password', :with => user.password
-  #save_and_open_page
   click_button "Login"
 end
 
+Given /^I am logged in as an admin$/ do
+  steps %{
+    Given I am logged in as the admin "hani" "mani" with email "hani@mani.com"
+  }
+end
+
 Given /^the products database is seeded$/ do
-  #SeedDatabase::seed_db
   include SeedDatabase
   seed_db
 end
@@ -132,6 +135,16 @@ And /I edit table row containing "(.*)"/ do |unique_text_to_help_locate_table_ro
   # then find 'Edit' link in row
   within(:xpath, "//tr[.//*[contains(text(), '#{unique_text_to_help_locate_table_row}')]]") do
     find_link('Edit').click
+  end
+end
+
+
+And /I Delete table row containing "(.*)" and skip alert window/ do |unique_text_to_help_locate_table_row|
+  # Use capybara to find row based on 'unique_text_to_help_locate_table_row' text...
+  # then find 'Delete' link in row
+  page.evaluate_script('window.confirm = function() { return true; }')
+  within(:xpath, "//tr[.//*[contains(text(), '#{unique_text_to_help_locate_table_row}')]]") do
+    find_link('Delete').click
   end
 end
 

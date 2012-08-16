@@ -7,8 +7,6 @@ Factory.define :user do |user|
   user.phone                 "011-333-4444"
   user.city                  "Beirut"
   user.country               "Lebanon"
-  #user.name                  "Michael Hartl"
-  #user.email                 "mhartl@example.com"
   user.password              "foobar"
   user.password_confirmation "foobar"
 end

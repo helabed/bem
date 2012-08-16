@@ -77,13 +77,20 @@ class UsersController < ApplicationController
   end
 
   def update
-    @title = "Update user"
+    @title = "Updating user"
+    the_user_to_update = User.find(params[:id])
+    if current_user.admin and current_user?(the_user_to_update) and (params[:admin] == false or params[:record][:admin] == '0')
+      # admin trying to demote himself or herself
+      message = "You cannot demote yourself as an admin to a regular user, find another admin to do it for you."
+      flash[:error] = message
+      the_user_to_update.errors.add(:admin, message)
+      params[:record][:admin] = '1' # reset to 'admin'
+    end
     super
   end
 
   def edit_profile
     @cart = current_cart
-    #@user = User.find(params[:id]) # moved to correct_user
     @title = "Edit user"
     render 'edit_profile', :layout => 'store'
   end
@@ -114,13 +121,15 @@ class UsersController < ApplicationController
 
   def destroy
     the_user_to_delete = User.find(params[:id])
+    @record = the_user_to_delete   # used by active scaffold
     if current_user?(the_user_to_delete)
-      flash[:error] = "You cannot delete yourself as an admin."
+      message = "You cannot delete yourself as an admin, find another admin to do it for you."
+      flash[:error] = message
+      the_user_to_delete.errors.add(:user, message)
+      return
     else
-      the_user_to_delete.destroy
-      flash[:success] = "User deleted."
+      super
     end
-    redirect_to home_path
   end
 
   def following
