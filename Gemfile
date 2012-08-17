@@ -41,6 +41,7 @@ group :development, :test do
   gem 'rcov_rails'
   gem 'ruby-debug'
   gem 'bullet'
+  gem 'letter_opener'
 end
 
 gem 'rack-mini-profiler'
