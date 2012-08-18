@@ -40,7 +40,8 @@
 
         %div{ :class => "field"}
           = f.label :pay_type
-          = f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
+          //= f.select :pay_type, Order::PAYMENT_TYPES, :prompt => 'Select a payment method'
+          = f.select :pay_type, Order::PAYMENT_TYPES
 
         %div{ :class => "actions", :style => 'align: center; vertical-align: bottom' }
           = f.submit 'Place your order'

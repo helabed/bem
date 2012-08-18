@@ -14,8 +14,31 @@ Bem::Application.configure do
   config.action_view.debug_rjs             = true
   config.action_controller.perform_caching = false
 
+
+
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+
+  # Change mail delvery to either :letter_opener, :smtp, :sendmail, :file, :test
+  config.action_mailer.delivery_method = :letter_opener
+  # Specify what domain to use for mailer URLs
+  config.action_mailer.default_url_options = {:host => "localhost:3000"}
+
+# # testing against production mailer, comment out block below when not testing mailer,
+# # and uncomment 2 lines above, i.e use :letter_opener and localhost:3000
+# EMAIL_CONSTANTS = YAML.load_file("#{Rails.root.to_s}/config/email_constants.yml")[Rails.env]
+# config.action_mailer.delivery_method = :smtp
+# config.action_mailer.smtp_settings = {
+#   :address => "smtp.gmail.com",
+#   :port => 587,
+#   :domain => "beytelmouneh.com",
+#   :authentication => "plain",
+#   :enable_starttls_auto => true,
+#   :user_name => EMAIL_CONSTANTS["GMAIL_USERNAME"],
+#   :password  => EMAIL_CONSTANTS["GMAIL_PASSWORD"]
+# }
+# config.action_mailer.default_url_options = {:host => "beytelmouneh.com"}
+
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

@@ -1,0 +1,11 @@
+development:
+  GMAIL_USERNAME: joe.user
+  GMAIL_PASSWORD: joes_password
+
+staging:
+  GMAIL_USERNAME: joe.user
+  GMAIL_PASSWORD: joes_password
+
+production:
+  GMAIL_USERNAME: joe.user
+  GMAIL_PASSWORD: joes_password

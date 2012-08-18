@@ -1,0 +1,22 @@
+<p>Welcome to Beyt El Mouneh (BEM)
+<br>
+<p><%= @greeting %>,
+<br>
+
+<p>This is a confirmation that you are now registered with BEM.
+<br>
+
+<p>Please click on the link below to confirm your registration.
+<br>
+
+<p>PUT LINK HERE
+<p><%=link_to "Your User Profile Account", :controller => 'users', :action => 'show_profile', :id => @user.id %>
+<br>
+
+<p>We require confirmation to prevent anybody from using your
+email account by mistake. If you did not register with BEM, then
+no action is needed and the registered account will be deleted shortly.
+<br>
+
+<p>Sincerely,
+<p>The BEM Team

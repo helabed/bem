@@ -52,21 +52,40 @@ class UsersController < ApplicationController
     # WHY did this fail on me
     #redirect_to root_path if signed_in?
     # AND I had to use the if..else..end statement below ??
-    if signed_in?
-      redirect_to root_path if signed_in?
+    if signed_in? and current_user?(@user)
+      redirect_to root_path
     else
-      @user = User.new(params[:user])
-      if @user.save
-        # Handle a successful save.
-        sign_in @user
-        flash[:success] = "Welcome to Beyt el Mouneh"
-        redirect_to home_path
-      else
-        #flash[:error] = "Oh Ooh, something went wrong!!, please re-register"
-        @title = "Register"
-        @user.password = ''
-        @user.password_confirmation = ''
-        render 'new', :layout => 'store'
+      exception_occured = false
+      User.transaction do
+        begin
+          @user = User.new(params[:user])
+          if @user.save
+            UserMailer.registration_confirmation(@user).deliver
+            # Handle a successful save.
+            sign_in @user
+            flash[:success] = "Welcome to Beyt el Mouneh"
+            redirect_to home_path
+          else
+            #flash[:error] = "Oh Ooh, something went wrong!!, please re-register"
+            @title = "Register"
+            #@user.password = ''
+            #@user.password_confirmation = ''
+            render 'new', :layout => 'store'
+          end
+        rescue Exception => e
+          sign_out
+          exception_occured = true
+          flash.now[:error] = "an error occured while saving your info, please try again"
+          logger.error "Exception while saving user or emailing confirmation: #{e.message}"
+          logger.error "Exception backtrace: #{e.backtrace.join("\n")}"
+          raise ActiveRecord::Rollback
+        ensure
+          if exception_occured
+            @user = User.new(params[:user])
+            @title = "Register"
+            render 'new', :layout => 'store'
+          end
+        end
       end
     end
   end

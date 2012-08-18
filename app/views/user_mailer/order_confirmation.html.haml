@@ -1,0 +1,68 @@
+!!!
+%html
+  %head
+    %title
+      Beyt el Mouneh | Emails
+  %body#store
+    %p Thank you for your doing business with Beyt El Mouneh (BEM)
+    = "#{@greeting},"
+    %p This is a confirmation of your order.
+    %p You have orered the following products
+
+
+
+    .depot_form
+      %fieldset
+        %legend Your Order
+        .field
+          %label.show Order Name:
+          .data
+            = @order.name
+        .field
+          %label.show Address:
+          .data
+            = @order.address
+        .field
+          %label.show Email:
+          .data
+            = @order.email
+        .field
+          %label.show Payment Type:
+          .data
+            = @order.pay_type
+        .field
+          %label.show Order Items:
+          .data
+            %table
+              %tr
+                %th
+                  Quantity
+                %th Item
+                %th
+                  Unit
+                  %br
+                  Price
+                %th Price
+              - grand_total_price = 0
+              - @order.line_items.each do |item|
+                -grand_total_price += item.total_price
+                %tr
+                  %td
+                    = item.quantity
+                  %td
+                    = item.product.title
+                  %td
+                    = item.product.price
+                  %td
+                    = item.total_price
+              %tr
+                %td
+                  %b Total
+                %td
+                  %b= number_to_currency(grand_total_price, :locale => :lb)
+
+
+    %p
+      Sincerely,
+      %br
+      The BEM Team

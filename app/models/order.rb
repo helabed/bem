@@ -20,6 +20,12 @@ class Order < ActiveRecord::Base
       line_items << item
     end
   end
+
+  def clean_up_item_reference(cart)
+    cart.line_items.each do |item|
+      item.cart_id = nil
+    end
+  end
 end
 
 # == Schema Information

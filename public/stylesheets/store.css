@@ -257,8 +257,16 @@ display: inline;
   margin-left: 10px;
 }
 
-/* uncomment block below if you want to restrict the nesting left margin up to say five level deep */
-/*
-.nested_categories .nested_categories .nested_categories.nested_categories  .nested_categories {
-  margin-left: 0;
-}*/
+body #siteFooter div.left {
+  position: relative;
+  float: left;
+  vertical-align: top;
+  font-size: smaller;
+  color: #435975; }
+
+div.small_text,
+span.small_text {
+  left: 12px;
+  top: 17px;
+  font-size: smaller;
+  color: #435975; }

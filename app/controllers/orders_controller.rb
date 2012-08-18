@@ -84,50 +84,71 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1/edit
-  def edit_in_store
-    @cart = current_cart
-    @order = Order.find(params[:id])
-    format.html { render 'orders_in_store/edit', :layout => 'store' } # listing.html.erb
-  end
+# def edit_in_store
+#   @cart = current_cart
+#   @order = Order.find(params[:id])
+#   format.html { render 'orders_in_store/edit', :layout => 'store' } # listing.html.erb
+# end
 
   # POST /orders
   # POST /orders.xml
   def create_in_store
     @cart = current_cart
-    @order = Order.new(params[:order])
-    @order.add_line_items_from_cart(current_cart)
-    @order.user = current_user
 
-    respond_to do |format|
-      if @order.save
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-        format.html { redirect_to(store_url, :notice => 'Thank you for your order.') }
-        #format.html { redirect_to(@order, :notice => 'Order was successfully created.') }
-        format.xml  { render :xml => @order, :status => :created, :location => @order }
-      else
-        format.html { render  "orders_in_store/new", :layout => 'store' }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+    exception_occured = false
+    Order.transaction do
+      begin
+        @order = Order.new(params[:order])
+
+        respond_to do |format|
+          if @order.save
+            @order.user = current_user
+            @order.add_line_items_from_cart(current_cart)
+            UserMailer.order_confirmation(@order).deliver
+            @order.clean_up_item_reference(current_cart)
+            Cart.destroy(session[:cart_id])
+            session[:cart_id] = nil
+
+            # sucks by have to garantee order is saved (again!) with user and newly added items
+            @order.save
+
+            format.html { redirect_to(store_url, :notice => 'Thank you for your order.') }
+            format.xml  { render :xml => @order, :status => :created, :location => @order }
+          else
+            format.html { render  "orders_in_store/new", :layout => 'store' }
+            format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+          end
+        end
+      rescue Exception => e
+        exception_occured = true
+        flash.now[:error] = "an error occured while saving your order, please try again"
+        logger.error "Exception while saving order or emailing confirmation: #{e.message}"
+        logger.error "Exception backtrace: #{e.backtrace.join("\n")}"
+        raise ActiveRecord::Rollback
+      ensure
+        if exception_occured
+          render  "orders_in_store/new", :layout => 'store'
+        end
       end
     end
   end
 
-  # PUT /orders/1
-  # PUT /orders/1.xml
-  def update_in_store
-    @cart = current_cart
-    @order = Order.find(params[:id])
-
-    respond_to do |format|
-      if @order.update_attributes(params[:order])
-        format.html { redirect_to( :action => 'show_in_store', :notice => 'Order was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render "edit_in_store/edit" }
-        format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
+# # PUT /orders/1
+# # PUT /orders/1.xml
+# def update_in_store
+#   @cart = current_cart
+#   @order = Order.find(params[:id])
+#
+#   respond_to do |format|
+#     if @order.update_attributes(params[:order])
+#       format.html { redirect_to( :action => 'show_in_store', :notice => 'Order was successfully updated.') }
+#       format.xml  { head :ok }
+#     else
+#       format.html { render "orders_in_store/edit" }
+#       format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
+#     end
+#   end
+# end
 
   # DELETE /orders/1
   # DELETE /orders/1.xml
