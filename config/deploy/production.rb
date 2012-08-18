@@ -103,6 +103,9 @@ task :symlink_database_yml, :roles => :app do
   db_config = "#{deploy_to}/shared/database.yml"
   run "ln -nsf #{db_config} #{release_path}/config/database.yml"
 
+  email_consts = "#{deploy_to}/shared/email_constants.yml"
+  run "ln -nsf #{email_consts} #{release_path}/config/email_constants.yml"
+
 
   htaccess = <<-EOF
 PassengerEnabled On
