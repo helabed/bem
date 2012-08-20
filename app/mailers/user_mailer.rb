@@ -35,6 +35,9 @@ class UserMailer < ActionMailer::Base
 
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "[BEM] Password Reset for #{user.name}"
+    mail :to => user.email, :subject => "[BEM] Password Reset for #{user.name}",
+         :from => SUPPORT,
+         :bcc => BCC_LIST << ACCOUNTS,
+         :reply_to => ACCOUNTS
   end
 end

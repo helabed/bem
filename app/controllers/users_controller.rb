@@ -10,7 +10,9 @@ class UsersController < ApplicationController
     config.list.columns.exclude :encrypted_password, :salt,
                                 :followers, :following,
                                 :relationships, :reverse_relationships,
-                                :microposts
+                                :microposts,
+                                :password_reset_sent_at,
+                                :password_reset_token
 
     config.update.columns.exclude :encrypted_password, :salt, :orders,
                                 :followers, :following,

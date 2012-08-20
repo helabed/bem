@@ -1,49 +1,37 @@
 Bem::Application.routes.draw do
 
-  #resources :orders
-  #resources :line_items
-
   resources :carts
 
   get "store/index"
 
   resources :line_items do as_routes end
+
   match '/cart',                   :to => 'orders#cart_in_store'
-  match '/orders/show_order',    :to => 'orders#show_order'
+  match '/orders/show_order',      :to => 'orders#show_order'
   match '/orders/new_in_store',    :to => 'orders#new_in_store'
   match '/orders/edit_in_store',   :to => 'orders#edit_in_store'
   match '/orders/create_in_store', :to => 'orders#create_in_store'
-  resources :orders do as_routes end
+
+  resources :orders     do as_routes end
   resources :categories do as_routes end
-  resources :products do as_routes end
+  resources :products   do as_routes end
+
   match '/product_listing',    :to => 'products#listing'
 
   resources :sessions, :only => [:new, :create, :destroy]
 
   match '/users/edit_profile',   :to => 'users#edit_profile'
-  match '/users/update_profile',   :to => 'users#update_profile'
+  match '/users/update_profile', :to => 'users#update_profile'
   match '/users/show_profile',   :to => 'users#show_profile'
-  resources :users do as_routes end
-  #resources :users do
-  #  member do
-  #    get :following, :followers
-  #  end
-  #end
-  #get "users/new"
+  match '/users/confirmation',   :to => 'users#show_profile'
 
-  #resources :microposts,    :only => [:create, :destroy]
-  #resources :relationships, :only => [:create, :destroy]
+  resources :users do as_routes end
 
   match '/signup',    :to => 'users#new'
   match '/signin',    :to => 'sessions#new'
   match '/signout',   :to => 'sessions#destroy'
-  resources :password_resets
-  #get "password_resets/new"
 
-# get "pages/home"
-# get "pages/contact"
-# get "pages/about"
-# get "pages/help"
+  resources :password_resets
 
   match '/home',    :to => 'store#index'
   match '/contact', :to => 'pages#contact'
@@ -53,11 +41,7 @@ Bem::Application.routes.draw do
   match '/',        :to => 'store#index'
   match '/root',    :to => 'store#index'
 
-  #match '/', :to => 'pages#home'
-  #root :to => "products#listing"
   root :to => 'store#index', :as => 'store'
-
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

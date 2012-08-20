@@ -1,0 +1,20 @@
+%p
+  Welcome to Beyt El Mouneh (BEM)
+%p
+  = "#{@greeting},"
+%p
+  This is a confirmation that you are now registered with BEM.
+%p
+  Please click on the link below to confirm your registration.
+%p
+  - splits = users_confirmation_url(@user).split(".")
+  - the_link = "#{splits.first}?id=#{splits.last}"
+  = link_to the_link, the_link
+%p
+  We require confirmation to prevent anybody from using your
+  email account by mistake. If you did not register with BEM, then
+  no action is needed and the registered account will be deleted shortly.
+%p
+  Sincerely,
+%p
+  The BEM Team

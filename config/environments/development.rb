@@ -37,7 +37,7 @@ Bem::Application.configure do
 #   :user_name => EMAIL_CONSTANTS["GMAIL_USERNAME"],
 #   :password  => EMAIL_CONSTANTS["GMAIL_PASSWORD"]
 # }
-# config.action_mailer.default_url_options = {:host => "beytelmouneh.com"}
+# config.action_mailer.default_url_options = {:host => "localhost:3000"}
 
 
   # Print deprecation notices to the Rails logger

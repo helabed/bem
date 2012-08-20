@@ -260,6 +260,7 @@ display: inline;
 body #siteFooter div.left {
   position: relative;
   float: left;
+  margin-left: 30px;
   vertical-align: top;
   font-size: smaller;
   color: #435975; }

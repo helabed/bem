@@ -9,57 +9,64 @@
     %p This is a confirmation of your order.
     %p You have orered the following products
 
-
-
     .depot_form
       %fieldset
         %legend Your Order
-        .field
-          %label.show Order Name:
-          .data
-            = @order.name
-        .field
-          %label.show Address:
-          .data
-            = @order.address
-        .field
-          %label.show Email:
-          .data
-            = @order.email
-        .field
-          %label.show Payment Type:
-          .data
-            = @order.pay_type
-        .field
-          %label.show Order Items:
-          .data
-            %table
-              %tr
-                %th
-                  Quantity
-                %th Item
-                %th
-                  Unit
-                  %br
-                  Price
-                %th Price
-              - grand_total_price = 0
-              - @order.line_items.each do |item|
-                -grand_total_price += item.total_price
+        %table{:style => 'padding: 5px'}
+          %tr
+            %th
+              Order Name:
+            %td{:style => 'padding: 5px'}
+              = @order.name
+          %tr
+            %th
+              Address:
+            %td{:style => 'padding: 5px'}
+              = @order.address.split("\n").join('<br />').html_safe
+          %tr
+            %th
+              Email:
+            %td{:style => 'padding: 5px'}
+              = @order.email
+          %tr
+            %th
+              Payment Type:
+            %td{:style => 'padding: 5px'}
+              = @order.pay_type
+
+          %tr
+            %th
+              Order Items:
+            %td{:style => 'padding: 5px'}
+              %table{:style => 'padding: 5px'}
+                %tr
+                  %th
+                    Quantity
+                  %th Item
+                  %th
+                    Unit
+                    %br
+                    Price
+                  %th Price
+                - grand_total_price = 0
+                - @order.line_items.each do |item|
+                  -grand_total_price += item.total_price
+                  %tr
+                    %td{:style => 'padding: 5px'}
+                      = item.quantity
+                    %td{:style => 'padding: 5px'}
+                      = item.product.title
+                    %td{:style => 'padding: 5px'}
+                      = item.product.price
+                    %td{:style => 'padding: 5px'}
+                      = item.total_price
                 %tr
                   %td
-                    = item.quantity
                   %td
-                    = item.product.title
-                  %td
-                    = item.product.price
-                  %td
-                    = item.total_price
-              %tr
-                %td
-                  %b Total
-                %td
-                  %b= number_to_currency(grand_total_price, :locale => :lb)
+                  %td{:style => 'padding: 5px'}
+                    %b Total
+                  %td{:style => 'padding: 5px'}
+                    %b= number_to_currency(grand_total_price, :locale => :lb)
 
 
     %p
