@@ -77,6 +77,22 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    save!
+    UserMailer.password_reset(self).deliver
+  end
+
+  def generate_token(column)
+    begin
+      # for ruby 1.8.7
+      self[column] = SecureRandom.base64.tr("+/", "-_")
+      # for ruby 1.9 use line below
+      #self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
+  end
+
   def feed
     # This is preliminary. See Chapter 12 for the full implementation.
     #Micropost.where("user_id = ?", id)

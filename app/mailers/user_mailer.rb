@@ -32,4 +32,9 @@ class UserMailer < ActionMailer::Base
          :bcc => BCC_LIST << ORDERS,
          :reply_to => ORDERS
   end
+
+  def password_reset(user)
+    @user = user
+    mail :to => user.email, :subject => "[BEM] Password Reset for #{user.name}"
+  end
 end

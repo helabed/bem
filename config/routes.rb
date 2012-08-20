@@ -1,4 +1,5 @@
 Bem::Application.routes.draw do
+
   #resources :orders
   #resources :line_items
 
@@ -36,6 +37,8 @@ Bem::Application.routes.draw do
   match '/signup',    :to => 'users#new'
   match '/signin',    :to => 'sessions#new'
   match '/signout',   :to => 'sessions#destroy'
+  resources :password_resets
+  #get "password_resets/new"
 
 # get "pages/home"
 # get "pages/contact"

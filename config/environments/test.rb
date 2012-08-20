@@ -26,7 +26,7 @@ Bem::Application.configure do
   config.action_mailer.delivery_method = :test
 
   # Specify what domain to use for mailer URLs
-  config.action_mailer.default_url_options = {:host => "localhost"}
+  config.action_mailer.default_url_options = {:host => "www.example.com"}
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

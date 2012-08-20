@@ -1,0 +1,13 @@
+.depot_form
+  %fieldset
+    %legend Password Reset
+    = form_tag password_resets_path, :method => :post do
+      .field
+        = label_tag :email
+        = text_field_tag :email, params[:email]
+      .actions
+        = submit_tag "Reset Your Password"
+    %p
+      New user? #{link_to "Register now!", signup_path}
+    %p
+      Already a user? #{link_to "Login now!", signin_path}
