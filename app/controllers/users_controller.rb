@@ -62,6 +62,7 @@ class UsersController < ApplicationController
         begin
           @user = User.new(params[:user])
           if @user.save
+            @user.prepare_activation_token
             UserMailer.registration_confirmation(@user).deliver
             # Handle a successful save.
             sign_in @user

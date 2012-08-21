@@ -93,6 +93,13 @@ class User < ActiveRecord::Base
     end while User.exists?(column => self[column])
   end
 
+  def prepare_activation_token
+    generate_token(:activation_token)
+    self.activation_sent_at = Time.zone.now
+    save!
+    #UserMailer.password_reset(self).deliver
+  end
+
   def feed
     # This is preliminary. See Chapter 12 for the full implementation.
     #Micropost.where("user_id = ?", id)

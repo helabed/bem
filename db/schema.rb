@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120820131602) do
+ActiveRecord::Schema.define(:version => 20120821053458) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -101,6 +101,9 @@ ActiveRecord::Schema.define(:version => 20120820131602) do
     t.string   "phone"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
+    t.boolean  "active",                 :default => false
+    t.string   "activation_token"
+    t.datetime "activation_sent_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

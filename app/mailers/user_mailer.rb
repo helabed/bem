@@ -40,4 +40,14 @@ class UserMailer < ActionMailer::Base
          :bcc => BCC_LIST << ACCOUNTS,
          :reply_to => ACCOUNTS
   end
+
+  def activation_instructions(user)
+    @user = user
+    @greeting = "Hi #{user.name}"
+
+    mail :to => "#{user.email}", :subject => "[BEM] Activation Instructions for #{user.name}",
+         :from => SUPPORT,
+         :bcc => BCC_LIST << ACCOUNTS,
+         :reply_to => ACCOUNTS
+  end
 end

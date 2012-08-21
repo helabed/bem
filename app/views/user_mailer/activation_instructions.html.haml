@@ -3,15 +3,14 @@
 %p
   = "#{@greeting},"
 %p
-  This is a confirmation that you are now registered with BEM.
-%p
-  Please click on the link below to confirm your registration.
+  Please click on the link below to activate your account.
 %p
   - the_link = edit_activation_url(@user.activation_token)
   = link_to the_link, the_link
 %p
-  We require confirmation to prevent anybody from using your
-  email account by mistake. If you did not register with BEM, then
+  We require activation to prevent anybody from using your
+  email account by mistake. This confirms that you are the owner of this email account.
+  If you did not register with BEM, then
   no action is needed and the registered account will be deleted shortly.
 %p
   Sincerely,

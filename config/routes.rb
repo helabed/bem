@@ -1,5 +1,7 @@
 Bem::Application.routes.draw do
 
+  resources :activation
+
   resources :carts
 
   get "store/index"
