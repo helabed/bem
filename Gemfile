@@ -47,3 +47,4 @@ end
 gem 'rack-mini-profiler'
 gem 'ransack'
 gem 'simple_form'
+gem 'roadie'
