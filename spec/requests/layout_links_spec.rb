@@ -19,11 +19,6 @@ describe "LayoutLinks" do
     page.should have_selector('title', :text => "About")
   end
   
-  it "should have a Help page at '/help'" do
-    visit '/help'
-    page.should have_selector('title', :text => "Help")
-  end
-
   it "should have a signup page at '/signup'" do
     visit '/signup'
     page.should have_selector('title', :text => "Register")
