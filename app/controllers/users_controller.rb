@@ -33,8 +33,7 @@ class UsersController < ApplicationController
 
   def index
     @title = "All users"
-    # no need for users anymore, active scaffold will take care of views
-    #@users = User.paginate(:page => params[:page])
+    # no need for @users or any instance vars, active scaffold will take care of views
     super
   end
 
@@ -51,9 +50,7 @@ class UsersController < ApplicationController
 
   def create
     @cart = current_cart
-    # WHY did this fail on me
-    #redirect_to root_path if signed_in?
-    # AND I had to use the if..else..end statement below ??
+
     if signed_in? and current_user?(@user)
       redirect_to root_path
     else
@@ -64,15 +61,11 @@ class UsersController < ApplicationController
           if @user.save
             @user.prepare_activation_token
             UserMailer.registration_confirmation(@user).deliver
-            # Handle a successful save.
             sign_in @user
             flash[:success] = "Welcome to Beyt el Mouneh"
             redirect_to home_path
           else
-            #flash[:error] = "Oh Ooh, something went wrong!!, please re-register"
             @title = "Register"
-            #@user.password = ''
-            #@user.password_confirmation = ''
             render 'new', :layout => 'store'
           end
         rescue Exception => e

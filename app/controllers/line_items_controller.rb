@@ -8,18 +8,6 @@ class LineItemsController < ApplicationController
     config.actions = [:list, :nested, :subform]
   end
 
-
-  # GET /line_items
-  # GET /line_items.xml
-#  def index
-#    @line_items = LineItem.all
-#
-#    respond_to do |format|
-#      format.html { render :layout => 'admin' } # listing.html.erb
-#      format.xml  { render :xml => @line_items }
-#    end
-#  end
-
   # GET /line_items/1
   # GET /line_items/1.xml
   def show
@@ -58,9 +46,6 @@ class LineItemsController < ApplicationController
     else
       @line_item = @cart.add_product(product.id)
     end
-    #@line_item = @cart.line_items.build(:product => product)
-    #@line_item = LineItem.new(params[:line_item])
-
 
     respond_to do |format|
       if @line_item.save
@@ -96,7 +81,6 @@ class LineItemsController < ApplicationController
         format.html { redirect_to(@line_item, :notice => 'Line item was successfully updated.') }
         format.js   do
           @current_item = @line_item
-          #redirect_to(store_url) 
         end
         format.xml  { head :ok }
       else

@@ -41,11 +41,6 @@ class CategoriesController < ApplicationController
     end
   end
 
-  #def conditions_for_collection
-  #  #['ORDER BY (?)', 'name']
-  #  Category.order(:name)
-  #end
-
   def before_create_save(record)
     set_parent_id_for_active_scaffold_record record, params
   end

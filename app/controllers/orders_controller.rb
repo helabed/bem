@@ -83,13 +83,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # GET /orders/1/edit
-# def edit_in_store
-#   @cart = current_cart
-#   @order = Order.find(params[:id])
-#   format.html { render 'orders_in_store/edit', :layout => 'store' } # listing.html.erb
-# end
-
   # POST /orders
   # POST /orders.xml
   def create_in_store
@@ -132,23 +125,6 @@ class OrdersController < ApplicationController
       end
     end
   end
-
-# # PUT /orders/1
-# # PUT /orders/1.xml
-# def update_in_store
-#   @cart = current_cart
-#   @order = Order.find(params[:id])
-#
-#   respond_to do |format|
-#     if @order.update_attributes(params[:order])
-#       format.html { redirect_to( :action => 'show_in_store', :notice => 'Order was successfully updated.') }
-#       format.xml  { head :ok }
-#     else
-#       format.html { render "orders_in_store/edit" }
-#       format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }
-#     end
-#   end
-# end
 
   # DELETE /orders/1
   # DELETE /orders/1.xml

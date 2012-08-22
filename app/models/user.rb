@@ -97,7 +97,6 @@ class User < ActiveRecord::Base
     generate_token(:activation_token)
     self.activation_sent_at = Time.zone.now
     save!
-    #UserMailer.password_reset(self).deliver
   end
 
   def feed
@@ -120,20 +119,6 @@ class User < ActiveRecord::Base
 
   private
 
-    #def encrypt_password
-      # if we ommitted self.Ruby would create a local variable called
-      # encrypted_password, which isn't what we want at all.
-      #self.encrypted_password = encrypt(self.password)
-    #  self.encrypted_password = encrypt(password) # we could have used self.password
-      # (Of course, as we've noted, the self is not optional when
-      # assigning to an attribute, so we have to write self.encrypted_password
-      # in this case.)
-    #end
-
-    #def encrypt(string)
-    #  string # Only a temporary implementation!
-    #end
-
     def encrypt_password
       # new_record? boolean method, which returns true if the object has not
       # yet been saved to the database
@@ -154,7 +139,6 @@ class User < ActiveRecord::Base
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end
-
 end
 
 

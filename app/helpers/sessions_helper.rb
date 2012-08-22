@@ -9,10 +9,6 @@ module SessionsHelper
     @current_user = user
   end
 
-  #def current_user
-  #  @current_user     # Useless! Don't use this line.
-  #end
-
   def current_user
     @current_user ||= user_from_remember_token
   end
@@ -51,7 +47,6 @@ module SessionsHelper
     redirect_to(session[:return_to] || default)
     clear_return_to
   end
-
 
   private
 
