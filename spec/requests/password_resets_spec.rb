@@ -50,6 +50,4 @@ describe "PasswordResets" do
       visit edit_password_reset_path("invalid")
     }.should raise_exception(ActiveRecord::RecordNotFound)
   end
-
-
 end

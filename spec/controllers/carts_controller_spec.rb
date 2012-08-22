@@ -116,17 +116,6 @@ describe CartsController do
   end
 
   describe "DELETE destroy" do
-#   it "destroys the requested cart" do
-#     pending "cannot figue this out ??"
-#     #Cart.stub(:find).with("37") { mock_cart }
-#     mock_cart = Cart.create
-#     mock_cart.save
-#     lambda {
-#       #mock_cart.should_receive(:destroy)
-#       delete :destroy, :id => mock_cart.id.to_s
-#     }.should change(Cart, :count).by(-1)
-#     #save_and_open_page
-#   end
 
     it "redirects to the carts list" do
       Cart.stub(:find) { mock_cart }

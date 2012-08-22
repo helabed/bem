@@ -17,11 +17,8 @@ describe ProductsController do
 
     it "should have the right title" do
       visit '/products/index'
-      #response.should contain("#{@base_title}")
       #save_and_open_page
       page.should have_content("#{@base_title}")
-      #response.should have_selector("title",
-      #  :content => "#{@base_title}")
     end
   end
 
@@ -33,10 +30,6 @@ describe ProductsController do
 
     it 'should allow user to enter the site' do
       visit '/'
-      #save_and_open_page
-      #click_on 'enter_the_store'
-      #response.should have_selector("title",
-      #  :content => "#{@base_title} | Home")
       page.should have_content('Beyt el Mouneh Online Store')
     end
   end

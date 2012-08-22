@@ -33,8 +33,6 @@ describe "LayoutLinks" do
     visit home_path
     click_link "About"
     page.should have_selector('title', :text => "About")
-    #click_link "Help"
-    #page.should have_selector('title', :text => "Help")
     click_link "Contact"
     page.should have_selector('title', :text => "Contact")
     click_link "Home"

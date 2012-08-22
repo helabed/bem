@@ -21,7 +21,6 @@ describe "Users" do
           click_button "Register"
           page.should have_selector("div.flash.success",
                                         :text => "Welcome")
-          #response.should render_template('users/show')
           current_path.should == home_path
           current_path.should == '/home'
         end.should change(User, :count).by(1)
@@ -38,16 +37,10 @@ describe "Users" do
           fill_in "Email",        :with => ""
           fill_in "Address",      :with => ""
           fill_in "Phone",        :with => ""
-          #select  "",             :from => "City"
-          #select  "",             :from => "Country"
           fill_in "Password",     :with => ""
           fill_in "Confirmation", :with => ""
           click_button "Register"
-          #response.should render_template('users/new')
           page.should have_selector("div#error_explanation")
-          #save_and_open_page
-          # bug in here
-          #current_path.should == new_user_path
           page.should have_selector("title", :text => "Register")
         end.should_not change(User, :count)
       end
@@ -69,28 +62,10 @@ describe "Users" do
       it "should sign a user in and out" do
         user = Factory(:user)
         integration_sign_in user
-        #controller.should be_signed_in
         current_path.should == home_path
         click_link "Logout"
         current_path.should == root_path
-        #controller.should_not be_signed_in
       end
     end
   end
-
-# describe "delete link" do
-#   it "should show 'delete' link for admins" do
-#     user = Factory(:user, :admin => true)
-#     integration_sign_in user
-#     visit users_path
-#     page.should have_selector("a", :text => "delete")
-#   end
-#
-#   it "should not show 'delete' link for non-admins" do
-#     user = Factory(:user, :admin => false)
-#     integration_sign_in user
-#     visit users_path
-#     page.should_not have_selector("a", :text => "delete")
-#   end
-# end
 end

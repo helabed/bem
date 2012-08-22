@@ -8,12 +8,6 @@ describe SessionsController do
       get 'new'
       response.should be_success
     end
-
-#   it "should have the right title" do
-#     pending
-#     get :new
-#     #response.should have_selector("title", :content => "Sign in")
-#   end
   end
 
   describe "POST 'create'" do
@@ -28,12 +22,6 @@ describe SessionsController do
         post :create, :session => @attr
         response.should render_template('new')
       end
-
-#     it "should have the right title" do
-#       pending
-#       post :create, :session => @attr
-#       #response.should have_selector("title", :content => "Sign in")
-#     end
 
       it "should have a flash.now message" do
         post :create, :session => @attr

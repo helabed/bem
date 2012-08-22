@@ -235,23 +235,6 @@ namespace :refresh do
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ============================================================================================================
 # update the public/system ( i.e /home/rubywebw/staging.beytelmouneh.com/bem_system) folder for all servers from the latest on:
 #

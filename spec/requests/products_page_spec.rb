@@ -11,18 +11,14 @@ describe 'products page' do
     #save_and_open_page
     #sleep 5
     visit products_path
-    #save_and_open_page
     sleep 5
     click_link "test js"
     sleep 5
     page.should have_content("js works")
-    #save_and_open_page
-
     visit products_path
     click_on "test button js"
     sleep 5
     page.should have_content("js button works")
-    #save_and_open_page
   end
 
   #it 'lets the user add a product', :js => true do
@@ -33,20 +29,14 @@ describe 'products page' do
     fill_in 'Title', :with => 'Foule Mudammas'
     fill_in 'Description', :with => 'tasty fava beans'
     fill_in 'Price', :with => '9.99'
-    #fill_in 'Image', :with => '/images/foule_mudammas.jpg'
     attach_file 'Image', (File.dirname(__FILE__)+'/../../public/images/foule_mudammas.jpg')
-    #save_and_open_page
     click_on 'Create'  # this be an Ajax button -- only works with Selenium
-    #save_and_open_page
     page.should have_content('Foule Mudammas')
     page.should have_content('tasty fava beans')
     page.should have_content('9.99')
-    #save_and_open_page
     click_on 'Edit'  # this be an Ajax button -- only works with Selenium
     fill_in 'Price', :with => '9.77'
     click_on 'Update'  # this be an Ajax button -- only works with Selenium
     page.should have_content('9.77')
-    #save_and_open_page
   end
-
 end

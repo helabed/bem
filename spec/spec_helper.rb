@@ -63,7 +63,6 @@ RSpec.configure do |config|
     #save_and_open_page
     #sleep 10
     click_button "Login"
-    #sleep 10
   end
 
   # same as in register
@@ -83,7 +82,6 @@ RSpec.configure do |config|
 
   def integration_update_user(user, attr)
     visit("/users/edit_profile?id=#{user.id}")
-    #visit edit_user_path(user)
     fill_in "First name",   :with => attr[:first_name]
     fill_in "Last name",    :with => attr[:last_name]
     fill_in "Email",        :with => attr[:email]
@@ -93,19 +91,12 @@ RSpec.configure do |config|
     select  attr[:country], :from => "Country"
     fill_in "Password",     :with => attr[:password]
     fill_in "Confirmation", :with => attr[:password_confirmation]
-#    save_and_open_page
-#debugger
     click_button "Update"
-#    save_and_open_page
   end
 
   def integration_create_micropost(attr)
     visit home_path
     fill_in "micropost_content",         :with => attr[:content]
-#    save_and_open_page
-#debugger
     click_button "Submit"
-#    save_and_open_page
   end
-
 end
