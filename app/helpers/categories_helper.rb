@@ -39,4 +39,17 @@ module CategoriesHelper
     array_for_select = parents_array_for_select Category.order(:name)
     select :record, :parent_id, array_for_select, :name => options
   end
+
+  def products_column(record)
+    products = record.products
+    categories = record.descendants
+      titles = []
+      categories.all.map(&:products).each do | the_products |
+        the_products.each do |product|
+          titles << product.title
+        end
+      end
+      titles << products.map(&:title) unless products.empty?
+      "#{titles.join(", ")}"
+  end
 end

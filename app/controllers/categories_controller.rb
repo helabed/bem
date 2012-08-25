@@ -4,7 +4,7 @@ class CategoriesController < ApplicationController
   before_filter :admin_user
 
   active_scaffold :category do |config|
-    config.nested.add_scoped_link(:children)  #nested link to children
+    config.nested.add_scoped_link(:sub_categories)  #nested link to children/sub-categories
     config.list.columns.exclude   :position
     config.create.columns.exclude :position
     config.update.columns.exclude :position
@@ -23,7 +23,6 @@ class CategoriesController < ApplicationController
   def edit
     super
   end
-
 
   protected
 

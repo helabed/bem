@@ -3,6 +3,10 @@ class Category < ActiveRecord::Base
   has_ancestry
 
   has_many :products
+
+  def sub_categories
+    children
+  end
 end
 
 # == Schema Information
