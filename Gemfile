@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rcov'
   gem 'rcov_rails'
   gem 'ruby-debug'
+  gem 'uniform_notifier', '1.0.1'
   gem 'bullet'
   gem 'letter_opener'
 end

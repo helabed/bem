@@ -206,7 +206,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.31)
-    uniform_notifier (1.0.2)
+    uniform_notifier (1.0.1)
     web-app-theme (0.6.3)
     websocket (1.0.4)
     will_paginate (3.0.0)
@@ -250,6 +250,7 @@ DEPENDENCIES
   rspec-rails
   ruby-debug
   simple_form
+  uniform_notifier (= 1.0.1)
   web-app-theme
   will_paginate
   wirble
