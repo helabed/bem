@@ -1,3 +1,21 @@
+GIT
+  remote: https://github.com/helabed/rubyzip.git
+  revision: 1e6469e067ed3d1a3ba2a526948f7b0f9ccbcdcf
+  branch: v1.0.0.1
+  specs:
+    rubyzip (1.0.0)
+
+GIT
+  remote: https://github.com/helabed/selenium-webdriver.git
+  revision: 1d0fb71373f1bc059ff19109c1b70976b7c96dca
+  branch: v2.43.0.1
+  specs:
+    selenium-webdriver (2.43.0)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -28,7 +46,7 @@ GEM
       activemodel (= 3.0.11)
       activesupport (= 3.0.11)
     activesupport (3.0.11)
-    addressable (2.3.2)
+    addressable (2.3.5)
     annotate-models (1.0.4)
     arel (2.0.10)
     builder (2.1.2)
@@ -51,8 +69,8 @@ GEM
       xpath (~> 0.1.4)
     carrierwave (0.5.4)
       activesupport (~> 3.0)
-    childprocess (0.3.6)
-      ffi (~> 1.0, >= 1.0.6)
+    childprocess (0.5.5)
+      ffi (~> 1.0, >= 1.0.11)
     columnize (0.3.2)
     configuration (1.2.0)
     crack (0.1.8)
@@ -79,7 +97,7 @@ GEM
       railties (>= 3.0.0)
     faker (0.9.5)
       i18n (~> 0.4)
-    ffi (1.2.0)
+    ffi (1.9.6)
     gherkin (2.9.0)
       json (>= 1.4.6)
     haml (3.0.25)
@@ -99,9 +117,6 @@ GEM
       rake (>= 0.8.1)
     letter_opener (0.0.2)
       launchy
-    libwebsocket (0.1.7.1)
-      addressable
-      websocket
     linecache (0.43)
     looksee (1.0.2)
     mail (2.2.19)
@@ -110,8 +125,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
-    multi_json (1.4.0)
-    mysql2 (0.2.7)
+    multi_json (1.10.1)
+    mysql2 (0.2.23)
     net-scp (1.0.4)
       net-ssh (>= 1.99.1)
     net-sftp (2.0.5)
@@ -185,12 +200,6 @@ GEM
       ruby-debug-base (~> 0.10.4.0)
     ruby-debug-base (0.10.4)
       linecache (>= 0.3)
-    rubyzip (0.9.9)
-    selenium-webdriver (2.27.1)
-      childprocess (>= 0.2.5)
-      libwebsocket (~> 0.1.3)
-      multi_json (~> 1.0)
-      rubyzip
     simple_form (2.0.2)
       actionpack (~> 3.0)
       activemodel (~> 3.0)
@@ -208,7 +217,7 @@ GEM
     tzinfo (0.3.31)
     uniform_notifier (1.0.1)
     web-app-theme (0.6.3)
-    websocket (1.0.4)
+    websocket (1.2.1)
     will_paginate (3.0.0)
     wirble (0.1.3)
     xpath (0.1.4)
@@ -224,7 +233,7 @@ DEPENDENCIES
   capistrano
   capistrano-ext
   capybara
-  carrierwave
+  carrierwave (= 0.5.4)
   cucumber
   cucumber-rails
   database_cleaner
@@ -235,6 +244,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   letter_opener
+  linecache
   looksee
   mysql2 (< 0.3)
   pickle
@@ -249,6 +259,8 @@ DEPENDENCIES
   rspec
   rspec-rails
   ruby-debug
+  rubyzip (= 1.0.0)!
+  selenium-webdriver (= 2.43.0)!
   simple_form
   uniform_notifier (= 1.0.1)
   web-app-theme

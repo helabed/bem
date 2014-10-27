@@ -16,6 +16,8 @@ Feature: empty shopping cart
     And I follow "Your Cart"
     Then I should see "Your cart is empty"
     And I press "Add to Cart" for "Brownberry wheat bread"
+    #Then show me the page
+    And I sleep for 1 seconds
     Then there should be "1" line_items
     #And I sleep for 5 seconds
     Then I should not see "Your cart is empty"
