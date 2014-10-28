@@ -152,3 +152,11 @@ Given /^PENDING/ do
   pending
 end
 
+Then /^(?:|I )should see \/([^\/]*)\/ in the cart$/ do |regexp|
+  regexp = Regexp.new(regexp)
+  if page.respond_to? :should
+    page.should have_xpath("//div[@id='cart']", :text => regexp)
+  else
+    assert page.has_xpath?("//div[@id='cart']", :text => regexp)
+  end
+end

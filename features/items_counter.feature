@@ -3,6 +3,7 @@ Feature: shopping cart items counter
   as a user
   I want to update the number of an item before adding it the shopping cart
 
+  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart by updating line items counter, then empties cart.
     Given no line_items in database
@@ -11,23 +12,22 @@ Feature: shopping cart items counter
     And I follow "Croissants"
     When I press "plus_one_item" for store item "Croissant - chocolate"
     And I press "Add to Cart" for "Croissant - chocolate"
-    Then I should see /2 x Croissant - chocolate 1,900 LBP/
-    And I should see /Total 1,900 LBP/
+    Then I should see /2 x Croissant - chocolate 1,900 LBP/ in the cart
+    And I should see /Total 1,900 LBP/ in the cart
     When I press "plus_one_item" for store item "Croissant - plain"
     And I press "Add to Cart" for "Croissant - plain"
-    Then I should see /2 x Croissant - plain 1,500 LBP/
-    And I should see /Total 3,400 LBP/
+    Then I should see /2 x Croissant - plain 1,500 LBP/ in the cart
+    And I should see /Total 3,400 LBP/ in the cart
     When I press "plus_one_item" for store item "Croissant - plain"
     And I press "Add to Cart" for "Croissant - plain"
-    Then I should see /5 x Croissant - plain 3,750 LBP/
-    And I should see /Total 5,650 LBP/
+    Then I should see /5 x Croissant - plain 3,750 LBP/ in the cart
+    And I should see /Total 5,650 LBP/ in the cart
     When I press "Empty cart" and skip alert window
     Then there should be "0" line_items
     And I follow "Your Cart"
     Then I should see "Your cart is empty"
 
 
-  @current_test
   @javascript
   Scenario: Non-logged in User adds items to shopping cart, updates line items, then removes them one at a time
     Given no line_items in database
@@ -57,20 +57,20 @@ Feature: shopping cart items counter
 
     And I sleep for 2 seconds
 
-    And I should see /4 x Brownberry wheat bread 36,000 LBP/
+    And I should see /4 x Brownberry wheat bread 36,000 LBP/ in the cart
 
 
     When I press "plus_one_item" for cart item "Apples - misc."
     And I press "Update" for cart item "Apples - misc."
-    And I should see /2 x Apples - misc. 2,460 LBP/
+    And I should see /2 x Apples - misc. 2,460 LBP/ in the cart
 
 
     When I press "plus_one_item" for cart item "Pita bread"
     When I press "plus_one_item" for cart item "Pita bread"
     And I press "Update" for cart item "Pita bread"
-    And I should see /3 x Pita bread 2,250 LBP/
+    And I should see /3 x Pita bread 2,250 LBP/ in the cart
 
-    And I should see /Total 40,710 LBP/
+    And I should see /Total 40,710 LBP/ in the cart
 
 
     When I press "Delete" for cart item "Brownberry wheat bread"
@@ -82,7 +82,7 @@ Feature: shopping cart items counter
 
     When I press "plus_one_item" for cart item "Apples - misc."
     And I press "Update" for cart item "Apples - misc."
-    And I should see /3 x Apples - misc. 3,690 LBP/
+    And I should see /3 x Apples - misc. 3,690 LBP/ in the cart
 
 
     When I press "Delete" for cart item "Apples - misc."
@@ -94,12 +94,12 @@ Feature: shopping cart items counter
     When I press "plus_one_item" for cart item "Pita bread"
     When I press "plus_one_item" for cart item "Pita bread"
     And I press "Update" for cart item "Pita bread"
-    And I should see /5 x Pita bread 3,750 LBP/
+    And I should see /5 x Pita bread 3,750 LBP/ in the cart
 
     When I press "minus_one_item" for cart item "Pita bread"
     When I press "minus_one_item" for cart item "Pita bread"
     And I press "Update" for cart item "Pita bread"
-    And I should see /3 x Pita bread 2,250 LBP/
+    And I should see /3 x Pita bread 2,250 LBP/ in the cart
 
 
     When I press "Delete" for cart item "Pita bread"
