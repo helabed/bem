@@ -1,1 +1,13 @@
 BEM – Beytelmouneh.com – A labor of love (night time) work-in-progress on a micro version of Amazon.com web shopping cart. https://github.com/helabed/bem
+
+BEM stands for Beyt El Mouneh (BEM). It was a micro version of a shopping cart for a real brick and mortar store front. 
+
+BEM has a **Store front** and separate **Administration section**.
+
+The Store front has many products grouped in Categories and Sub-Categories, and Sub-Sub-Categories, and deeper if need be.
+
+![Store Front with Categories and Sub-Categories](https://depot.rubywebworks.com/system/bem_store_front_1.png)
+
+The Admin User can access the **Administration section** where they can Create/Update/Delete (CRUD) Products in-line, i.e without leaving the Products listing.
+
+![Store Front with Categories and Sub-Categories](https://depot.rubywebworks.com/system/bem_products_w_inline_editing.png)
